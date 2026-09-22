@@ -1,0 +1,357 @@
+{
+ "areas": [
+  "Chest",
+  "Back",
+  "Shoulders",
+  "Biceps",
+  "Triceps",
+  "Legs",
+  "Forearms",
+  "Abs"
+ ],
+ "machines": [
+  "Treadmill",
+  "Elliptical",
+  "Bike",
+  "None"
+ ],
+ "exercises": [
+  {
+   "en": "Dumbbell Chest Fly",
+   "raw": "Crux.",
+   "area": "Chest",
+   "area2": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 14,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Decline Bench Press",
+   "raw": "Declinado",
+   "area": "Chest",
+   "area2": "Triceps",
+   "area3": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 20,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Incline Chest Fly",
+   "raw": "Crux. Inclinado",
+   "area": "Chest",
+   "area2": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 14,
+   "default_sets": 3
+  },
+  {
+   "en": "Barbell Deadlift",
+   "raw": "Lev. Terra barra",
+   "area": "Back",
+   "area2": "Legs",
+   "load_type": "total",
+   "last_weight": 60,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Rear Delt Row",
+   "raw": "Delt row",
+   "area": "Back",
+   "area2": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 16,
+   "default_sets": 3
+  },
+  {
+   "en": "Machine Rear Delt Row",
+   "raw": "Delt row machine",
+   "area": "Back",
+   "area2": "Shoulders",
+   "load_type": "total",
+   "last_weight": 38,
+   "default_sets": 3
+  },
+  {
+   "en": "V-Bar Cable Row",
+   "raw": "V-bar",
+   "area": "Back",
+   "area2": "Biceps",
+   "load_type": "total",
+   "last_weight": 51.6,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Lateral Raise",
+   "raw": "Elevação Lateral",
+   "area": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 10,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Lying Reverse Fly (internally rotated)",
+   "raw": "Dumbbell lying reverse fly internally rotated",
+   "area": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": 8,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Seated Overhead Press",
+   "raw": "Dumbbell seated overhead press",
+   "area": "Shoulders",
+   "area2": "Triceps",
+   "load_type": "per_side",
+   "last_weight": 16,
+   "default_sets": 3
+  },
+  {
+   "en": "Face Pull",
+   "raw": "Face pulls",
+   "area": "Shoulders",
+   "area2": "Back",
+   "load_type": "total",
+   "last_weight": 19.6,
+   "default_sets": 3
+  },
+  {
+   "en": "Overhead Press",
+   "raw": "Overhead press",
+   "area": "Shoulders",
+   "area2": "Triceps",
+   "load_type": "total",
+   "last_weight": 18,
+   "default_sets": 1
+  },
+  {
+   "en": "Rear Delt Fly",
+   "raw": "Delta fly",
+   "area": "Shoulders",
+   "load_type": "total",
+   "last_weight": 7,
+   "default_sets": 3
+  },
+  {
+   "en": "Concentration Hammer Curl",
+   "raw": "Rosca martelo concentrada",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "per_side",
+   "last_weight": 10,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Preacher Curl",
+   "raw": "Dumbbel pretcher curl",
+   "area": "Biceps",
+   "load_type": "total",
+   "last_weight": 10,
+   "default_sets": 3
+  },
+  {
+   "en": "EZ-Bar Biceps Curl",
+   "raw": "Biceps barra w",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "total",
+   "last_weight": 20,
+   "default_sets": 2
+  },
+  {
+   "en": "Single-Arm Biceps Curl (behind)",
+   "raw": "Biceps unilateral atras",
+   "area": "Biceps",
+   "load_type": "total",
+   "last_weight": 9,
+   "default_sets": 3
+  },
+  {
+   "en": "Zottmann Curl",
+   "raw": "Zottmann",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "per_side",
+   "last_weight": 9,
+   "default_sets": 3
+  },
+  {
+   "en": "Cable Rope Triceps Extension (high pulley)",
+   "raw": "Triceps alto corda",
+   "area": "Triceps",
+   "load_type": "total",
+   "last_weight": 19.6,
+   "default_sets": 3
+  },
+  {
+   "en": "Cable Row-Pushdown",
+   "raw": "Cable row push down",
+   "area": "Triceps",
+   "area2": "Back",
+   "load_type": "total",
+   "last_weight": 27.4,
+   "default_sets": 3
+  },
+  {
+   "en": "Close-Grip Bench Press",
+   "raw": "Supino fechado",
+   "area": "Triceps",
+   "area2": "Chest",
+   "load_type": "per_side",
+   "last_weight": 16,
+   "default_sets": 3
+  },
+  {
+   "en": "Dumbbell Skullcrusher",
+   "raw": "Testa",
+   "area": "Triceps",
+   "load_type": "per_side",
+   "last_weight": 10,
+   "default_sets": 3
+  },
+  {
+   "en": "Unilateral Triceps Extension",
+   "raw": "Triceps interno uni.",
+   "area": "Triceps",
+   "load_type": "total",
+   "last_weight": 8,
+   "default_sets": 3
+  },
+  {
+   "en": "Bulgarian Split Squat",
+   "raw": "Bulgarian",
+   "area": "Legs",
+   "load_type": "one_side",
+   "last_weight": 10,
+   "default_sets": 3
+  },
+  {
+   "en": "Calf Raise",
+   "raw": "Calf rises",
+   "area": "Legs",
+   "load_type": "total",
+   "last_weight": 60,
+   "default_sets": 3
+  },
+  {
+   "en": "Hamstring Curl",
+   "raw": "(unnamed)",
+   "area": "Legs",
+   "load_type": "total",
+   "last_weight": 17.6,
+   "default_sets": 2
+  },
+  {
+   "en": "Hip Thrust",
+   "raw": "Hip thurst",
+   "area": "Legs",
+   "load_type": "total",
+   "last_weight": 30,
+   "default_sets": 3
+  },
+  {
+   "en": "Nordic Hamstring Curl",
+   "raw": "(?) Nordic",
+   "area": "Legs",
+   "load_type": "bodyweight",
+   "last_weight": null,
+   "default_sets": 1
+  },
+  {
+   "en": "Stiff-Leg Deadlift",
+   "raw": "Stiff",
+   "area": "Legs",
+   "area2": "Back",
+   "load_type": "total",
+   "last_weight": 40,
+   "default_sets": 3
+  },
+  {
+   "en": "Barbell Behind-the-Back Wrist Curl",
+   "raw": "Barbell behind the back wrist curl",
+   "area": "Forearms",
+   "load_type": "total",
+   "last_weight": 36,
+   "default_sets": 3
+  },
+  {
+   "en": "Crunches",
+   "raw": "Abdominais",
+   "area": "Abs",
+   "load_type": "bodyweight",
+   "last_weight": null,
+   "default_sets": 3
+  },
+  {
+   "en": "Decline Bench Leg Raise (lower abs)",
+   "raw": "Abdominal inferior banco Declinado",
+   "area": "Abs",
+   "load_type": "bodyweight",
+   "last_weight": null,
+   "default_sets": 3
+  }
+ ],
+ "templates": [
+  {
+   "key": "A",
+   "label": "A — Chest & triceps",
+   "cardio": "Elliptical",
+   "exercises": [
+    "Dumbbell Decline Bench Press",
+    "Dumbbell Incline Chest Fly",
+    "Dumbbell Chest Fly",
+    "Dumbbell Skullcrusher",
+    "Overhead Press",
+    "Crunches"
+   ]
+  },
+  {
+   "key": "B",
+   "label": "B — Back & rear delts",
+   "cardio": "Treadmill",
+   "exercises": [
+    "Dumbbell Rear Delt Row",
+    "Face Pull",
+    "V-Bar Cable Row",
+    "Zottmann Curl",
+    "Rear Delt Fly"
+   ]
+  },
+  {
+   "key": "C",
+   "label": "C — Legs & core",
+   "cardio": "Treadmill",
+   "exercises": [
+    "Bulgarian Split Squat",
+    "Stiff-Leg Deadlift",
+    "Calf Raise",
+    "Crunches",
+    "Dumbbell Lateral Raise"
+   ]
+  },
+  {
+   "key": "D",
+   "label": "D — Arms & shoulders",
+   "cardio": "Treadmill",
+   "exercises": [
+    "Dumbbell Preacher Curl",
+    "Cable Row-Pushdown",
+    "Dumbbell Seated Overhead Press",
+    "Dumbbell Lying Reverse Fly (internally rotated)",
+    "Barbell Behind-the-Back Wrist Curl"
+   ]
+  },
+  {
+   "key": "U",
+   "label": "E — Extra / full body",
+   "cardio": "Treadmill",
+   "exercises": [
+    "Close-Grip Bench Press",
+    "Machine Rear Delt Row",
+    "EZ-Bar Biceps Curl",
+    "Cable Rope Triceps Extension (high pulley)",
+    "Dumbbell Lateral Raise",
+    "Decline Bench Leg Raise (lower abs)"
+   ]
+  }
+ ]
+}
