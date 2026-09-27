@@ -83,6 +83,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .lasttag{background:var(--good)}
 .pbtag,.lasttag{font-size:10.5px;padding:2px 7px}
 .ld{color:var(--muted);font-variant-numeric:tabular-nums}
+.radar-ax{fill:var(--ink2);font-size:10px}
+.radar-v{fill:var(--muted);font-size:9px;font-variant-numeric:tabular-nums}
+.bodyfig{fill:var(--grid);opacity:.5}
+.mus{stroke:var(--surface);stroke-width:.9;cursor:pointer}
+.mus:hover{stroke:var(--ink);stroke-width:1.6}
+.bodylbl{fill:var(--ink2);font-size:11px;font-weight:600}
+.scale{display:flex;align-items:center;gap:9px;margin-top:10px;font-size:11px;color:var(--muted)}
+.scalebar{flex:1;height:10px;border-radius:5px;border:1px solid var(--border)}
+.segwrap{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .setrow .n{font-size:12px;color:var(--muted);text-align:center;font-weight:600}
 .setrow input{padding:8px;text-align:center}
 .exc-f{display:flex;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap}
@@ -175,8 +184,9 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     </div>
     <div class="row" style="margin-top:8px">
       <div><label for="cDist">Distance (km)</label><input id="cDist" type="number" step="0.01" inputmode="decimal" placeholder="0.70"></div>
-      <div><label for="cIncl">Incline (%)</label><input id="cIncl" type="number" step="0.5" inputmode="decimal" placeholder="7.5"></div>
+      <div id="cInclWrap"><label for="cIncl">Incline (%)</label><input id="cIncl" type="number" step="0.5" inputmode="decimal" placeholder="7.5"></div>
     </div>
+    <p class="hint" id="cardioHint"></p>
     <p class="hint">Two number fields, so the phone keypad is enough — no colon needed. Typing <code>811</code> in Min
       splits itself into 8:11 when you move on.</p>
   </div>
@@ -230,6 +240,43 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <div class="chartwrap"><svg class="chart" id="lineChart"></svg><div class="tt" id="lineTip"></div></div>
     <div class="note" id="lineCap"></div>
   </div>
+  <div class="card">
+    <h2>Week focus</h2>
+    <div class="row">
+      <div><label for="wkSel">Week</label><select id="wkSel"></select></div>
+    </div>
+    <div class="segwrap">
+      <div class="seg" id="radarSeg">
+        <button data-r="exercise" aria-pressed="true">By exercise</button>
+        <button data-r="muscle">By muscle group</button>
+      </div>
+      <div class="seg" id="radarMetricSeg">
+        <button data-rm="volume" aria-pressed="true">Tonnage</button>
+        <button data-rm="sets">Hard sets</button>
+      </div>
+    </div>
+    <div class="chartwrap"><svg class="chart" id="radarChart"></svg><div class="tt" id="radarTip"></div></div>
+    <div class="legend" id="radarLegend"></div>
+    <p class="note" id="radarCap"></p>
+  </div>
+
+  <div class="card">
+    <h2>Muscle heat map</h2>
+    <div class="segwrap">
+      <div class="seg" id="heatPeriod">
+        <button data-p="week" aria-pressed="true">Selected week</button>
+        <button data-p="all">All time</button>
+      </div>
+      <div class="seg" id="heatMetric">
+        <button data-x="volume" aria-pressed="true">Tonnage</button>
+        <button data-x="sets">Hard sets</button>
+      </div>
+    </div>
+    <div class="chartwrap"><svg class="chart" id="bodyMap"></svg><div class="tt" id="bodyTip"></div></div>
+    <div class="scale"><span id="scaleLo">0</span><span class="scalebar" id="scaleBar"></span><span id="scaleHi"></span></div>
+    <p class="note" id="bodyCap"></p>
+  </div>
+
   <div class="card">
     <h2>Weekly volume by muscle group</h2>
     <div class="seg" id="volSeg">
@@ -287,6 +334,7 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
       <button class="btn sec" id="exNewBtn" type="button">Clear / new</button>
       <button class="btn warn" id="exDelBtn" type="button" hidden>Delete</button>
     </div>
+    <p class="hint" id="exMus" style="margin-top:10px"></p>
     <p class="err" id="exErr"></p>
     <div style="margin-top:6px"><label>Catalog (<span id="catCount">0</span>) — tap to edit</label>
       <input id="catSearch" placeholder="Search…" autocomplete="off" style="margin:6px 0">
@@ -330,6 +378,7 @@ const AVAR = a => `var(--m-${Math.max(1,AREAS.indexOf(a)+1)})`;
 const METRICS = {top_weight:{label:"Top weight",unit:" kg",zero:false},est_1rm:{label:"Est. 1RM",unit:" kg",zero:false},
                  volume:{label:"Volume",unit:" kg",zero:true},total_reps:{label:"Total reps",unit:"",zero:true}};
 let CAT=null, SEEDCAT=null, SEED=[], LOCAL=[], draft=null, areaFilter="All", metric="top_weight", volMode="volume", curEx=0;
+let selWeek=null, radarMode="exercise", radarMetric="volume", heatPeriod="week", heatMetric="volume";
 let COV={exercises:{},templates:{}}, edKey=null, edWork=null;
 const cap=s=>s[0].toUpperCase()+s.slice(1);
 const MUSCLES=["Chest","Back","Shoulders","Biceps","Triceps","Legs","Forearms","Abs","Other"];
@@ -345,6 +394,15 @@ function t2s(t){if(!t)return null;const p=String(t).split(":");if(p.length!==2)r
   const m=+p[0],s=+p[1];return isNaN(m)||isNaN(s)?null:m*60+s;}
 /* cardio time: two digit-only fields (phone keypads have no colon) */
 const digits=v=>String(v==null?"":v).replace(/[^0-9]/g,"");
+function hasIncline(){return (CAT.incline_machines||[]).indexOf($("cMachine").value)>=0;}
+function syncCardio(){
+  const m=$("cMachine").value,off=m==="None",inc=hasIncline()&&!off;
+  $("cInclWrap").hidden=!inc;
+  if(!inc)$("cIncl").value="";
+  ["cMin","cSec","cDist"].forEach(id=>{$(id).disabled=off;if(off)$(id).value="";});
+  $("cardioHint").textContent=off?"No cardio logged for this session."
+    :inc?"":m+" has no incline, so that field is hidden.";
+}
 function cardioSec(){const m=+digits($("cMin").value)||0,s=+digits($("cSec").value)||0;
   return (m||s)?m*60+Math.min(59,s):null;}
 function cardioMMSS(){const t=cardioSec();return t==null?null:Math.floor(t/60)+":"+String(t%60).padStart(2,"0");}
@@ -425,7 +483,8 @@ function restoreDraftLS(){
   if(d.date)$("wDate").value=d.date;
   if(d.type)$("wType").value=d.type;
   if(c.machine&&CAT.machines.includes(c.machine))$("cMachine").value=c.machine;
-  setCardioTime(c.min,c.sec,c.time);$("cDist").value=c.dist||"";$("cIncl").value=c.incl||"";
+  setCardioTime(c.min,c.sec,c.time);$("cDist").value=c.dist||"";
+  syncCardio();if(hasIncline())$("cIncl").value=c.incl||"";
   lastHold=d.at||null;return true;
 }
 
@@ -441,7 +500,17 @@ function applyCatOverrides(){
     .sort((a,b)=>MUSCLES.indexOf(a.area)-MUSCLES.indexOf(b.area)||a.en.localeCompare(b.en));
   CAT.templates=SEEDCAT.templates.map(t=>{const o=COV.templates[t.key];return o?{...t,...o}:{...t};});
   CAT.areas=SEEDCAT.areas;CAT.machines=SEEDCAT.machines;
+  CAT.regions=SEEDCAT.regions||[];CAT.area_regions=SEEDCAT.area_regions||{};
+  CAT.incline_machines=SEEDCAT.incline_machines||[];
 }
+/* which body regions an exercise loads, and by how much (1 = prime mover).
+   Custom exercises with no `muscles` fall back to their coarse muscle group. */
+function musclesOf(en,area){
+  const c=catOf(en);
+  if(c&&c.muscles&&Object.keys(c.muscles).length)return c.muscles;
+  return CAT.area_regions[(c&&c.area)||area||"Other"]||{};
+}
+const regionMeta=k=>(CAT.regions||[]).find(r=>r.key===k)||{key:k,group:k,sub:""};
 
 /* ===================== boot ===================== */
 Promise.all([fetch("./catalog.json").then(r=>r.json()),
@@ -455,7 +524,7 @@ function initUI(){
   $("wDate").value=todayISO();
   refreshTypeOptions();
   CAT.machines.forEach(m=>{const o=document.createElement("option");o.value=m;o.textContent=m;$("cMachine").appendChild(o);});
-  $("cMachine").value="Treadmill";
+  $("cMachine").value="Treadmill";syncCardio();
   ["All"].concat(CAT.areas).forEach(a=>{const b=document.createElement("button");b.className="chip";b.type="button";
     b.textContent=a;b.setAttribute("aria-pressed",String(a==="All"));
     b.onclick=()=>{areaFilter=a;[...$("areaChips").children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));renderExList();};
@@ -472,7 +541,7 @@ function initUI(){
   ["cDist","cIncl"].forEach(id=>$(id).oninput=queueDraftSave);
   ["cMin","cSec"].forEach(id=>{$(id).oninput=()=>{$(id).value=digits($(id).value).slice(0,id==="cSec"?2:3);queueDraftSave();};
     $(id).onblur=normCardioTime;});
-  $("cMachine").onchange=queueDraftSave;
+  $("cMachine").onchange=()=>{syncCardio();queueDraftSave();};
   $("wDate").onchange=queueDraftSave;
   $("wType").onchange=queueDraftSave;
   $("addCustom").onclick=addCustom;
@@ -486,7 +555,21 @@ function initUI(){
   $("metricSeg").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;metric=b.dataset.m;renderDash();};
   $("volSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;volMode=b.dataset.v;renderDash();};
   $("dExSel").onchange=()=>{curEx=+$("dExSel").value;drawLine();};
+  $("wkSel").onchange=()=>{selWeek=$("wkSel").value;drawRadar();drawBody();};
+  $("radarSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;radarMode=b.dataset.r;
+    /* tonnage separates exercises; sets separate muscle groups (and keep bodyweight work visible) */
+    radarMetric=radarMode==="muscle"?"sets":"volume";
+    [...$("radarSeg").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+    [...$("radarMetricSeg").children].forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.rm===radarMetric)));
+    drawRadar();};
+  $("radarMetricSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;radarMetric=b.dataset.rm;
+    [...$("radarMetricSeg").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawRadar();};
+  $("heatPeriod").onclick=e=>{const b=e.target.closest("button");if(!b)return;heatPeriod=b.dataset.p;
+    [...$("heatPeriod").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawBody();};
+  $("heatMetric").onclick=e=>{const b=e.target.closest("button");if(!b)return;heatMetric=b.dataset.x;
+    [...$("heatMetric").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawBody();};
   draft={exercises:[]};
+  syncCardio();
   if(restoreDraftLS())$("tplHint").textContent=
     "Restored your in-progress workout"+(lastHold?" (held "+new Date(lastHold).toLocaleString()+")":"")+" — nothing lost.";
   renderExList();renderDraft();renderLocalList();setupEdit();
@@ -669,7 +752,8 @@ function confirmSave(){
     day_of_week:new Date(date+"T00:00").toLocaleDateString("en-US",{weekday:"short"}),
     logged_at:new Date().toISOString(),                       // timestamp
     cardio:{machine:$("cMachine").value,time_mmss:cardioMMSS(),time_sec:cardioSec(),
-            distance_km:$("cDist").value?+$("cDist").value:null,incline_pct:$("cIncl").value?+$("cIncl").value:null,raw:""},
+            distance_km:$("cDist").value?+$("cDist").value:null,
+            incline_pct:hasIncline()&&$("cIncl").value!==""?+$("cIncl").value:null,raw:""},
     exercises:draft.exercises.map(ex=>({
       en:ex.en, raw:(catOf(ex.en)||{}).raw||ex.en, area:ex.area, note:null,
       sets:ex.sets.filter(s=>s.reps!=null).map(s=>({
@@ -723,7 +807,7 @@ function aggregate(){
   const S=allSessions(),exMap={},weeks={};
   S.forEach(s=>{
     const ws=s.week_start||weekStart(s.date);
-    weeks[ws]=weeks[ws]||{ws,n:0,by:{}};weeks[ws].n++;
+    weeks[ws]=weeks[ws]||{ws,n:0,by:{},ex:{},reg:{}};weeks[ws].n++;
     s.exercises.forEach(e=>{
       const area=e.area||areaOf(e.en);
       const b=weeks[ws].by[area]=weeks[ws].by[area]||{volume:0,sets:0};
@@ -732,6 +816,12 @@ function aggregate(){
         if(r==null)return;n++;reps+=r;b.sets++;
         if(w!=null){vol+=w*r;b.volume+=w*r;top=top==null?w:Math.max(top,w);
           const v=w*(1+r/30);e1=e1==null?v:Math.max(e1,v);}});
+      const bwEx=vol===0&&reps>0,W=weeks[ws];
+      const ce=W.ex[e.en]=W.ex[e.en]||{en:e.en,area,score:0,sets:0,bw:bwEx};
+      ce.score+=bwEx?reps:vol;ce.sets+=n;if(!bwEx)ce.bw=false;
+      const mg=musclesOf(e.en,area);
+      Object.keys(mg).forEach(k=>{const r=W.reg[k]=W.reg[k]||{volume:0,sets:0};
+        r.volume+=mg[k]*vol;r.sets+=mg[k]*n;});
       (exMap[e.en]=exMap[e.en]||{en:e.en,area,pts:[]}).pts.push(
         {date:s.date,seq:s.session_seq,type:s.workout_type,top_weight:top,
          est_1rm:e1==null?null:Math.round(e1*10)/10,volume:Math.round(vol*10)/10,total_reps:reps,n_sets:n,sets});
@@ -768,7 +858,201 @@ function renderDash(){
   $("legend").innerHTML=AREAS.filter(a=>AGG.wk.some(w=>w.by[a])).map(a=>
     `<span class="lg"><span class="sw" style="background:${AVAR(a)}"></span>${a}</span>`).join("");
   [...$("volSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===volMode)));
-  drawLine();drawBars();
+  const wsel=$("wkSel");
+  wsel.innerHTML=AGG.wk.slice().reverse().map(w=>
+    `<option value="${w.ws}">${w.label} \u00b7 ${w.date_label}${w.partial?" (partial)":""}</option>`).join("");
+  if(!AGG.wk.some(w=>w.ws===selWeek))selWeek=(AGG.wk[AGG.wk.length-1]||{}).ws||null;
+  wsel.value=selWeek;
+  [...$("radarSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.r===radarMode)));
+  [...$("radarMetricSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.rm===radarMetric)));
+  [...$("heatPeriod").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===heatPeriod)));
+  [...$("heatMetric").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.x===heatMetric)));
+  drawLine();drawBars();drawRadar();drawBody();
+}
+
+/* ===================== radar: the selected week =====================
+   One shared scale across all spokes, so the shape answers "where did this
+   week's work go", with the previous week dashed behind it.              */
+function weekIdx(){return AGG.wk.findIndex(w=>w.ws===selWeek);}
+const ABBR=[["Dumbbell","DB"],["Barbell","BB"],["Machine","Mach"],["Cable","Cbl"],
+            ["EZ-Bar","EZ"],["Single-Arm","1-Arm"],["Unilateral","Uni"],
+            ["Concentration","Conc"],["Behind-the-Back","BtB"],["Stiff-Leg","Stiff"]];
+function abbrev(n){let t=n.replace(/\s*\([^)]*\)/g,"");
+  ABBR.forEach(p=>{t=t.split(p[0]).join(p[1]);});return t.replace(/\s+/g," ").trim();}
+function wrap2(t,w){
+  const words=t.split(" "),out=[""];
+  words.forEach(x=>{const l=out.length-1;
+    if(!out[l])out[l]=x;else if((out[l]+" "+x).length<=w)out[l]+=" "+x;else out.push(x);});
+  if(out.length>2)return [out[0],out[1].slice(0,w-1)+"\u2026"];
+  return out;
+}
+function radarAxes(){
+  const i=weekIdx();if(i<0)return null;
+  const cur=AGG.wk[i],prv=i>0?AGG.wk[i-1]:null,sets=radarMetric==="sets";
+  const pick=o=>!o?0:(sets?o.sets:o.volume);
+  let axes;
+  if(radarMode==="muscle"){
+    axes=AREAS.filter(a=>AGG.wk.some(w=>w.by[a]&&(w.by[a].volume>0||w.by[a].sets>0)))
+      .map(a=>({key:a,lines:[a],cur:pick(cur.by[a]),prv:prv?pick(prv.by[a]):null,
+                v:(cur.by[a]||{}).volume||0,s:(cur.by[a]||{}).sets||0}));
+  }else{
+    const names={};[cur,prv].forEach(w=>{if(w)Object.keys(w.ex).forEach(n=>names[n]=1);});
+    const score=o=>!o?0:(sets?o.sets:(o.bw?0:o.score));
+    axes=Object.keys(names).map(n=>{const c=cur.ex[n],p=prv?prv.ex[n]:null;
+      return {key:n,lines:wrap2(abbrev(n),13),cur:score(c),prv:prv?score(p):null,
+              v:c?(c.bw?0:c.score):0,s:c?c.sets:0,bw:!!(c&&c.bw)};})
+      .sort((a,b)=>(b.cur+(b.prv||0))-(a.cur+(a.prv||0))).slice(0,8);
+  }
+  axes=axes.filter(a=>a.cur>0||(a.prv||0)>0);
+  const max=Math.max(1,...axes.map(a=>Math.max(a.cur,a.prv||0)));
+  return {cur,prv,axes,max,unit:radarMetric==="sets"?"":" kg"};
+}
+function drawRadar(){
+  const svg=$("radarChart"),d=radarAxes();
+  const W=svg.clientWidth||520,H=Math.max(300,Math.min(400,W*.95));
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  if(!d||d.axes.length<3){
+    svg.innerHTML=`<text x="${W/2}" y="${H/2}" text-anchor="middle" class="axis-x">${
+      d?"Not enough logged that week to draw a radar":"No data"}</text>`;
+    $("radarLegend").innerHTML="";$("radarCap").textContent="";return;}
+  const ax=d.axes,n=ax.length,cx=W/2,cy=H/2,R=Math.min(W,H)/2-62;
+  const ang=i=>-Math.PI/2+i*2*Math.PI/n;
+  const px=(i,t)=>cx+Math.cos(ang(i))*R*Math.max(t,0);
+  const py=(i,t)=>cy+Math.sin(ang(i))*R*Math.max(t,0);
+  let g="";
+  [.25,.5,.75,1].forEach(r=>{
+    g+=`<polygon points="${ax.map((_,i)=>`${px(i,r).toFixed(1)},${py(i,r).toFixed(1)}`).join(" ")}" fill="none" stroke="var(--grid)"/>`;});
+  ax.forEach((a,i)=>{g+=`<line x1="${cx}" y1="${cy}" x2="${px(i,1).toFixed(1)}" y2="${py(i,1).toFixed(1)}" stroke="var(--grid)"/>`;});
+  const poly=(key,fill,stroke,dash)=>
+    `<polygon points="${ax.map((a,i)=>{const t=(a[key]||0)/d.max;
+      return `${px(i,t).toFixed(1)},${py(i,t).toFixed(1)}`;}).join(" ")}" fill="${fill}" stroke="${stroke}"`+
+    ` stroke-width="2" stroke-linejoin="round"${dash?` stroke-dasharray="${dash}"`:""}/>`;
+  if(d.prv)g+=poly("prv","none","var(--muted)","4 3");
+  g+=poly("cur","color-mix(in srgb,var(--series) 20%,transparent)","var(--series)","");
+  ax.forEach((a,i)=>{const t=(a.cur||0)/d.max;
+    g+=`<circle cx="${px(i,t).toFixed(1)}" cy="${py(i,t).toFixed(1)}" r="3.6" fill="var(--series)" data-ai="${i}"/>`;});
+  ax.forEach((a,i)=>{
+    const c=Math.cos(ang(i)),sn=Math.sin(ang(i));
+    const x=px(i,1)+c*15,y0=py(i,1)+sn*15;
+    const anchor=c>.25?"start":c<-.25?"end":"middle";
+    const y=y0-(sn<-.3?(a.lines.length-1)*11:0)+3;
+    a.lines.forEach((ln,k)=>{
+      g+=`<text class="radar-ax" x="${x.toFixed(1)}" y="${(y+k*11).toFixed(1)}" text-anchor="${anchor}">${ln}</text>`;});
+    g+=`<text class="radar-v" x="${x.toFixed(1)}" y="${(y+a.lines.length*11).toFixed(1)}" text-anchor="${anchor}">${fmt0(a.cur)}${d.unit}</text>`;});
+  svg.innerHTML=g;
+  const wk=d.cur;
+  $("radarLegend").innerHTML=
+    `<span class="lg"><span class="sw" style="background:var(--series)"></span>${wk.label} \u00b7 ${wk.date_label}</span>`+
+    (d.prv?`<span class="lg"><span class="sw" style="background:var(--muted)"></span>${d.prv.label} \u00b7 previous</span>`:"");
+  $("radarCap").textContent=`${wk.n} session${wk.n===1?"":"s"} \u00b7 ${n} ${radarMode==="muscle"?"muscle groups":"exercises"}`+
+    ` \u00b7 every spoke shares one scale (rim = ${fmt0(d.max)}${d.unit||" sets"}), so the shape shows where the week's work went.`+
+    (radarMetric==="volume"?" Bodyweight work carries no tonnage \u2014 switch to hard sets to see it.":"");
+  svg.querySelectorAll("[data-ai]").forEach(c=>{
+    c.onmouseenter=c.ontouchstart=()=>{const a=ax[+c.dataset.ai],tip=$("radarTip");
+      tip.innerHTML=`<b>${a.key}</b><div class="big">${fmt0(a.cur)}${d.unit||" sets"}</div>`+
+        `<div style="color:var(--ink2)">${fmt0(a.s)} sets \u00b7 ${a.bw?"bodyweight":fmt0(a.v)+" kg"}</div>`+
+        (a.prv==null?"":`<div style="color:var(--muted)">previous week ${fmt0(a.prv)}${d.unit||" sets"}</div>`);
+      const rc=svg.getBoundingClientRect();tip.style.opacity=1;
+      tip.style.left=Math.max(80,Math.min(rc.width-80,(+c.getAttribute("cx"))*(rc.width/W)))+"px";
+      tip.style.top=Math.max(0,(+c.getAttribute("cy"))*(rc.height/H)-tip.offsetHeight-10)+"px";};
+    c.onmouseleave=()=>{$("radarTip").style.opacity=0;};});
+}
+
+/* ===================== body heat map ===================== */
+/* A schematic figure built from plain ellipses, rects and polygons - front on
+   the left, back on the right. Regions follow muscle_groups.md.              */
+function bodyShapes(cx,back){
+  const L=d=>cx-d,R=d=>cx+d,out=[];
+  const E=(k,x,y,rx,ry)=>out.push({k,t:"e",x,y,rx,ry});
+  const RC=(k,x,y,w,h,r)=>out.push({k,t:"r",x,y,w,h,r});
+  const PG=(k,pts)=>out.push({k,t:"p",pts});
+  const sil="_";
+  E(sil,cx,20,13,15); RC(sil,cx-7,32,14,16,5);
+  PG(sil,[[cx-40,52],[cx+40,52],[cx+32,104],[cx+27,142],[cx-27,142],[cx-32,104]]);
+  PG(sil,[[cx-28,138],[cx+28,138],[cx+25,168],[cx-25,168]]);
+  [L,R].forEach(f=>{E(sil,f(47),90,10,28);E(sil,f(54),142,8,26);E(sil,f(58),175,6.5,9);
+    E(sil,f(15),188,16,32);E(sil,f(15),228,11,22);E(sil,f(15),250,8,5);});
+  if(!back){
+    [L,R].forEach(f=>{
+      E("chest",f(16),66,15,13);
+      E("delt_front",f(31),60,12,12);
+      E("delt_side",f(41),62,8,11);
+      E("obliques",f(23),110,7,20);
+      E("biceps",f(47),92,8.5,21);
+      E("forearms",f(54),142,7,24);
+      E("quads",f(15),186,14,29);});
+    RC("abs",cx-14,88,28,48,6);
+  }else{
+    PG("traps",[[cx-9,46],[cx+9,46],[cx+33,60],[cx+16,86],[cx-16,86],[cx-33,60]]);
+    PG("lats",[[cx-30,84],[cx-14,92],[cx-13,126],[cx-27,112]]);
+    PG("lats",[[cx+30,84],[cx+14,92],[cx+13,126],[cx+27,112]]);
+    RC("midback",cx-11,88,22,22,4);
+    RC("lowerback",cx-13,112,26,30,5);
+    [L,R].forEach(f=>{
+      E("delt_rear",f(31),60,12,12);
+      E("delt_side",f(41),62,8,11);
+      E("rotator",f(21),76,7.5,6.5);
+      E("triceps",f(47),92,8.5,21);
+      E("forearms",f(54),142,7,24);
+      E("glutes",f(15),156,16,15);
+      E("hams",f(15),192,14,26);
+      E("calves",f(15),226,11,20);});
+  }
+  return out;
+}
+const HEATSTOPS=()=>curTheme()==="dark"
+  ? [[0,"#2e2e2b"],[.12,"#54492a"],[.35,"#9a7716"],[.6,"#d1701f"],[.82,"#e0553a"],[1,"#f4706a"]]
+  : [[0,"#e7e6de"],[.12,"#fdeaa8"],[.35,"#f7c548"],[.6,"#f28b3c"],[.82,"#df5330"],[1,"#b62020"]];
+function mixHex(a,b,f){const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+  const A=p(a),B=p(b);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*f)).join(",")+")";}
+function heatColor(t){const st=HEATSTOPS();
+  if(!(t>0))return st[0][1];
+  for(let i=1;i<st.length;i++)if(t<=st[i][0]){const a=st[i-1],b=st[i];
+    return mixHex(a[1],b[1],(t-a[0])/((b[0]-a[0])||1));}
+  return st[st.length-1][1];}
+function heatData(){
+  const acc={};
+  const add=w=>Object.keys(w.reg||{}).forEach(k=>{const r=acc[k]=acc[k]||{volume:0,sets:0};
+    r.volume+=w.reg[k].volume;r.sets+=w.reg[k].sets;});
+  if(heatPeriod==="all")AGG.wk.forEach(add);
+  else{const w=AGG.wk.find(x=>x.ws===selWeek);if(w)add(w);}
+  return acc;
+}
+function drawBody(){
+  const svg=$("bodyMap"),data=heatData(),key=heatMetric;
+  const vals=Object.keys(data).map(k=>data[k][key]);
+  const max=Math.max(1,...vals);
+  const W=340,H=292;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  let g="";
+  [[85,false,"Front"],[255,true,"Back"]].forEach(([cx,back,name])=>{
+    bodyShapes(cx,back).forEach(sh=>{
+      const on=sh.k!=="_";
+      const v=on?((data[sh.k]||{})[key]||0):0;
+      const fill=on?heatColor(v/max):"";
+      const attr=on?` class="mus" fill="${fill}" data-k="${sh.k}" data-v="${v}"`:' class="bodyfig"';
+      if(sh.t==="e")g+=`<ellipse cx="${sh.x}" cy="${sh.y}" rx="${sh.rx}" ry="${sh.ry}"${attr}/>`;
+      else if(sh.t==="r")g+=`<rect x="${sh.x}" y="${sh.y}" width="${sh.w}" height="${sh.h}" rx="${sh.r}"${attr}/>`;
+      else g+=`<polygon points="${sh.pts.map(p=>p.join(",")).join(" ")}"${attr}/>`;});
+    g+=`<text class="bodylbl" x="${cx}" y="${H-6}" text-anchor="middle">${name}</text>`;});
+  svg.innerHTML=g;
+  const st=HEATSTOPS();
+  $("scaleBar").style.background="linear-gradient(to right,"+st.map(x=>`${x[1]} ${x[0]*100}%`).join(",")+")";
+  $("scaleHi").textContent=fmt0(max)+(key==="volume"?" kg":" sets");
+  const per=heatPeriod==="all"?"all "+AGG.wk.length+" weeks":(AGG.wk.find(x=>x.ws===selWeek)||{}).label||"";
+  const untouched=(CAT.regions||[]).filter(r=>!((data[r.key]||{})[key]>0)).map(r=>r.sub||r.key);
+  $("bodyCap").innerHTML=`Shaded by ${key==="volume"?"tonnage (weight \u00d7 reps)":"hard sets"} over ${per}, `+
+    `split across each exercise's muscles by how much work they take \u2014 a prime mover counts 1, assisting muscles less. `+
+    (untouched.length?`Untouched: ${untouched.join(", ")}.`:"Every tracked muscle got work.");
+  svg.querySelectorAll("[data-k]").forEach(el=>{
+    el.onmouseenter=el.ontouchstart=()=>{
+      const m=regionMeta(el.dataset.k),d2=data[el.dataset.k]||{volume:0,sets:0},tip=$("bodyTip");
+      tip.innerHTML=`<b>${m.sub||m.key}</b><div class="big">${fmt0(d2[key])}${key==="volume"?" kg":" sets"}</div>`+
+        `<div style="color:var(--ink2)">${m.group} \u00b7 ${fmt0(d2[key]/max*100)}% of the hardest-worked</div>`;
+      const rc=svg.getBoundingClientRect(),bb=el.getBBox();tip.style.opacity=1;
+      tip.style.left=Math.max(80,Math.min(rc.width-80,(bb.x+bb.width/2)*(rc.width/W)))+"px";
+      tip.style.top=Math.max(0,bb.y*(rc.height/H)-tip.offsetHeight-8)+"px";};
+    el.onmouseleave=()=>{$("bodyTip").style.opacity=0;};});
 }
 function drawLine(){
   const e=AGG.ex[curEx];if(!e)return;
@@ -918,6 +1202,10 @@ function fillExerciseForm(en){const e=en?catOf(en):null;
   $("exSets").value=e&&e.default_sets?e.default_sets:3;
   $("exWeight").value=e&&e.last_weight!=null?e.last_weight:"";
   $("exErr").textContent="";$("exDelBtn").hidden=!en;
+  const mg=en?musclesOf(en):null,mh=$("exMus");
+  if(mh)mh.innerHTML=!en?"Heat-map regions are derived from the primary muscle group until the exercise is logged with its own mapping."
+    :`Heat map: ${Object.keys(mg).sort((a,b)=>mg[b]-mg[a]).map(k=>
+        `${regionMeta(k).sub||k} <span style="color:var(--muted)">${Math.round(mg[k]*100)}%</span>`).join(" \u00b7 ")||"none"}`;
 }
 function saveExercise(){
   const editing=$("exEditing").value,name=($("exName").value||"").trim();
@@ -955,9 +1243,12 @@ function renderCatList(){
 function exportCatalog(){
   const strip=e=>{const o={en:e.en,raw:e.raw||e.en,area:e.area};
     if(e.area2)o.area2=e.area2;if(e.area3)o.area3=e.area3;
-    o.load_type=e.load_type;o.last_weight=e.last_weight??null;o.default_sets=e.default_sets||3;return o;};
-  const out={areas:CAT.areas,machines:CAT.machines,exercises:CAT.exercises.map(strip),
-    templates:CAT.templates.map(t=>({key:t.key,label:t.label,cardio:t.cardio||"None",exercises:[...t.exercises]}))};
+    o.load_type=e.load_type;o.last_weight=e.last_weight??null;o.default_sets=e.default_sets||3;
+    if(e.muscles&&Object.keys(e.muscles).length)o.muscles=e.muscles;return o;};
+  const out={areas:CAT.areas,machines:CAT.machines,incline_machines:CAT.incline_machines||[],
+    exercises:CAT.exercises.map(strip),
+    templates:CAT.templates.map(t=>({key:t.key,label:t.label,cardio:t.cardio||"None",exercises:[...t.exercises]})),
+    regions:CAT.regions||[],area_regions:CAT.area_regions||{}};
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,1)],{type:"application/json"}));
   a.download="catalog.json";document.body.appendChild(a);a.click();

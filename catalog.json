@@ -23,7 +23,11 @@
    "area2": "Shoulders",
    "load_type": "per_side",
    "last_weight": 14,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "delt_front": 0.4
+   }
   },
   {
    "en": "Dumbbell Decline Bench Press",
@@ -33,7 +37,12 @@
    "area3": "Shoulders",
    "load_type": "per_side",
    "last_weight": 20,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "triceps": 0.5,
+    "delt_front": 0.3
+   }
   },
   {
    "en": "Dumbbell Incline Chest Fly",
@@ -42,7 +51,11 @@
    "area2": "Shoulders",
    "load_type": "per_side",
    "last_weight": 14,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "delt_front": 0.45
+   }
   },
   {
    "en": "Barbell Deadlift",
@@ -51,7 +64,16 @@
    "area2": "Legs",
    "load_type": "total",
    "last_weight": 60,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "lowerback": 1,
+    "glutes": 0.8,
+    "hams": 0.8,
+    "traps": 0.5,
+    "lats": 0.4,
+    "quads": 0.35,
+    "forearms": 0.3
+   }
   },
   {
    "en": "Dumbbell Rear Delt Row",
@@ -60,7 +82,14 @@
    "area2": "Shoulders",
    "load_type": "per_side",
    "last_weight": 16,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "midback": 1,
+    "delt_rear": 0.8,
+    "lats": 0.6,
+    "traps": 0.4,
+    "biceps": 0.3
+   }
   },
   {
    "en": "Machine Rear Delt Row",
@@ -69,7 +98,14 @@
    "area2": "Shoulders",
    "load_type": "total",
    "last_weight": 38,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "midback": 1,
+    "delt_rear": 0.8,
+    "traps": 0.4,
+    "lats": 0.4,
+    "biceps": 0.25
+   }
   },
   {
    "en": "V-Bar Cable Row",
@@ -78,7 +114,15 @@
    "area2": "Biceps",
    "load_type": "total",
    "last_weight": 51.6,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "lats": 1,
+    "midback": 0.7,
+    "biceps": 0.5,
+    "traps": 0.35,
+    "forearms": 0.2,
+    "lowerback": 0.2
+   }
   },
   {
    "en": "Dumbbell Lateral Raise",
@@ -86,7 +130,12 @@
    "area": "Shoulders",
    "load_type": "per_side",
    "last_weight": 10,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "delt_side": 1,
+    "traps": 0.3,
+    "delt_front": 0.2
+   }
   },
   {
    "en": "Dumbbell Lying Reverse Fly (internally rotated)",
@@ -94,7 +143,13 @@
    "area": "Shoulders",
    "load_type": "per_side",
    "last_weight": 8,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "delt_rear": 1,
+    "rotator": 0.5,
+    "midback": 0.4,
+    "traps": 0.3
+   }
   },
   {
    "en": "Dumbbell Seated Overhead Press",
@@ -103,7 +158,13 @@
    "area2": "Triceps",
    "load_type": "per_side",
    "last_weight": 16,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "delt_front": 1,
+    "delt_side": 0.7,
+    "triceps": 0.5,
+    "traps": 0.3
+   }
   },
   {
    "en": "Face Pull",
@@ -112,7 +173,13 @@
    "area2": "Back",
    "load_type": "total",
    "last_weight": 19.6,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "delt_rear": 1,
+    "rotator": 0.6,
+    "traps": 0.5,
+    "midback": 0.5
+   }
   },
   {
    "en": "Overhead Press",
@@ -121,7 +188,14 @@
    "area2": "Triceps",
    "load_type": "total",
    "last_weight": 18,
-   "default_sets": 1
+   "default_sets": 1,
+   "muscles": {
+    "delt_front": 1,
+    "delt_side": 0.6,
+    "triceps": 0.5,
+    "traps": 0.3,
+    "abs": 0.2
+   }
   },
   {
    "en": "Rear Delt Fly",
@@ -129,7 +203,13 @@
    "area": "Shoulders",
    "load_type": "total",
    "last_weight": 7,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "delt_rear": 1,
+    "midback": 0.4,
+    "rotator": 0.3,
+    "traps": 0.25
+   }
   },
   {
    "en": "Concentration Hammer Curl",
@@ -138,7 +218,11 @@
    "area2": "Forearms",
    "load_type": "per_side",
    "last_weight": 10,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.6
+   }
   },
   {
    "en": "Dumbbell Preacher Curl",
@@ -146,7 +230,11 @@
    "area": "Biceps",
    "load_type": "total",
    "last_weight": 10,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.25
+   }
   },
   {
    "en": "EZ-Bar Biceps Curl",
@@ -155,7 +243,11 @@
    "area2": "Forearms",
    "load_type": "total",
    "last_weight": 20,
-   "default_sets": 2
+   "default_sets": 2,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.45
+   }
   },
   {
    "en": "Single-Arm Biceps Curl (behind)",
@@ -163,7 +255,11 @@
    "area": "Biceps",
    "load_type": "total",
    "last_weight": 9,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.3
+   }
   },
   {
    "en": "Zottmann Curl",
@@ -172,7 +268,11 @@
    "area2": "Forearms",
    "load_type": "per_side",
    "last_weight": 9,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.8
+   }
   },
   {
    "en": "Cable Rope Triceps Extension (high pulley)",
@@ -180,7 +280,10 @@
    "area": "Triceps",
    "load_type": "total",
    "last_weight": 19.6,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1
+   }
   },
   {
    "en": "Cable Row-Pushdown",
@@ -189,7 +292,12 @@
    "area2": "Back",
    "load_type": "total",
    "last_weight": 27.4,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1,
+    "lats": 0.5,
+    "midback": 0.3
+   }
   },
   {
    "en": "Close-Grip Bench Press",
@@ -198,7 +306,12 @@
    "area2": "Chest",
    "load_type": "per_side",
    "last_weight": 16,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1,
+    "chest": 0.7,
+    "delt_front": 0.35
+   }
   },
   {
    "en": "Dumbbell Skullcrusher",
@@ -206,7 +319,10 @@
    "area": "Triceps",
    "load_type": "per_side",
    "last_weight": 10,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1
+   }
   },
   {
    "en": "Unilateral Triceps Extension",
@@ -214,7 +330,10 @@
    "area": "Triceps",
    "load_type": "total",
    "last_weight": 8,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1
+   }
   },
   {
    "en": "Bulgarian Split Squat",
@@ -222,7 +341,14 @@
    "area": "Legs",
    "load_type": "one_side",
    "last_weight": 10,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "quads": 1,
+    "glutes": 0.85,
+    "hams": 0.4,
+    "calves": 0.25,
+    "abs": 0.2
+   }
   },
   {
    "en": "Calf Raise",
@@ -230,7 +356,10 @@
    "area": "Legs",
    "load_type": "total",
    "last_weight": 60,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "calves": 1
+   }
   },
   {
    "en": "Hamstring Curl",
@@ -238,7 +367,11 @@
    "area": "Legs",
    "load_type": "total",
    "last_weight": 17.6,
-   "default_sets": 2
+   "default_sets": 2,
+   "muscles": {
+    "hams": 1,
+    "calves": 0.25
+   }
   },
   {
    "en": "Hip Thrust",
@@ -246,7 +379,13 @@
    "area": "Legs",
    "load_type": "total",
    "last_weight": 30,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "glutes": 1,
+    "hams": 0.5,
+    "quads": 0.25,
+    "lowerback": 0.2
+   }
   },
   {
    "en": "Nordic Hamstring Curl",
@@ -254,7 +393,13 @@
    "area": "Legs",
    "load_type": "bodyweight",
    "last_weight": null,
-   "default_sets": 1
+   "default_sets": 1,
+   "muscles": {
+    "hams": 1,
+    "glutes": 0.35,
+    "calves": 0.2,
+    "lowerback": 0.2
+   }
   },
   {
    "en": "Stiff-Leg Deadlift",
@@ -263,7 +408,14 @@
    "area2": "Back",
    "load_type": "total",
    "last_weight": 40,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "hams": 1,
+    "glutes": 0.7,
+    "lowerback": 0.7,
+    "traps": 0.2,
+    "forearms": 0.2
+   }
   },
   {
    "en": "Barbell Behind-the-Back Wrist Curl",
@@ -271,7 +423,10 @@
    "area": "Forearms",
    "load_type": "total",
    "last_weight": 36,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "forearms": 1
+   }
   },
   {
    "en": "Crunches",
@@ -279,7 +434,11 @@
    "area": "Abs",
    "load_type": "bodyweight",
    "last_weight": null,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "abs": 1,
+    "obliques": 0.35
+   }
   },
   {
    "en": "Decline Bench Leg Raise (lower abs)",
@@ -287,7 +446,12 @@
    "area": "Abs",
    "load_type": "bodyweight",
    "last_weight": null,
-   "default_sets": 3
+   "default_sets": 3,
+   "muscles": {
+    "abs": 1,
+    "obliques": 0.3,
+    "quads": 0.2
+   }
   }
  ],
  "templates": [
@@ -342,16 +506,143 @@
   },
   {
    "key": "U",
-   "label": "E — Extra / full body",
+   "label": "U — Unique (one-off)",
    "cardio": "Treadmill",
-   "exercises": [
-    "Close-Grip Bench Press",
-    "Machine Rear Delt Row",
-    "EZ-Bar Biceps Curl",
-    "Cable Rope Triceps Extension (high pulley)",
-    "Dumbbell Lateral Raise",
-    "Decline Bench Leg Raise (lower abs)"
-   ]
+   "exercises": []
   }
+ ],
+ "regions": [
+  {
+   "key": "chest",
+   "group": "Chest",
+   "sub": "Pectorals"
+  },
+  {
+   "key": "delt_front",
+   "group": "Shoulders",
+   "sub": "Anterior deltoid"
+  },
+  {
+   "key": "delt_side",
+   "group": "Shoulders",
+   "sub": "Lateral deltoid"
+  },
+  {
+   "key": "delt_rear",
+   "group": "Shoulders",
+   "sub": "Posterior deltoid"
+  },
+  {
+   "key": "rotator",
+   "group": "Rotator Cuff",
+   "sub": "SITS muscles"
+  },
+  {
+   "key": "traps",
+   "group": "Back",
+   "sub": "Trapezius"
+  },
+  {
+   "key": "lats",
+   "group": "Back",
+   "sub": "Latissimus dorsi"
+  },
+  {
+   "key": "midback",
+   "group": "Back",
+   "sub": "Rhomboids"
+  },
+  {
+   "key": "lowerback",
+   "group": "Back",
+   "sub": "Erector spinae"
+  },
+  {
+   "key": "abs",
+   "group": "Abdominals",
+   "sub": "Rectus abdominis"
+  },
+  {
+   "key": "obliques",
+   "group": "Abdominals",
+   "sub": "Obliques"
+  },
+  {
+   "key": "biceps",
+   "group": "Arms",
+   "sub": "Biceps"
+  },
+  {
+   "key": "triceps",
+   "group": "Arms",
+   "sub": "Triceps"
+  },
+  {
+   "key": "forearms",
+   "group": "Arms",
+   "sub": "Forearms"
+  },
+  {
+   "key": "glutes",
+   "group": "Hips",
+   "sub": "Glutes"
+  },
+  {
+   "key": "quads",
+   "group": "Thighs",
+   "sub": "Quadriceps"
+  },
+  {
+   "key": "hams",
+   "group": "Thighs",
+   "sub": "Hamstrings"
+  },
+  {
+   "key": "calves",
+   "group": "Calves",
+   "sub": "Gastrocnemius / soleus"
+  }
+ ],
+ "area_regions": {
+  "Chest": {
+   "chest": 1,
+   "delt_front": 0.3
+  },
+  "Back": {
+   "lats": 0.6,
+   "midback": 0.5,
+   "traps": 0.4,
+   "lowerback": 0.25
+  },
+  "Shoulders": {
+   "delt_side": 0.6,
+   "delt_front": 0.5,
+   "delt_rear": 0.5,
+   "traps": 0.2
+  },
+  "Biceps": {
+   "biceps": 1,
+   "forearms": 0.3
+  },
+  "Triceps": {
+   "triceps": 1
+  },
+  "Legs": {
+   "quads": 0.7,
+   "hams": 0.6,
+   "glutes": 0.6,
+   "calves": 0.3
+  },
+  "Forearms": {
+   "forearms": 1
+  },
+  "Abs": {
+   "abs": 1,
+   "obliques": 0.35
+  },
+  "Other": {}
+ },
+ "incline_machines": [
+  "Treadmill"
  ]
 }
