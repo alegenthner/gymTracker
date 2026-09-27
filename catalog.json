@@ -17,6 +17,21 @@
  ],
  "exercises": [
   {
+   "en": "Dumbbell Bench Press",
+   "raw": "Dumbbell Bench Press",
+   "area": "Chest",
+   "area2": "Triceps",
+   "area3": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "triceps": 0.55,
+    "delt_front": 0.4
+   }
+  },
+  {
    "en": "Dumbbell Chest Fly",
    "raw": "Crux.",
    "area": "Chest",
@@ -45,6 +60,21 @@
    }
   },
   {
+   "en": "Dumbbell Incline Bench Press",
+   "raw": "Dumbbell Inclined Bench Press",
+   "area": "Chest",
+   "area2": "Shoulders",
+   "area3": "Triceps",
+   "load_type": "per_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "delt_front": 0.55,
+    "triceps": 0.5
+   }
+  },
+  {
    "en": "Dumbbell Incline Chest Fly",
    "raw": "Crux. Inclinado",
    "area": "Chest",
@@ -55,6 +85,20 @@
    "muscles": {
     "chest": 1,
     "delt_front": 0.45
+   }
+  },
+  {
+   "en": "Dumbbell Internally Rotated Incline Chest Fly",
+   "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+   "area": "Chest",
+   "area2": "Shoulders",
+   "load_type": "per_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "chest": 1,
+    "delt_front": 0.45,
+    "rotator": 0.2
    }
   },
   {
@@ -92,6 +136,24 @@
    }
   },
   {
+   "en": "Dumbbell Unilateral Row",
+   "raw": "Dumbbell Row Unilateral",
+   "area": "Back",
+   "area2": "Biceps",
+   "area3": "Forearms",
+   "load_type": "one_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "lats": 1,
+    "midback": 0.7,
+    "biceps": 0.5,
+    "traps": 0.35,
+    "forearms": 0.3,
+    "lowerback": 0.2
+   }
+  },
+  {
    "en": "Machine Rear Delt Row",
    "raw": "Delt row machine",
    "area": "Back",
@@ -122,6 +184,51 @@
     "traps": 0.35,
     "forearms": 0.2,
     "lowerback": 0.2
+   }
+  },
+  {
+   "en": "Cable High Single-Arm Rear Delt Fly",
+   "raw": "Cable High Single Arm Rear Delt Fly",
+   "area": "Shoulders",
+   "area2": "Back",
+   "load_type": "one_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "delt_rear": 1,
+    "rotator": 0.45,
+    "midback": 0.35,
+    "traps": 0.25
+   }
+  },
+  {
+   "en": "Cable Lateral Raise",
+   "raw": "Cable Lateral Raises",
+   "area": "Shoulders",
+   "load_type": "one_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "delt_side": 1,
+    "traps": 0.3,
+    "delt_front": 0.2
+   }
+  },
+  {
+   "en": "Cable Rear Delt Row",
+   "raw": "Cable Rear Delt Row",
+   "area": "Shoulders",
+   "area2": "Back",
+   "area3": "Biceps",
+   "load_type": "total",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "delt_rear": 1,
+    "midback": 0.7,
+    "traps": 0.45,
+    "lats": 0.4,
+    "biceps": 0.25
    }
   },
   {
@@ -212,6 +319,19 @@
    }
   },
   {
+   "en": "Cable Single-Arm Bayesian Curl",
+   "raw": "Cable Single Arm Bayesian Curl",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "one_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.3
+   }
+  },
+  {
    "en": "Concentration Hammer Curl",
    "raw": "Rosca martelo concentrada",
    "area": "Biceps",
@@ -222,6 +342,19 @@
    "muscles": {
     "biceps": 1,
     "forearms": 0.6
+   }
+  },
+  {
+   "en": "Dumbbell Alternating Curl with Isometric Hold",
+   "raw": "Dumbbell Isometric Hold 90 degree Biceps Curl",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "per_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "biceps": 1,
+    "forearms": 0.45
    }
   },
   {
@@ -272,6 +405,21 @@
    "muscles": {
     "biceps": 1,
     "forearms": 0.8
+   }
+  },
+  {
+   "en": "Barbell Close-Grip Bench Press",
+   "raw": "Barbell Close Grip Bench Press",
+   "area": "Triceps",
+   "area2": "Chest",
+   "area3": "Shoulders",
+   "load_type": "total",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "triceps": 1,
+    "chest": 0.7,
+    "delt_front": 0.35
    }
   },
   {
@@ -336,6 +484,20 @@
    }
   },
   {
+   "en": "Bodyweight Assisted Sissy Squat",
+   "raw": "Bodyweight Assisted Sissy Squat",
+   "area": "Legs",
+   "area2": "Abs",
+   "load_type": "bodyweight",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "quads": 1,
+    "abs": 0.3,
+    "calves": 0.2
+   }
+  },
+  {
    "en": "Bulgarian Split Squat",
    "raw": "Bulgarian",
    "area": "Legs",
@@ -359,6 +521,39 @@
    "default_sets": 3,
    "muscles": {
     "calves": 1
+   }
+  },
+  {
+   "en": "Dumbbell Sumo Squat",
+   "raw": "Dumbbell Sumo Squat",
+   "area": "Legs",
+   "area2": "Back",
+   "area3": "Forearms",
+   "load_type": "total",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "glutes": 1,
+    "quads": 0.8,
+    "hams": 0.45,
+    "lowerback": 0.25,
+    "forearms": 0.2
+   }
+  },
+  {
+   "en": "Forward Lunge",
+   "raw": "Forward Lunge",
+   "area": "Legs",
+   "area2": "Abs",
+   "load_type": "bodyweight",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "quads": 1,
+    "glutes": 0.85,
+    "hams": 0.45,
+    "calves": 0.25,
+    "abs": 0.2
    }
   },
   {
@@ -429,6 +624,20 @@
    }
   },
   {
+   "en": "Cable Pallof Press",
+   "raw": "Cable Pallof Press",
+   "area": "Abs",
+   "area2": "Shoulders",
+   "load_type": "one_side",
+   "last_weight": null,
+   "default_sets": 3,
+   "muscles": {
+    "obliques": 1,
+    "abs": 0.8,
+    "delt_front": 0.2
+   }
+  },
+  {
    "en": "Crunches",
    "raw": "Abdominais",
    "area": "Abs",
@@ -460,48 +669,46 @@
    "label": "A — Chest & triceps",
    "cardio": "Elliptical",
    "exercises": [
-    "Dumbbell Decline Bench Press",
-    "Dumbbell Incline Chest Fly",
-    "Dumbbell Chest Fly",
-    "Dumbbell Skullcrusher",
-    "Overhead Press",
-    "Crunches"
+    "Dumbbell Bench Press",
+    "Dumbbell Incline Bench Press",
+    "Dumbbell Internally Rotated Incline Chest Fly",
+    "Barbell Close-Grip Bench Press",
+    "Cable Rope Triceps Extension (high pulley)"
    ]
   },
   {
    "key": "B",
-   "label": "B — Back & rear delts",
+   "label": "B — Back & biceps",
    "cardio": "Treadmill",
    "exercises": [
-    "Dumbbell Rear Delt Row",
-    "Face Pull",
-    "V-Bar Cable Row",
-    "Zottmann Curl",
-    "Rear Delt Fly"
+    "Dumbbell Unilateral Row",
+    "Cable Rear Delt Row",
+    "Dumbbell Alternating Curl with Isometric Hold",
+    "Cable Single-Arm Bayesian Curl"
    ]
   },
   {
    "key": "C",
-   "label": "C — Legs & core",
+   "label": "C — Legs",
    "cardio": "Treadmill",
    "exercises": [
-    "Bulgarian Split Squat",
-    "Stiff-Leg Deadlift",
+    "Forward Lunge",
+    "Nordic Hamstring Curl",
+    "Dumbbell Sumo Squat",
     "Calf Raise",
-    "Crunches",
-    "Dumbbell Lateral Raise"
+    "Bodyweight Assisted Sissy Squat"
    ]
   },
   {
    "key": "D",
-   "label": "D — Arms & shoulders",
+   "label": "D — Shoulders & core",
    "cardio": "Treadmill",
    "exercises": [
-    "Dumbbell Preacher Curl",
-    "Cable Row-Pushdown",
+    "Cable High Single-Arm Rear Delt Fly",
+    "Cable Lateral Raise",
     "Dumbbell Seated Overhead Press",
-    "Dumbbell Lying Reverse Fly (internally rotated)",
-    "Barbell Behind-the-Back Wrist Curl"
+    "Decline Bench Leg Raise (lower abs)",
+    "Cable Pallof Press"
    ]
   },
   {
