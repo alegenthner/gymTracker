@@ -1,5 +1,5 @@
 /* Offline cache. Bump CACHE when you change files. */
-const CACHE = "gymlog-v10";
+const CACHE = "gymlog-v13";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./catalog.json", "./workouts.json"];
 
 self.addEventListener("install", e => {

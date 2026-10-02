@@ -26,9 +26,13 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "triceps": 0.55,
-    "delt_front": 0.4
+    "chest_mid": 1.0,
+    "delt_front": 0.889,
+    "chest_up": 0.667,
+    "chest_low": 0.556,
+    "tri_long": 0.489,
+    "tri_lat": 0.428,
+    "tri_med": 0.306
    }
   },
   {
@@ -40,8 +44,10 @@
    "last_weight": 14,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "delt_front": 0.4
+    "chest_mid": 1.0,
+    "delt_front": 0.889,
+    "chest_up": 0.667,
+    "chest_low": 0.556
    }
   },
   {
@@ -54,9 +60,13 @@
    "last_weight": 20,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "triceps": 0.5,
-    "delt_front": 0.3
+    "chest_low": 1.0,
+    "chest_mid": 0.636,
+    "delt_front": 0.545,
+    "tri_long": 0.364,
+    "tri_lat": 0.318,
+    "tri_med": 0.227,
+    "chest_up": 0.182
    }
   },
   {
@@ -69,9 +79,13 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "delt_front": 0.55,
-    "triceps": 0.5
+    "chest_up": 1.0,
+    "delt_front": 0.917,
+    "chest_mid": 0.5,
+    "tri_long": 0.333,
+    "tri_lat": 0.292,
+    "tri_med": 0.208,
+    "chest_low": 0.167
    }
   },
   {
@@ -83,8 +97,10 @@
    "last_weight": 14,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "delt_front": 0.45
+    "chest_up": 1.0,
+    "delt_front": 0.75,
+    "chest_mid": 0.5,
+    "chest_low": 0.167
    }
   },
   {
@@ -96,9 +112,11 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "chest": 1,
-    "delt_front": 0.45,
-    "rotator": 0.2
+    "chest_up": 1.0,
+    "delt_front": 0.75,
+    "chest_mid": 0.5,
+    "rotator": 0.333,
+    "chest_low": 0.167
    }
   },
   {
@@ -110,13 +128,20 @@
    "last_weight": 60,
    "default_sets": 3,
    "muscles": {
-    "lowerback": 1,
-    "glutes": 0.8,
-    "hams": 0.8,
-    "traps": 0.5,
+    "erectors": 1.0,
+    "glute_max": 0.64,
+    "ham_bf": 0.4,
+    "ham_med": 0.4,
     "lats": 0.4,
-    "quads": 0.35,
-    "forearms": 0.3
+    "traps_up": 0.2,
+    "fore_flex": 0.18,
+    "traps_mid": 0.175,
+    "glute_med": 0.16,
+    "quad_vl": 0.14,
+    "traps_low": 0.125,
+    "fore_ext": 0.12,
+    "quad_rf": 0.105,
+    "quad_vm": 0.105
    }
   },
   {
@@ -128,11 +153,15 @@
    "last_weight": 16,
    "default_sets": 3,
    "muscles": {
-    "midback": 1,
+    "rhomboids": 1.0,
     "delt_rear": 0.8,
     "lats": 0.6,
-    "traps": 0.4,
-    "biceps": 0.3
+    "traps_mid": 0.18,
+    "traps_low": 0.14,
+    "bi_long": 0.12,
+    "bi_short": 0.12,
+    "traps_up": 0.08,
+    "brachialis": 0.06
    }
   },
   {
@@ -145,28 +174,17 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "lats": 1,
-    "midback": 0.7,
-    "biceps": 0.5,
-    "traps": 0.35,
-    "forearms": 0.3,
-    "lowerback": 0.2
-   }
-  },
-  {
-   "en": "Machine Rear Delt Row",
-   "raw": "Delt row machine",
-   "area": "Back",
-   "area2": "Shoulders",
-   "load_type": "total",
-   "last_weight": 38,
-   "default_sets": 3,
-   "muscles": {
-    "midback": 1,
-    "delt_rear": 0.8,
-    "traps": 0.4,
-    "lats": 0.4,
-    "biceps": 0.25
+    "lats": 1.0,
+    "rhomboids": 0.7,
+    "bi_long": 0.2,
+    "bi_short": 0.2,
+    "erectors": 0.2,
+    "fore_flex": 0.18,
+    "traps_mid": 0.158,
+    "traps_low": 0.122,
+    "fore_ext": 0.12,
+    "brachialis": 0.1,
+    "traps_up": 0.07
    }
   },
   {
@@ -178,12 +196,38 @@
    "last_weight": 51.6,
    "default_sets": 3,
    "muscles": {
-    "lats": 1,
-    "midback": 0.7,
-    "biceps": 0.5,
-    "traps": 0.35,
-    "forearms": 0.2,
-    "lowerback": 0.2
+    "lats": 1.0,
+    "rhomboids": 0.7,
+    "bi_long": 0.2,
+    "bi_short": 0.2,
+    "erectors": 0.2,
+    "traps_mid": 0.158,
+    "traps_low": 0.122,
+    "fore_flex": 0.12,
+    "brachialis": 0.1,
+    "fore_ext": 0.08,
+    "traps_up": 0.07
+   }
+  },
+  {
+   "en": "Barbell Overhead Press",
+   "raw": "Overhead press",
+   "area": "Shoulders",
+   "area2": "Triceps",
+   "load_type": "total",
+   "last_weight": 18,
+   "default_sets": 1,
+   "muscles": {
+    "delt_front": 1.0,
+    "delt_side": 0.6,
+    "tri_long": 0.2,
+    "tri_lat": 0.175,
+    "traps_up": 0.165,
+    "tri_med": 0.125,
+    "abs_up": 0.1,
+    "abs_low": 0.1,
+    "traps_mid": 0.09,
+    "traps_low": 0.045
    }
   },
   {
@@ -195,10 +239,12 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "delt_rear": 1,
+    "delt_rear": 1.0,
     "rotator": 0.45,
-    "midback": 0.35,
-    "traps": 0.25
+    "rhomboids": 0.35,
+    "traps_mid": 0.113,
+    "traps_low": 0.087,
+    "traps_up": 0.05
    }
   },
   {
@@ -209,9 +255,11 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "delt_side": 1,
-    "traps": 0.3,
-    "delt_front": 0.2
+    "delt_side": 1.0,
+    "delt_front": 0.2,
+    "traps_up": 0.165,
+    "traps_mid": 0.09,
+    "traps_low": 0.045
    }
   },
   {
@@ -221,14 +269,18 @@
    "area2": "Back",
    "area3": "Biceps",
    "load_type": "total",
-   "last_weight": null,
+   "last_weight": 38,
    "default_sets": 3,
    "muscles": {
-    "delt_rear": 1,
-    "midback": 0.7,
-    "traps": 0.45,
+    "delt_rear": 1.0,
+    "rhomboids": 0.7,
     "lats": 0.4,
-    "biceps": 0.25
+    "traps_mid": 0.203,
+    "traps_low": 0.158,
+    "bi_long": 0.1,
+    "bi_short": 0.1,
+    "traps_up": 0.09,
+    "brachialis": 0.05
    }
   },
   {
@@ -239,9 +291,11 @@
    "last_weight": 10,
    "default_sets": 3,
    "muscles": {
-    "delt_side": 1,
-    "traps": 0.3,
-    "delt_front": 0.2
+    "delt_side": 1.0,
+    "delt_front": 0.2,
+    "traps_up": 0.165,
+    "traps_mid": 0.09,
+    "traps_low": 0.045
    }
   },
   {
@@ -252,10 +306,12 @@
    "last_weight": 8,
    "default_sets": 3,
    "muscles": {
-    "delt_rear": 1,
+    "delt_rear": 1.0,
     "rotator": 0.5,
-    "midback": 0.4,
-    "traps": 0.3
+    "rhomboids": 0.4,
+    "traps_up": 0.12,
+    "traps_mid": 0.105,
+    "traps_low": 0.075
    }
   },
   {
@@ -267,10 +323,14 @@
    "last_weight": 16,
    "default_sets": 3,
    "muscles": {
-    "delt_front": 1,
+    "delt_front": 1.0,
     "delt_side": 0.7,
-    "triceps": 0.5,
-    "traps": 0.3
+    "tri_long": 0.2,
+    "tri_lat": 0.175,
+    "traps_up": 0.165,
+    "tri_med": 0.125,
+    "traps_mid": 0.09,
+    "traps_low": 0.045
    }
   },
   {
@@ -282,26 +342,12 @@
    "last_weight": 19.6,
    "default_sets": 3,
    "muscles": {
-    "delt_rear": 1,
+    "delt_rear": 1.0,
     "rotator": 0.6,
-    "traps": 0.5,
-    "midback": 0.5
-   }
-  },
-  {
-   "en": "Overhead Press",
-   "raw": "Overhead press",
-   "area": "Shoulders",
-   "area2": "Triceps",
-   "load_type": "total",
-   "last_weight": 18,
-   "default_sets": 1,
-   "muscles": {
-    "delt_front": 1,
-    "delt_side": 0.6,
-    "triceps": 0.5,
-    "traps": 0.3,
-    "abs": 0.2
+    "rhomboids": 0.5,
+    "traps_mid": 0.225,
+    "traps_low": 0.175,
+    "traps_up": 0.1
    }
   },
   {
@@ -312,10 +358,12 @@
    "last_weight": 7,
    "default_sets": 3,
    "muscles": {
-    "delt_rear": 1,
-    "midback": 0.4,
+    "delt_rear": 1.0,
+    "rhomboids": 0.4,
     "rotator": 0.3,
-    "traps": 0.25
+    "traps_mid": 0.113,
+    "traps_low": 0.087,
+    "traps_up": 0.05
    }
   },
   {
@@ -327,21 +375,26 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.3
+    "bi_long": 1.0,
+    "bi_short": 0.455,
+    "brachialis": 0.364,
+    "fore_flex": 0.327,
+    "fore_ext": 0.218
    }
   },
   {
-   "en": "Concentration Hammer Curl",
-   "raw": "Rosca martelo concentrada",
+   "en": "Cable Single-Arm Biceps Curl (behind)",
+   "raw": "Biceps unilateral atras",
    "area": "Biceps",
-   "area2": "Forearms",
-   "load_type": "per_side",
-   "last_weight": 10,
+   "load_type": "total",
+   "last_weight": 9,
    "default_sets": 3,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.6
+    "bi_long": 1.0,
+    "bi_short": 0.455,
+    "brachialis": 0.364,
+    "fore_flex": 0.327,
+    "fore_ext": 0.218
    }
   },
   {
@@ -353,8 +406,27 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.45
+    "bi_long": 1.0,
+    "bi_short": 1.0,
+    "fore_flex": 0.675,
+    "brachialis": 0.5,
+    "fore_ext": 0.45
+   }
+  },
+  {
+   "en": "Dumbbell Hammer Curl",
+   "raw": "Rosca martelo concentrada",
+   "area": "Biceps",
+   "area2": "Forearms",
+   "load_type": "per_side",
+   "last_weight": 10,
+   "default_sets": 3,
+   "muscles": {
+    "brachialis": 1.0,
+    "fore_flex": 0.8,
+    "bi_long": 0.778,
+    "fore_ext": 0.533,
+    "bi_short": 0.444
    }
   },
   {
@@ -365,8 +437,11 @@
    "last_weight": 10,
    "default_sets": 3,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.25
+    "bi_short": 1.0,
+    "bi_long": 0.455,
+    "brachialis": 0.364,
+    "fore_flex": 0.273,
+    "fore_ext": 0.182
    }
   },
   {
@@ -378,20 +453,11 @@
    "last_weight": 20,
    "default_sets": 2,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.45
-   }
-  },
-  {
-   "en": "Single-Arm Biceps Curl (behind)",
-   "raw": "Biceps unilateral atras",
-   "area": "Biceps",
-   "load_type": "total",
-   "last_weight": 9,
-   "default_sets": 3,
-   "muscles": {
-    "biceps": 1,
-    "forearms": 0.3
+    "bi_long": 1.0,
+    "bi_short": 1.0,
+    "fore_flex": 0.675,
+    "brachialis": 0.5,
+    "fore_ext": 0.45
    }
   },
   {
@@ -403,8 +469,11 @@
    "last_weight": 9,
    "default_sets": 3,
    "muscles": {
-    "biceps": 1,
-    "forearms": 0.8
+    "brachialis": 1.0,
+    "fore_ext": 0.978,
+    "fore_flex": 0.8,
+    "bi_long": 0.778,
+    "bi_short": 0.444
    }
   },
   {
@@ -414,12 +483,29 @@
    "area2": "Chest",
    "area3": "Shoulders",
    "load_type": "total",
-   "last_weight": null,
+   "last_weight": 16,
    "default_sets": 3,
    "muscles": {
-    "triceps": 1,
-    "chest": 0.7,
-    "delt_front": 0.35
+    "tri_med": 1.0,
+    "delt_front": 0.972,
+    "tri_lat": 0.944,
+    "chest_mid": 0.875,
+    "tri_long": 0.833,
+    "chest_up": 0.583,
+    "chest_low": 0.486
+   }
+  },
+  {
+   "en": "Cable Rope Pushdown",
+   "raw": "Cable row push down",
+   "area": "Triceps",
+   "load_type": "total",
+   "last_weight": 27.4,
+   "default_sets": 3,
+   "muscles": {
+    "tri_lat": 1.0,
+    "tri_long": 0.667,
+    "tri_med": 0.556
    }
   },
   {
@@ -430,35 +516,9 @@
    "last_weight": 19.6,
    "default_sets": 3,
    "muscles": {
-    "triceps": 1
-   }
-  },
-  {
-   "en": "Cable Row-Pushdown",
-   "raw": "Cable row push down",
-   "area": "Triceps",
-   "area2": "Back",
-   "load_type": "total",
-   "last_weight": 27.4,
-   "default_sets": 3,
-   "muscles": {
-    "triceps": 1,
-    "lats": 0.5,
-    "midback": 0.3
-   }
-  },
-  {
-   "en": "Close-Grip Bench Press",
-   "raw": "Supino fechado",
-   "area": "Triceps",
-   "area2": "Chest",
-   "load_type": "per_side",
-   "last_weight": 16,
-   "default_sets": 3,
-   "muscles": {
-    "triceps": 1,
-    "chest": 0.7,
-    "delt_front": 0.35
+    "tri_lat": 1.0,
+    "tri_long": 0.667,
+    "tri_med": 0.556
    }
   },
   {
@@ -469,18 +529,43 @@
    "last_weight": 10,
    "default_sets": 3,
    "muscles": {
-    "triceps": 1
+    "tri_long": 1.0,
+    "tri_lat": 0.56,
+    "tri_med": 0.44
    }
   },
   {
-   "en": "Unilateral Triceps Extension",
+   "en": "Dumbbell Unilateral Triceps Extension",
    "raw": "Triceps interno uni.",
    "area": "Triceps",
    "load_type": "total",
    "last_weight": 8,
    "default_sets": 3,
    "muscles": {
-    "triceps": 1
+    "tri_long": 1.0,
+    "tri_lat": 0.875,
+    "tri_med": 0.625
+   }
+  },
+  {
+   "en": "Barbell Stiff-Leg Deadlift",
+   "raw": "Stiff",
+   "area": "Legs",
+   "area2": "Back",
+   "load_type": "total",
+   "last_weight": 40,
+   "default_sets": 3,
+   "muscles": {
+    "erectors": 1.0,
+    "glute_max": 0.8,
+    "ham_bf": 0.714,
+    "ham_med": 0.714,
+    "glute_med": 0.2,
+    "fore_flex": 0.171,
+    "traps_up": 0.114,
+    "fore_ext": 0.114,
+    "traps_mid": 0.1,
+    "traps_low": 0.071
    }
   },
   {
@@ -492,9 +577,13 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "quads": 1,
-    "abs": 0.3,
-    "calves": 0.2
+    "quad_rf": 1.0,
+    "quad_vl": 0.54,
+    "quad_vm": 0.46,
+    "abs_up": 0.3,
+    "abs_low": 0.3,
+    "gastroc": 0.28,
+    "soleus": 0.12
    }
   },
   {
@@ -505,11 +594,17 @@
    "last_weight": 10,
    "default_sets": 3,
    "muscles": {
-    "quads": 1,
-    "glutes": 0.85,
-    "hams": 0.4,
-    "calves": 0.25,
-    "abs": 0.2
+    "glute_max": 1.0,
+    "quad_vm": 0.657,
+    "quad_rf": 0.588,
+    "quad_vl": 0.484,
+    "glute_med": 0.471,
+    "ham_bf": 0.346,
+    "ham_med": 0.346,
+    "gastroc": 0.303,
+    "abs_up": 0.173,
+    "abs_low": 0.173,
+    "soleus": 0.13
    }
   },
   {
@@ -520,7 +615,8 @@
    "last_weight": 60,
    "default_sets": 3,
    "muscles": {
-    "calves": 1
+    "gastroc": 1.0,
+    "soleus": 0.389
    }
   },
   {
@@ -533,11 +629,16 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "glutes": 1,
-    "quads": 0.8,
-    "hams": 0.45,
-    "lowerback": 0.25,
-    "forearms": 0.2
+    "glute_max": 1.0,
+    "quad_vl": 0.471,
+    "glute_med": 0.471,
+    "erectors": 0.368,
+    "quad_rf": 0.353,
+    "quad_vm": 0.353,
+    "ham_bf": 0.331,
+    "ham_med": 0.331,
+    "fore_flex": 0.176,
+    "fore_ext": 0.118
    }
   },
   {
@@ -549,11 +650,17 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "quads": 1,
-    "glutes": 0.85,
-    "hams": 0.45,
-    "calves": 0.25,
-    "abs": 0.2
+    "glute_max": 1.0,
+    "quad_vm": 0.657,
+    "quad_rf": 0.588,
+    "quad_vl": 0.484,
+    "glute_med": 0.471,
+    "ham_bf": 0.389,
+    "ham_med": 0.389,
+    "gastroc": 0.303,
+    "abs_up": 0.173,
+    "abs_low": 0.173,
+    "soleus": 0.13
    }
   },
   {
@@ -564,8 +671,10 @@
    "last_weight": 17.6,
    "default_sets": 2,
    "muscles": {
-    "hams": 1,
-    "calves": 0.25
+    "ham_bf": 1.0,
+    "ham_med": 1.0,
+    "gastroc": 0.35,
+    "soleus": 0.15
    }
   },
   {
@@ -576,10 +685,14 @@
    "last_weight": 30,
    "default_sets": 3,
    "muscles": {
-    "glutes": 1,
-    "hams": 0.5,
-    "quads": 0.25,
-    "lowerback": 0.2
+    "glute_max": 1.0,
+    "ham_bf": 0.312,
+    "ham_med": 0.312,
+    "glute_med": 0.25,
+    "erectors": 0.25,
+    "quad_vl": 0.125,
+    "quad_rf": 0.094,
+    "quad_vm": 0.094
    }
   },
   {
@@ -590,26 +703,13 @@
    "last_weight": null,
    "default_sets": 1,
    "muscles": {
-    "hams": 1,
-    "glutes": 0.35,
-    "calves": 0.2,
-    "lowerback": 0.2
-   }
-  },
-  {
-   "en": "Stiff-Leg Deadlift",
-   "raw": "Stiff",
-   "area": "Legs",
-   "area2": "Back",
-   "load_type": "total",
-   "last_weight": 40,
-   "default_sets": 3,
-   "muscles": {
-    "hams": 1,
-    "glutes": 0.7,
-    "lowerback": 0.7,
-    "traps": 0.2,
-    "forearms": 0.2
+    "ham_bf": 1.0,
+    "ham_med": 1.0,
+    "glute_max": 0.56,
+    "erectors": 0.4,
+    "gastroc": 0.28,
+    "glute_med": 0.14,
+    "soleus": 0.12
    }
   },
   {
@@ -620,7 +720,8 @@
    "last_weight": 36,
    "default_sets": 3,
    "muscles": {
-    "forearms": 1
+    "fore_ext": 1.0,
+    "fore_flex": 0.818
    }
   },
   {
@@ -632,8 +733,9 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "obliques": 1,
-    "abs": 0.8,
+    "obliques": 1.0,
+    "abs_low": 0.56,
+    "abs_up": 0.24,
     "delt_front": 0.2
    }
   },
@@ -645,8 +747,9 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "abs": 1,
-    "obliques": 0.35
+    "abs_up": 1.0,
+    "obliques": 0.5,
+    "abs_low": 0.429
    }
   },
   {
@@ -657,9 +760,12 @@
    "last_weight": null,
    "default_sets": 3,
    "muscles": {
-    "abs": 1,
-    "obliques": 0.3,
-    "quads": 0.2
+    "abs_low": 1.0,
+    "abs_up": 0.429,
+    "obliques": 0.429,
+    "quad_vl": 0.114,
+    "quad_rf": 0.086,
+    "quad_vm": 0.086
    }
   }
  ],
@@ -720,131 +826,397 @@
  ],
  "regions": [
   {
-   "key": "chest",
+   "key": "chest_up",
    "group": "Chest",
-   "sub": "Pectorals"
+   "sub": "Upper pectoralis",
+   "parent": "Chest",
+   "head": "upper",
+   "muscles": [
+    "Pectoralis major (clavicular head)"
+   ]
+  },
+  {
+   "key": "chest_mid",
+   "group": "Chest",
+   "sub": "Mid pectoralis",
+   "parent": "Chest",
+   "head": "mid",
+   "muscles": [
+    "Pectoralis major (sternal head)"
+   ]
+  },
+  {
+   "key": "chest_low",
+   "group": "Chest",
+   "sub": "Lower pectoralis",
+   "parent": "Chest",
+   "head": "lower",
+   "muscles": [
+    "Pectoralis major (costal head)",
+    "Pectoralis minor"
+   ]
   },
   {
    "key": "delt_front",
    "group": "Shoulders",
-   "sub": "Anterior deltoid"
+   "sub": "Anterior deltoid",
+   "parent": "Deltoids",
+   "head": "anterior",
+   "muscles": [
+    "Anterior deltoid"
+   ]
   },
   {
    "key": "delt_side",
    "group": "Shoulders",
-   "sub": "Lateral deltoid"
+   "sub": "Lateral deltoid",
+   "parent": "Deltoids",
+   "head": "lateral",
+   "muscles": [
+    "Lateral deltoid"
+   ]
   },
   {
    "key": "delt_rear",
    "group": "Shoulders",
-   "sub": "Posterior deltoid"
+   "sub": "Posterior deltoid",
+   "parent": "Deltoids",
+   "head": "posterior",
+   "muscles": [
+    "Posterior deltoid"
+   ]
   },
   {
    "key": "rotator",
    "group": "Rotator Cuff",
-   "sub": "SITS muscles"
+   "sub": "Rotator cuff",
+   "parent": "Rotator cuff",
+   "head": "",
+   "muscles": [
+    "Supraspinatus",
+    "Infraspinatus",
+    "Teres minor",
+    "Subscapularis"
+   ]
   },
   {
-   "key": "traps",
+   "key": "traps_up",
    "group": "Back",
-   "sub": "Trapezius"
+   "sub": "Upper trapezius",
+   "parent": "Trapezius",
+   "head": "upper",
+   "muscles": [
+    "Trapezius (upper fibres)"
+   ]
+  },
+  {
+   "key": "traps_mid",
+   "group": "Back",
+   "sub": "Mid trapezius",
+   "parent": "Trapezius",
+   "head": "mid",
+   "muscles": [
+    "Trapezius (middle fibres)"
+   ]
+  },
+  {
+   "key": "traps_low",
+   "group": "Back",
+   "sub": "Lower trapezius",
+   "parent": "Trapezius",
+   "head": "lower",
+   "muscles": [
+    "Trapezius (lower fibres)"
+   ]
   },
   {
    "key": "lats",
    "group": "Back",
-   "sub": "Latissimus dorsi"
+   "sub": "Latissimus dorsi",
+   "parent": "Lats",
+   "head": "",
+   "muscles": [
+    "Latissimus dorsi"
+   ]
   },
   {
-   "key": "midback",
+   "key": "rhomboids",
    "group": "Back",
-   "sub": "Rhomboids"
+   "sub": "Rhomboids",
+   "parent": "Rhomboids",
+   "head": "",
+   "muscles": [
+    "Rhomboid major",
+    "Rhomboid minor"
+   ]
   },
   {
-   "key": "lowerback",
+   "key": "erectors",
    "group": "Back",
-   "sub": "Erector spinae"
+   "sub": "Erector spinae",
+   "parent": "Erector spinae",
+   "head": "",
+   "muscles": [
+    "Erector spinae"
+   ]
   },
   {
-   "key": "abs",
+   "key": "abs_up",
    "group": "Abdominals",
-   "sub": "Rectus abdominis"
+   "sub": "Upper abdominis",
+   "parent": "Abdominis",
+   "head": "upper",
+   "muscles": [
+    "Rectus abdominis (upper)",
+    "Transverse abdominis"
+   ]
+  },
+  {
+   "key": "abs_low",
+   "group": "Abdominals",
+   "sub": "Lower abdominis",
+   "parent": "Abdominis",
+   "head": "lower",
+   "muscles": [
+    "Rectus abdominis (lower)"
+   ]
   },
   {
    "key": "obliques",
    "group": "Abdominals",
-   "sub": "Obliques"
+   "sub": "Obliques",
+   "parent": "Obliques",
+   "head": "",
+   "muscles": [
+    "External oblique",
+    "Internal oblique"
+   ]
   },
   {
-   "key": "biceps",
+   "key": "bi_long",
    "group": "Arms",
-   "sub": "Biceps"
+   "sub": "Biceps long head",
+   "parent": "Biceps",
+   "head": "long head",
+   "muscles": [
+    "Biceps brachii (long head)"
+   ]
   },
   {
-   "key": "triceps",
+   "key": "bi_short",
    "group": "Arms",
-   "sub": "Triceps"
+   "sub": "Biceps short head",
+   "parent": "Biceps",
+   "head": "short head",
+   "muscles": [
+    "Biceps brachii (short head)"
+   ]
   },
   {
-   "key": "forearms",
+   "key": "brachialis",
    "group": "Arms",
-   "sub": "Forearms"
+   "sub": "Brachialis",
+   "parent": "Brachialis",
+   "head": "",
+   "muscles": [
+    "Brachialis"
+   ]
   },
   {
-   "key": "glutes",
+   "key": "tri_long",
+   "group": "Arms",
+   "sub": "Triceps long head",
+   "parent": "Triceps",
+   "head": "long head",
+   "muscles": [
+    "Triceps brachii (long head)"
+   ]
+  },
+  {
+   "key": "tri_lat",
+   "group": "Arms",
+   "sub": "Triceps lateral head",
+   "parent": "Triceps",
+   "head": "lateral head",
+   "muscles": [
+    "Triceps brachii (lateral head)"
+   ]
+  },
+  {
+   "key": "tri_med",
+   "group": "Arms",
+   "sub": "Triceps medial head",
+   "parent": "Triceps",
+   "head": "medial head",
+   "muscles": [
+    "Triceps brachii (medial head)"
+   ]
+  },
+  {
+   "key": "fore_flex",
+   "group": "Arms",
+   "sub": "Wrist flexors",
+   "parent": "Forearms",
+   "head": "flexors",
+   "muscles": [
+    "Wrist flexors",
+    "Pronators"
+   ]
+  },
+  {
+   "key": "fore_ext",
+   "group": "Arms",
+   "sub": "Wrist extensors",
+   "parent": "Forearms",
+   "head": "extensors",
+   "muscles": [
+    "Wrist extensors",
+    "Supinators"
+   ]
+  },
+  {
+   "key": "glute_max",
    "group": "Hips",
-   "sub": "Glutes"
+   "sub": "Gluteus maximus",
+   "parent": "Glutes",
+   "head": "maximus",
+   "muscles": [
+    "Gluteus maximus"
+   ]
   },
   {
-   "key": "quads",
+   "key": "glute_med",
+   "group": "Hips",
+   "sub": "Gluteus medius",
+   "parent": "Glutes",
+   "head": "medius",
+   "muscles": [
+    "Gluteus medius",
+    "Gluteus minimus"
+   ]
+  },
+  {
+   "key": "quad_rf",
    "group": "Thighs",
-   "sub": "Quadriceps"
+   "sub": "Rectus femoris",
+   "parent": "Quadriceps",
+   "head": "rectus femoris",
+   "muscles": [
+    "Rectus femoris"
+   ]
   },
   {
-   "key": "hams",
+   "key": "quad_vl",
    "group": "Thighs",
-   "sub": "Hamstrings"
+   "sub": "Vastus lateralis",
+   "parent": "Quadriceps",
+   "head": "vastus lateralis",
+   "muscles": [
+    "Vastus lateralis",
+    "Vastus intermedius"
+   ]
   },
   {
-   "key": "calves",
+   "key": "quad_vm",
+   "group": "Thighs",
+   "sub": "Vastus medialis",
+   "parent": "Quadriceps",
+   "head": "vastus medialis",
+   "muscles": [
+    "Vastus medialis"
+   ]
+  },
+  {
+   "key": "ham_bf",
+   "group": "Thighs",
+   "sub": "Biceps femoris",
+   "parent": "Hamstrings",
+   "head": "biceps femoris",
+   "muscles": [
+    "Biceps femoris"
+   ]
+  },
+  {
+   "key": "ham_med",
+   "group": "Thighs",
+   "sub": "Semitendinosus",
+   "parent": "Hamstrings",
+   "head": "semitendinosus",
+   "muscles": [
+    "Semitendinosus",
+    "Semimembranosus"
+   ]
+  },
+  {
+   "key": "gastroc",
    "group": "Calves",
-   "sub": "Gastrocnemius / soleus"
+   "sub": "Gastrocnemius",
+   "parent": "Calves",
+   "head": "gastrocnemius",
+   "muscles": [
+    "Gastrocnemius"
+   ]
+  },
+  {
+   "key": "soleus",
+   "group": "Calves",
+   "sub": "Soleus",
+   "parent": "Calves",
+   "head": "soleus",
+   "muscles": [
+    "Soleus"
+   ]
   }
  ],
  "area_regions": {
   "Chest": {
-   "chest": 1,
+   "chest_mid": 1,
+   "chest_up": 0.65,
+   "chest_low": 0.55,
    "delt_front": 0.3
   },
   "Back": {
    "lats": 0.6,
-   "midback": 0.5,
-   "traps": 0.4,
-   "lowerback": 0.25
+   "rhomboids": 0.5,
+   "traps_mid": 0.4,
+   "traps_up": 0.3,
+   "erectors": 0.25
   },
   "Shoulders": {
    "delt_side": 0.6,
    "delt_front": 0.5,
    "delt_rear": 0.5,
-   "traps": 0.2
+   "traps_up": 0.2
   },
   "Biceps": {
-   "biceps": 1,
-   "forearms": 0.3
+   "bi_long": 0.4,
+   "bi_short": 0.4,
+   "brachialis": 0.2,
+   "fore_flex": 0.3
   },
   "Triceps": {
-   "triceps": 1
+   "tri_long": 0.4,
+   "tri_lat": 0.35,
+   "tri_med": 0.25
   },
   "Legs": {
-   "quads": 0.7,
-   "hams": 0.6,
-   "glutes": 0.6,
-   "calves": 0.3
+   "quad_vl": 0.3,
+   "quad_rf": 0.25,
+   "quad_vm": 0.25,
+   "ham_bf": 0.3,
+   "ham_med": 0.3,
+   "glute_max": 0.5,
+   "glute_med": 0.15,
+   "gastroc": 0.25,
+   "soleus": 0.1
   },
   "Forearms": {
-   "forearms": 1
+   "fore_flex": 1,
+   "fore_ext": 0.7
   },
   "Abs": {
-   "abs": 1,
+   "abs_up": 0.5,
+   "abs_low": 0.5,
    "obliques": 0.35
   },
   "Other": {}

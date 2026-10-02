@@ -15,7 +15,7 @@
  --f1-g:rgba(0,168,72,.15);--f1-gb:rgba(0,168,72,.5);
  --f1-y:rgba(230,180,0,.22);--f1-yb:rgba(200,155,0,.55);--f1-yt:#8a6a00;
  --f1-p:rgba(150,40,215,.10);--f1-pb:rgba(150,40,215,.55);--f1-pt:#8b2bd0;
- --musline:rgba(11,11,11,.30);
+ --musline:rgba(11,11,11,.30);--spark:#3f9ae8;--rm:#d98b85;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
  color-scheme:dark;--plane:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
@@ -25,7 +25,7 @@
  --f1-g:rgba(0,220,100,.17);--f1-gb:rgba(0,220,100,.5);
  --f1-y:rgba(255,210,0,.15);--f1-yb:rgba(255,210,0,.45);--f1-yt:#e8c400;
  --f1-p:rgba(185,90,245,.15);--f1-pb:rgba(185,90,245,.6);--f1-pt:#c78bf7;
- --musline:rgba(255,255,255,.28);
+ --musline:rgba(255,255,255,.28);--spark:#56b0f5;--rm:#a35a55;
 }}
 :root[data-theme="dark"]{
  color-scheme:dark;--plane:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
@@ -35,7 +35,7 @@
  --f1-g:rgba(0,220,100,.17);--f1-gb:rgba(0,220,100,.5);
  --f1-y:rgba(255,210,0,.15);--f1-yb:rgba(255,210,0,.45);--f1-yt:#e8c400;
  --f1-p:rgba(185,90,245,.15);--f1-pb:rgba(185,90,245,.6);--f1-pt:#c78bf7;
- --musline:rgba(255,255,255,.28);
+ --musline:rgba(255,255,255,.28);--spark:#56b0f5;--rm:#a35a55;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -74,8 +74,28 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .exlist button:hover{background:color-mix(in srgb,var(--series) 8%,transparent)}
 .tag{font-size:11px;color:#fff;border-radius:999px;padding:2px 8px;font-weight:600;white-space:nowrap}
 .exc{border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--surface)}
-.exc-h{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.exc-h strong{font-size:14.5px;flex:1;min-width:118px}
+.exc-h{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.exc-id{flex:1;min-width:0}
+.exc-name{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.exc-name strong{font-size:14.5px}
+.exc-mus{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.spark{width:104px;height:46px;flex:0 0 auto;display:block}
+.spark-empty{font-size:9.5px;fill:var(--muted)}
+.btn.rm{background:var(--rm);border:1px solid var(--rm);color:#fff;
+ margin-left:auto;padding:6px 11px;font-size:12.5px;font-weight:600}
+.btn.rm:hover{background:var(--bad);border-color:var(--bad)}
+.mtab td.up{color:var(--good);font-weight:700}
+.mtab td.down{color:var(--bad);font-weight:700}
+.mtab td.flat{color:var(--muted)}
+.mtab tbody tr:hover{background:color-mix(in srgb,var(--series) 6%,transparent)}
+.mtab{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.mtab th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+ font-weight:700;padding:0 6px 6px}
+.mtab td{border-top:1px solid var(--border);padding:6px;vertical-align:top}
+.mtab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mtab .sw2{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px;
+ border:1px solid var(--musline);vertical-align:-1px}
+.mtab .sub{color:var(--muted);font-size:10.5px}
 .sets{display:flex;flex-direction:column;gap:6px}
 .setrow{display:grid;grid-template-columns:34px 1fr 1fr 34px;gap:6px;align-items:center;
  border:1px solid transparent;border-radius:9px;padding:3px 5px;margin:0 -5px}
@@ -91,6 +111,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .bodyfig{fill:var(--grid);opacity:.5}
 .mus{stroke:var(--musline);stroke-width:.35;cursor:pointer}
 .mus.lit{stroke:var(--ink);stroke-width:.9}
+.mus.dim{opacity:.17}
+.disc{margin-top:12px}
+.disc summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--ink2);padding:6px 0;
+ list-style:none;display:flex;align-items:center;gap:6px}
+.disc summary::-webkit-details-marker{display:none}
+.disc summary::before{content:"\25b8";transition:transform .15s;display:inline-block}
+.disc[open] summary::before{transform:rotate(90deg)}
 .tendon{fill:none;stroke:var(--musline);stroke-width:.9;opacity:.6;pointer-events:none}
 .bodylbl{fill:var(--ink2);font-size:8px;font-weight:700;letter-spacing:.04em}
 .mus-list{color:var(--muted);font-size:10.5px;margin-top:5px;line-height:1.35;max-width:190px}
@@ -246,6 +273,19 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <div class="note" id="lineCap"></div>
   </div>
   <div class="card">
+    <h2>Estimated 1RM</h2>
+    <p class="hint" style="margin:-4px 0 10px">Heaviest set of each session through Epley
+      (<code>weight × (1 + reps/30)</code>) — it keeps climbing when you add load and drop reps,
+      even as tonnage falls.</p>
+    <div class="row">
+      <div><label for="rmGroup">Muscle group</label><select id="rmGroup"></select></div>
+    </div>
+    <div class="chartwrap"><svg class="chart" id="rmChart"></svg><div class="tt" id="rmTip"></div></div>
+    <div class="legend" id="rmLegend"></div>
+    <p class="note" id="rmCap"></p>
+  </div>
+
+  <div class="card">
     <h2>Week focus</h2>
     <div class="row">
       <div><label for="wkSel">Week</label><select id="wkSel"></select></div>
@@ -277,8 +317,15 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
         <button data-x="sets">Hard sets</button>
       </div>
     </div>
+    <div class="row" style="margin-top:8px">
+      <div><label for="hlGroup">Highlight</label><select id="hlGroup">
+        <option value="All">Whole body</option><option>Chest</option><option>Back</option>
+        <option>Arms</option><option>Legs</option><option>Core</option></select></div>
+    </div>
     <div class="chartwrap"><svg class="chart" id="bodyMap"></svg><div class="tt" id="bodyTip"></div></div>
     <div class="scale"><span id="scaleLo">0</span><span class="scalebar" id="scaleBar"></span><span id="scaleHi"></span></div>
+    <details class="disc"><summary>Muscle detail</summary>
+      <table class="mtab" id="musTable"></table></details>
     <p class="note" id="bodyCap"></p>
   </div>
 
@@ -384,6 +431,14 @@ const METRICS = {top_weight:{label:"Top weight",unit:" kg",zero:false},est_1rm:{
                  volume:{label:"Volume",unit:" kg",zero:true},total_reps:{label:"Total reps",unit:"",zero:true}};
 let CAT=null, SEEDCAT=null, SEED=[], LOCAL=[], draft=null, areaFilter="All", metric="top_weight", volMode="volume", curEx=0;
 let selWeek=null, radarMode="exercise", radarMetric="volume", heatPeriod="week", heatMetric="volume";
+let hlGroup="All";
+/* the five bands the highlight picker offers; deltoids sit with the arms */
+const HLGROUP={Chest:["chest_up","chest_mid","chest_low"],
+  Back:["traps_up","traps_mid","traps_low","lats","rhomboids","erectors","rotator"],
+  Arms:["delt_front","delt_side","delt_rear","bi_long","bi_short","brachialis",
+        "tri_long","tri_lat","tri_med","fore_flex","fore_ext"],
+  Legs:["glute_max","glute_med","quad_rf","quad_vl","quad_vm","ham_bf","ham_med","gastroc","soleus"],
+  Core:["abs_up","abs_low","obliques"]};
 let COV={exercises:{},templates:{}}, edKey=null, edWork=null;
 const cap=s=>s[0].toUpperCase()+s.slice(1);
 const MUSCLES=["Chest","Back","Shoulders","Biceps","Triceps","Legs","Forearms","Abs","Other"];
@@ -571,6 +626,8 @@ function initUI(){
     [...$("radarMetricSeg").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawRadar();};
   $("heatPeriod").onclick=e=>{const b=e.target.closest("button");if(!b)return;heatPeriod=b.dataset.p;
     [...$("heatPeriod").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawBody();};
+  $("rmGroup").onchange=()=>{rmGroup=$("rmGroup").value;draw1RM();};
+  $("hlGroup").onchange=()=>{hlGroup=$("hlGroup").value;drawBody();};
   $("heatMetric").onclick=e=>{const b=e.target.closest("button");if(!b)return;heatMetric=b.dataset.x;
     [...$("heatMetric").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawBody();};
   draft={exercises:[]};
@@ -642,16 +699,22 @@ function renderDraft(){
       <input type="number" inputmode="numeric" placeholder="${ref[j]&&ref[j].reps!=null?ref[j].reps:"reps"}" value="${s.reps??""}" data-i="${i}" data-j="${j}" data-f="reps">
       <button class="icon" type="button" data-del="${i}-${j}">×</button></div>`).join("");
     return `<div class="exc${ex._dirty?" unsaved":ex._heldAt?" held":""}" id="exc${i}">
-      <div class="exc-h"><strong>${ex.en}</strong>
-        <span class="tag pbtag" id="pb${i}" hidden>PB</span>
-        <span class="tag" style="background:${AVAR(ex.area)}">${ex.area}</span>
-        <button class="icon" style="width:auto;padding:6px 10px" type="button" data-rm="${i}">Remove</button></div>
+      <div class="exc-h">
+        <div class="exc-id">
+          <div class="exc-name"><strong>${ex.en}</strong>
+            <span class="tag pbtag" id="pb${i}" hidden>PB</span>
+            <span class="tag" style="background:${AVAR(ex.area)}">${ex.area}</span></div>
+          <div class="exc-mus">${musLabel(ex.en,ex.area)}</div>
+        </div>
+        <svg class="spark" id="sp${i}" viewBox="0 0 104 46" preserveAspectRatio="none"></svg>
+      </div>
       <div class="hint" style="margin:0 0 6px">${bw?"Reps only":unit}<span class="ld" id="ld${i}"></span></div>
       <div class="sets">${rows}</div>
       <div class="exc-f">
         <button class="btn sec" type="button" data-add="${i}">+ Set</button>
         <button class="btn" type="button" data-hold="${i}">Save</button>
         <span class="sv" id="sv${i}"></span>
+        <button class="btn rm" type="button" data-rm="${i}">Remove</button>
       </div>
     </div>`;}).join("");
   w.querySelectorAll("input").forEach(inp=>{inp.oninput=()=>{
@@ -667,9 +730,73 @@ function renderDraft(){
     const [i,j]=b.dataset.del.split("-").map(Number);
     if(draft.exercises[i].sets.length>1){draft.exercises[i].sets.splice(j,1);draft.exercises[i]._dirty=true;}
     renderDraft();saveDraftLS();});
-  draft.exercises.forEach((_,i)=>{paintHold(i);paintF1(i);});
+  draft.exercises.forEach((_,i)=>{paintHold(i);paintF1(i);paintSpark(i);});
   updateInfo();
 }
+/* What an exercise loads, rolled up to the parent muscle and naming the head it
+   emphasises - "Triceps (lateral head)". Rolling up keeps the prime mover first:
+   splitting quads three ways would otherwise bury it under a two-way split. */
+function musRollup(en,area){
+  const mg=musclesOf(en,area),by={};
+  Object.keys(mg).forEach(k=>{
+    const m=regionMeta(k),p=m.parent||m.sub||k;
+    const e=by[p]=by[p]||{sum:0,top:0,head:""};
+    e.sum+=mg[k];
+    if(mg[k]>e.top){e.top=mg[k];e.head=m.head||"";}});
+  return Object.keys(by).map(p=>({parent:p,...by[p]})).sort((a,b)=>b.sum-a.sum);
+}
+function musLabel(en,area){
+  const r=musRollup(en,area).slice(0,4);
+  return r.map(x=>x.head?`${x.parent} (${x.head})`:x.parent).join(" \u00b7 ")||"\u2014";
+}
+/* ---- est. 1RM sparkline: smooth blue line over a fading fill ---- */
+function oneRM(st){return st.weight_kg==null||st.reps==null?null:st.weight_kg*(1+st.reps/30);}
+function rmSeries(en){
+  const out=[];
+  allSessions().forEach(sx=>sx.exercises.forEach(e=>{
+    if(e.en!==en)return;
+    let best=null;e.sets.forEach(st=>{const v=oneRM(st);if(v!=null)best=best==null?v:Math.max(best,v);});
+    if(best!=null)out.push({date:sx.date,v:Math.round(best*10)/10});}));
+  return out;
+}
+/* Catmull-Rom through the points, as a cubic path - the curve in the reference chart */
+function smoothPath(pts){
+  if(pts.length<2)return "";
+  let d="M"+pts[0][0].toFixed(1)+","+pts[0][1].toFixed(1);
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+    const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6];
+    const c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+=`C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+  }
+  return d;
+}
+let sparkSeq=0;
+function sparkSVG(vals,W,H,pad){
+  if(vals.length<2)
+    return `<text x="${W/2}" y="${H/2+3}" text-anchor="middle" class="spark-empty">no 1RM history yet</text>`;
+  const p=pad==null?4:pad,lo=Math.min(...vals),hi=Math.max(...vals),r=(hi-lo)||1;
+  const X=i=>p+(W-2*p)*(i/(vals.length-1));
+  const Y=v=>H-p-(H-2*p)*((v-lo)/r)*0.92;
+  const pts=vals.map((v,i)=>[X(i),Y(v)]);
+  const line=smoothPath(pts),id="sg"+(sparkSeq++);
+  return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">`+
+    `<stop offset="0%" stop-color="var(--spark)" stop-opacity=".40"/>`+
+    `<stop offset="100%" stop-color="var(--spark)" stop-opacity="0"/></linearGradient></defs>`+
+    `<path d="${line}L${X(vals.length-1).toFixed(1)},${H} L${X(0).toFixed(1)},${H} Z" fill="url(#${id})"/>`+
+    `<path d="${line}" fill="none" stroke="var(--spark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`+
+    `<circle cx="${X(vals.length-1).toFixed(1)}" cy="${pts[pts.length-1][1].toFixed(1)}" r="2.6" fill="var(--spark)"/>`;
+}
+function paintSpark(i){
+  const el=$("sp"+i),ex=draft.exercises[i];if(!el||!ex)return;
+  const vals=rmSeries(ex.en).map(p=>p.v);
+  el.setAttribute("viewBox","0 0 104 46");
+  el.innerHTML=sparkSVG(vals,104,46,4);
+  el.setAttribute("aria-label",vals.length>1
+    ?`Estimated 1RM trend, ${vals.length} sessions, now ${fmt(vals[vals.length-1])} kg`
+    :"No estimated 1RM history yet");
+}
+
 /* ---- F1 timing colours -------------------------------------------------
    Every set races the SAME set from the last session this exercise appeared
    in: green = beat it, yellow = matched or missed it, neutral = no reference.
@@ -872,9 +999,73 @@ function renderDash(){
   [...$("radarMetricSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.rm===radarMetric)));
   [...$("heatPeriod").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===heatPeriod)));
   [...$("heatMetric").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.x===heatMetric)));
-  drawLine();drawBars();drawRadar();drawBody();
+  drawLine();drawBars();drawRadar();drawBody();draw1RM();
 }
 
+/* ---------- est. 1RM: pick a muscle group, read the curves ---------- */
+let rmGroup="Chest";
+function rm1Rows(){
+  return AGG.ex.map(e=>{
+    const pts=rmSeries(e.en);
+    return pts.length<2?null:{en:e.en,area:e.area,pts};
+  }).filter(Boolean).filter(r=>rmGroup==="All"||r.area===rmGroup)
+    .sort((a,b)=>b.pts.length-a.pts.length).slice(0,8);
+}
+function draw1RM(){
+  const sel=$("rmGroup");
+  if(!sel.options.length){
+    const has={};AGG.ex.forEach(e=>{if(rmSeries(e.en).length>1)has[e.area]=1;});
+    sel.innerHTML=["All"].concat(AREAS.filter(a=>has[a])).map(a=>`<option>${a}</option>`).join("");
+    if(!has[rmGroup])rmGroup=sel.options[1]?sel.options[1].value:"All";
+  }
+  sel.value=rmGroup;
+  const rows=rm1Rows(),svg=$("rmChart");
+  const W=svg.clientWidth||560,H=270,PAD={l:42,r:46,t:14,b:42};
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  if(!rows.length){
+    svg.innerHTML=`<text x="${W/2}" y="${H/2}" text-anchor="middle" class="axis-x">No 1RM history in this group</text>`;
+    $("rmLegend").innerHTML="";$("rmCap").textContent="";return;}
+  const dates=[...new Set(rows.flatMap(r=>r.pts.map(p=>p.date)))].sort();
+  const vals=rows.flatMap(r=>r.pts.map(p=>p.v));
+  const ns=niceScale(Math.min(...vals)*0.92,Math.max(...vals)*1.06,4);
+  const ends=[];
+  const X=d=>PAD.l+(W-PAD.l-PAD.r)*(dates.length<2?0.5:dates.indexOf(d)/(dates.length-1));
+  const Y=v=>H-PAD.b-(H-PAD.t-PAD.b)*((v-ns.lo)/((ns.hi-ns.lo)||1));
+  let g="";
+  ns.ticks.forEach(t=>{g+=`<line x1="${PAD.l}" y1="${Y(t).toFixed(1)}" x2="${W-PAD.r}" y2="${Y(t).toFixed(1)}" stroke="var(--grid)"/>`
+    +`<text class="axis-l" x="${PAD.l-6}" y="${(Y(t)+3.5).toFixed(1)}" text-anchor="end">${fmt(t)}</text>`;});
+  g+=`<line x1="${PAD.l}" y1="${H-PAD.b}" x2="${W-PAD.r}" y2="${H-PAD.b}" stroke="var(--axis)"/>`;
+  const step=Math.ceil(dates.length/5);
+  dates.forEach((d,i)=>{if(i%step&&i!==dates.length-1)return;
+    g+=`<text class="axis-x" x="${X(d).toFixed(1)}" y="${H-PAD.b+16}" text-anchor="middle">${shortDate(d)}</text>`;});
+  rows.forEach((r,k)=>{
+    const col=`var(--m-${(k%9)+1})`;
+    const pts=r.pts.map(p=>[X(p.date),Y(p.v)]);
+    g+=`<path d="${smoothPath(pts)}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    r.pts.forEach((p,i)=>{const last=i===r.pts.length-1;
+      g+=`<circle cx="${X(p.date).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="${last?4:2.8}" fill="${last?col:"var(--surface)"}" stroke="${col}" stroke-width="1.8" data-rk="${k}" data-ri="${i}"/>`;});
+    const l=r.pts[r.pts.length-1];
+    ends.push({x:X(l.date)+7,y:Y(l.v),col,txt:fmt(l.v)});});
+  ends.sort((a,b)=>a.y-b.y);
+  for(let i=1;i<ends.length;i++)
+    if(ends[i].y-ends[i-1].y<11)ends[i].y=ends[i-1].y+11;      // never let them collide
+  ends.forEach(e=>{g+=`<text class="axis-l" x="${Math.min(e.x,W-4).toFixed(1)}" y="${(e.y+3.5).toFixed(1)}" `+
+    `fill="${e.col}" style="font-weight:700" text-anchor="${e.x>W-34?"end":"start"}">${e.txt}</text>`;});
+  svg.innerHTML=g;
+  $("rmLegend").innerHTML=rows.map((r,k)=>
+    `<span class="lg"><span class="sw" style="background:var(--m-${(k%9)+1})"></span>${r.en}</span>`).join("");
+  const tot=rows.map(r=>{const v=r.pts.map(p=>p.v);return v[v.length-1]/v[0]-1;});
+  const avg=tot.reduce((a,b)=>a+b,0)/tot.length*100;
+  $("rmCap").textContent=`${rows.length} exercise${rows.length===1?"":"s"} \u00b7 ${dates.length} sessions \u00b7 `+
+    `average change ${avg>=0?"+":""}${fmt(avg)}% since each one's first logged session. Values in kg.`;
+  svg.querySelectorAll("[data-rk]").forEach(c=>{
+    c.onmouseenter=c.ontouchstart=()=>{const r=rows[+c.dataset.rk],p=r.pts[+c.dataset.ri],tip=$("rmTip");
+      tip.innerHTML=`<b>${r.en}</b><div class="big">${fmt(p.v)} kg</div><div style="color:var(--ink2)">${shortDate(p.date)}</div>`;
+      const rc=svg.getBoundingClientRect();tip.style.opacity=1;
+      tip.style.left=Math.max(80,Math.min(rc.width-80,(+c.getAttribute("cx"))*(rc.width/W)))+"px";
+      tip.style.top=Math.max(0,(+c.getAttribute("cy"))*(rc.height/H)-tip.offsetHeight-10)+"px";};
+    c.onmouseleave=()=>{$("rmTip").style.opacity=0;};});
+}
 /* ===================== radar: the selected week =====================
    One shared scale across all spokes, so the shape answers "where did this
    week's work go", with the previous week dashed behind it.              */
@@ -968,7 +1159,7 @@ function drawRadar(){
    Copyright (c) 2026 Plexa (https://www.plexapro.com). Their 42 body parts are
    remapped onto the 18 regions of muscle_groups.md; the deltoid and upper-back
    polygons are split into their heads, and the rotator cuff is added. */
-const BODYVIEW={front:[["chest","51.8,41.6 51,55.1 58,58 67.8,55.5 70.6,47.3 62,41.6"],["chest","29.8,46.5 31.4,55.5 40.8,58 48.2,55.1 47.8,42 37.6,42"],["abs","56.3,59.2 58,64.1 58.4,78 58.4,92.7 56.3,98.4 55.1,104.1 51.4,107.8 51,84.5 50.6,67.3 51,57.1"],["abs","43.7,58.8 48.6,57.1 49,67.3 48.6,84.5 48.2,107.3 44.5,103.7 40.8,91.4 40.8,78.4 41.2,64.5"],["obliques","68.6,63.3 67.3,57.1 58.8,59.6 60,64.1 60.4,83.3 65.7,78.8 66.5,69.8"],["obliques","33.9,78.4 33.1,71.8 31,63.3 32.2,57.1 40.8,59.2 39.2,63.3 39.2,83.7"],["biceps","16.7,68.2 18,71.4 22.9,66.1 29,53.9 27.8,49.4 20.4,55.9"],["biceps","71.4,49.4 70.2,54.7 76.3,66.1 81.6,71.8 82.9,69 78.8,55.5"],["forearms","6.1,88.6 10.2,75.1 14.7,70.2 16.3,74.3 19.2,73.5 4.5,97.6 0,100"],["forearms","84.5,69.8 83.3,73.5 80,73.1 95.1,98.4 100,100.4 93.5,89.4 89.8,76.3"],["forearms","77.6,72.2 77.6,77.6 80.4,84.1 85.3,89.8 92.2,101.2 94.7,99.6"],["forearms","6.9,101.2 13.5,90.6 18.8,84.1 21.6,77.1 21.2,71.8 4.9,98.8"],["quads","34.7,98.8 37.1,108.2 37.1,127.8 34.3,137.1 31,132.7 29.4,120 28.2,111.4 29.4,100.8 32.2,94.7"],["quads","63.3,105.7 64.5,100 66.9,94.7 70.2,101.2 71,111.8 68.2,133.1 65.3,137.6 62.4,128.6 62,111.4"],["quads","38.8,129.4 38.4,112.2 41.2,118.4 44.5,129.4 42.9,135.1 40,146.1 36.3,146.5 35.5,140"],["quads","59.6,145.7 55.5,129 60.8,113.9 61.2,130.2 64.1,139.6 62.9,146.5"],["quads","32.7,138.4 26.5,145.7 25.7,136.7 25.7,127.3 26.9,114.3 29.4,133.5"],["quads","71.8,113.1 73.9,124.1 73.9,140.4 72.7,145.7 66.5,138.4 70.2,133.5"],["delt_side","78.4,53.1 79.6,47.8 79.2,41.2 75.9,38 74.9,37.6 74.9,50.2"],["delt_side","23.9,50.9 21.2,53.1 20,47.8 20.4,40.8 23.9,37.7"],["delt_front","74.9,37.6 71,36.3 72.2,42.9 71.4,47.3 74.9,50.2"],["delt_front","28.2,47.3 23.9,50.9 23.9,37.7 24.5,37.1 28.6,37.1 26.9,43.3"],["_","42.4,2.9 40,11.8 42,19.6 46.1,23.3 49.8,25.3 54.7,22.4 57.6,19.2 59.2,10.2 57.1,2.4 49.8,0"],["_","55.5,23.7 50.6,33.5 50.6,39.2 61.6,40 70.6,44.9 69.4,36.7 63.3,35.1 58.4,30.6"],["_","29,44.9 30.2,37.1 36.3,35.1 41.2,30.2 44.5,24.5 49,33.9 48.6,39.2 38,39.6"],["_","33.9,140 34.7,143.3 35.5,147.3 36.3,151 35.1,156.7 29.8,156.7 27.3,152.7 27.3,147.3 30.2,144.1"],["_","65.7,140 72.2,147.8 72.2,152.2 69.8,157.1 64.9,156.7 62.9,151"],["_","72.7,195.1 69.8,159.2 65.3,158.4 64.1,162.4 64.1,165.3 65.7,177.1"],["_","71.4,160.4 73.5,153.5 76.7,161.2 79.6,167.8 78.4,187.8 79.6,195.5 74.7,195.5"],["_","24.9,194.7 27.8,164.9 28.2,160.4 26.1,154.3 24.9,157.6 22.4,161.6 20.8,167.8 22,188.2 20.8,195.5"],["_","35.5,158.4 35.9,162.4 35.9,166.9 35.1,172.2 35.1,176.7 32.2,182 30.6,187.3 26.9,194.7 27.3,187.8 28.2,180.4 28.6,175.5 29,169.8 29.8,164.1 30.2,158.8"],["_","71.5,199.5 72.7,196.8 79.6,196.8 80.5,199.5 79.2,202.5 76.5,204.5 73.2,204.5 71.8,202.5"],["_","19,199.5 20.8,196.8 26.9,196.8 28.5,199.5 27.2,202.5 24,204.5 21.5,204.5 20,202.5"],["_","52.7,110.2 54.3,124.9 60,110.2 62,100 64.9,94.3 60,92.7 56.7,104.5"],["_","47.8,110.6 44.9,125.3 42,115.9 40.4,113.1 39.6,107.3 38,102.4 34.7,93.9 39.6,92.2 41.6,99.2 43.7,105.3"]],back:[["traps","44.7,21.7 47.7,21.7 47.2,38.3 47.7,64.7 38.3,53.2 35.3,40.9 31.1,36.6 39.1,33.2 43.8,27.2"],["traps","52.3,21.7 55.7,21.7 56.6,27.2 60.9,32.8 68.9,36.6 64.7,40.4 61.7,53.2 52.3,64.7 53.2,38.3"],["lowerback","47.7,72.8 34.5,77 35.3,83.4 49.4,102.1 46.8,83"],["lowerback","52.3,72.8 65.5,77 64.7,83.4 50.6,102.1 53.2,83.8"],["triceps","26.8,49.8 17.9,55.7 14.5,72.3 16.6,81.7 21.7,63.8 26.8,55.7"],["triceps","73.6,50.2 82.1,55.7 86,73.2 83.4,82.1 77.9,63 73.2,55.7"],["triceps","26.8,58.3 26.8,68.5 23,75.3 19.1,77.4 22.6,65.5"],["triceps","72.8,58.3 77,64.7 80.4,77.4 76.6,75.3 72.8,68.9"],["forearms","86.4,75.7 91.1,83.4 93.2,94 100,106.4 96.2,104.3 88.1,89.4 84.3,83.8"],["forearms","13.6,75.7 8.9,83.8 6.8,93.6 0,106.4 3.8,104.3 12.3,88.5 15.7,83"],["forearms","81.3,79.6 77.4,77.9 79.1,84.7 91.1,103.8 93.2,108.9 94.5,104.7"],["forearms","18.7,79.6 22.1,77.9 20.9,84.3 9.4,103 6.8,108.5 5.1,104.7"],["glutes","44.7,99.6 30.2,108.5 29.8,118.7 31.5,126 47.2,121.3 49.4,114.9"],["glutes","55.3,99.1 51.1,114.5 52.3,120.9 68.1,126 69.8,119.1 69.4,108.5"],["hams","28.9,122.1 31.1,129.4 36.6,126 35.3,135.3 34.5,150.2 29.4,158.3 28.9,146.8 27.7,141.3 27.2,131.5"],["hams","71.5,121.7 69.4,128.9 63.8,126 65.5,136.6 66.4,150.2 71.1,158.3 71.5,147.7 72.8,142.1 73.6,131.9"],["hams","38.7,125.5 44.3,146 40.4,166.8 36.2,152.8 37,135.3"],["hams","61.7,125.5 63.4,136.2 64.3,153.2 60,166.8 56.2,146.4"],["calves","29.4,160.4 28.5,167.2 24.7,179.6 23.8,192.8 25.5,197 28.5,193.2 29.8,180 31.9,171.1 31.9,166.8"],["calves","37.4,165.1 35.3,167.7 33.2,171.9 31.1,180.4 30.2,191.9 34,200 38.7,190.6 39.1,168.9"],["calves","63,165.1 61.3,168.5 61.7,190.6 66.4,199.6 70.6,191.9 68.9,179.6 66.8,170.2"],["calves","70.6,160.4 72.3,168.5 75.7,179.1 76.6,192.8 74.5,196.6 72.3,193.6 70.6,179.6 68.1,168.1"],["calves","28.5,195.7 30.2,195.7 33.6,201.7 30.6,220 28.5,213.6 26.8,198.3"],["calves","69.8,195.7 71.9,195.7 73.6,198.3 71.9,213.2 70.2,219.6 67.2,202.1"],["delt_side","22.8,39.3 17.4,44.3 18.3,53.6 22.8,50.4"],["delt_side","76.2,38.8 78.3,39.6 82.6,44.7 81.7,53.6 76.2,49.9"],["delt_rear","29.4,37 23,39.1 22.8,39.3 22.8,50.4 24.3,49.4 27.2,46.4"],["delt_rear","71.1,37 76.2,38.8 76.2,49.9 74.9,48.9 72.3,45.1"],["lats","31.1,38.7 28.1,48.9 28.5,55.3 34,75.3 40,73.4 40,57.9 36.6,54 33.6,41.3"],["lats","68.9,38.7 71.9,49.4 71.5,56.2 66,75.3 64.6,74.9 64.6,49.2 66.4,41.7"],["midback","40,73.4 47.2,71.1 47.2,66.4 40,57.9"],["midback","64.6,74.9 52.8,71.1 52.8,66.4 63.4,54.5 64.6,49.2"],["_","50.6,0 46,0.9 40.9,5.5 40.4,12.8 45.1,20 55.7,20 59.1,13.6 59.6,4.7 55.7,1.3"],["_","34.5,153.2 31.1,159.1 33.6,166.4 37.4,162.6"],["_","66.4,153.6 63,163 66.8,166.4 69.4,159.1"],["_","48.1,123 44.7,123 41.3,125.5 45.1,144.3 48.5,135.7 48.9,129.4"],["_","51.9,122.6 55.7,123.4 59.1,126 54.9,144.3 51.9,136.2 51.1,129.4"],["rotator","40.9,52.5 40.6,53.6 39.9,54.6 38.7,55.3 37.3,55.7 35.7,55.7 34.3,55.3 33.1,54.6 32.4,53.6 32.1,52.5 32.4,51.4 33.1,50.4 34.3,49.7 35.7,49.3 37.3,49.3 38.7,49.7 39.9,50.4 40.6,51.4"],["rotator","67.9,52.5 67.6,53.6 66.9,54.6 65.7,55.3 64.3,55.7 62.7,55.7 61.3,55.3 60.1,54.6 59.4,53.6 59.1,52.5 59.4,51.4 60.1,50.4 61.3,49.7 62.7,49.3 64.3,49.3 65.7,49.7 66.9,50.4 67.6,51.4"]]};
+const BODYVIEW={front:[["chest_up","51.8,41.6 51.5,47.2 70.4,47.2 62,41.6"],["chest_up","29.8,46.5 30,47.5 47.9,47.5 47.8,42 37.6,42"],["chest_mid","51.5,47.2 51.2,52.6 68.8,52.6 70.6,47.3 70.4,47.2"],["chest_mid","30,47.5 30.9,52.7 48.1,52.7 47.9,47.5"],["chest_low","51.2,52.6 51,55.1 58,58 67.8,55.5 68.8,52.6"],["chest_low","30.9,52.7 31.4,55.5 40.8,58 48.2,55.1 48.1,52.7"],["abs_up","56.3,59.2 58,64.1 58.4,78 58.4,82.4 51,82.4 50.6,67.3 51,57.1"],["abs_up","43.7,58.8 48.6,57.1 49,67.3 48.6,82.2 40.8,82.2 40.8,78.4 41.2,64.5"],["abs_low","58.4,82.4 58.4,92.7 56.3,98.4 55.1,104.1 51.4,107.8 51,84.5 51,82.4"],["abs_low","48.6,82.2 48.6,84.5 48.2,107.3 44.5,103.7 40.8,91.4 40.8,82.2"],["obliques","68.6,63.3 67.3,57.1 58.8,59.6 60,64.1 60.4,83.3 65.7,78.8 66.5,69.8"],["obliques","33.9,78.4 33.1,71.8 31,63.3 32.2,57.1 40.8,59.2 39.2,63.3 39.2,83.7"],["bi_long","23.3,65.3 23.3,65.3 23.3,53.4 20.4,55.9 17.6,65.3"],["bi_long","76,65.5 76,65.6 81.8,65.6 78.8,55.5 76,53.2"],["bi_short","23.3,65.3 29,53.9 27.8,49.4 23.3,53.4"],["bi_short","71.4,49.4 70.2,54.7 76,65.5 76,53.2"],["brachialis","16.7,68.2 18,71.4 22.9,66.1 23.3,65.3 17.6,65.3"],["brachialis","76,65.6 76.3,66.1 81.6,71.8 82.9,69 81.8,65.6"],["fore_flex","6.1,88.6 10.2,75.1 14.7,70.2 16.3,74.3 19.2,73.5 4.5,97.6 0,100"],["fore_flex","84.5,69.8 83.3,73.5 80,73.1 95.1,98.4 100,100.4 93.5,89.4 89.8,76.3"],["fore_flex","77.6,72.2 77.6,77.6 80.4,84.1 85.3,89.8 92.2,101.2 94.7,99.6"],["fore_flex","6.9,101.2 13.5,90.6 18.8,84.1 21.6,77.1 21.2,71.8 4.9,98.8"],["quad_vl","31.2,132.8 31,132.7 29.4,120 28.2,111.4 29.4,100.8 31.2,97"],["quad_vl","65,98.8 66.9,94.7 70.2,101.2 71,111.8 68.2,133.1 65.3,137.6 65,136.7"],["quad_vl","38.5,118 38.4,112.2 38.5,112.5 38.5,146.3 36.3,146.5 35.5,140 38.5,130.3"],["quad_vl","59.6,145.7 58.4,140.7 58.4,120.8 60.8,113.9 61.2,130.2 64.1,139.6 62.9,146.5"],["quad_vl","28,143.9 26.5,145.7 25.7,136.7 25.7,127.3 26.9,114.3 28,122.8"],["quad_vl","71.8,113.1 73.9,124.1 73.9,140.4 72.7,145.7 69,141.3 69,135.1 70.2,133.5"],["quad_rf","34.1,137 31.2,132.8 31.2,97 32.2,94.7 34.1,97.9"],["quad_rf","63.5,104.4 64.5,100 65,98.8 65,136.7 63.5,132"],["quad_rf","38.8,129.4 38.5,118 38.5,112.5 41.2,118.4 41.5,119.3 41.5,140.3 40,146.1 38.5,146.3 38.5,130.3"],["quad_rf","58.4,140.7 56.9,134.8 56.9,124.9 58.4,120.8"],["quad_rf","30.3,141.1 28,143.9 28,122.8 29.4,133.5 30.3,134.9"],["quad_rf","69,141.3 67.8,139.8 67.8,136.7 69,135.1"],["quad_vm","34.7,98.8 37.1,108.2 37.1,127.8 34.3,137.1 34.1,137 34.1,97.9"],["quad_vm","63.3,105.7 63.5,104.4 63.5,132 62.4,128.6 62,111.4"],["quad_vm","41.5,119.3 44.5,129.4 42.9,135.1 41.5,140.3"],["quad_vm","56.9,134.8 55.5,129 56.9,124.9"],["quad_vm","32.7,138.4 30.3,141.1 30.3,134.9"],["quad_vm","67.8,139.8 66.5,138.4 67.8,136.7"],["delt_side","78.4,53.1 79.6,47.8 79.2,41.2 75.9,38 74.9,37.6 74.9,50.2"],["delt_side","23.9,50.9 21.2,53.1 20,47.8 20.4,40.8 23.9,37.7"],["delt_front","74.9,37.6 71,36.3 72.2,42.9 71.4,47.3 74.9,50.2"],["delt_front","28.2,47.3 23.9,50.9 23.9,37.7 24.5,37.1 28.6,37.1 26.9,43.3"],["_","42.4,2.9 40,11.8 42,19.6 46.1,23.3 49.8,25.3 54.7,22.4 57.6,19.2 59.2,10.2 57.1,2.4 49.8,0"],["_","55.5,23.7 50.6,33.5 50.6,39.2 61.6,40 70.6,44.9 69.4,36.7 63.3,35.1 58.4,30.6"],["_","29,44.9 30.2,37.1 36.3,35.1 41.2,30.2 44.5,24.5 49,33.9 48.6,39.2 38,39.6"],["_","33.9,140 34.7,143.3 35.5,147.3 36.3,151 35.1,156.7 29.8,156.7 27.3,152.7 27.3,147.3 30.2,144.1"],["_","65.7,140 72.2,147.8 72.2,152.2 69.8,157.1 64.9,156.7 62.9,151"],["_","72.7,195.1 69.8,159.2 65.3,158.4 64.1,162.4 64.1,165.3 65.7,177.1"],["_","71.4,160.4 73.5,153.5 76.7,161.2 79.6,167.8 78.4,187.8 79.6,195.5 74.7,195.5"],["_","24.9,194.7 27.8,164.9 28.2,160.4 26.1,154.3 24.9,157.6 22.4,161.6 20.8,167.8 22,188.2 20.8,195.5"],["_","35.5,158.4 35.9,162.4 35.9,166.9 35.1,172.2 35.1,176.7 32.2,182 30.6,187.3 26.9,194.7 27.3,187.8 28.2,180.4 28.6,175.5 29,169.8 29.8,164.1 30.2,158.8"],["_","71.5,199.5 72.7,196.8 79.6,196.8 80.5,199.5 79.2,202.5 76.5,204.5 73.2,204.5 71.8,202.5"],["_","19,199.5 20.8,196.8 26.9,196.8 28.5,199.5 27.2,202.5 24,204.5 21.5,204.5 20,202.5"],["_","52.7,110.2 54.3,124.9 60,110.2 62,100 64.9,94.3 60,92.7 56.7,104.5"],["_","47.8,110.6 44.9,125.3 42,115.9 40.4,113.1 39.6,107.3 38,102.4 34.7,93.9 39.6,92.2 41.6,99.2 43.7,105.3"]],back:[["traps_up","44.7,21.7 47.7,21.7 47.2,38 32.5,38 31.1,36.6 39.1,33.2 43.8,27.2"],["traps_up","52.3,21.7 55.7,21.7 56.6,27.2 60.9,32.8 68.9,36.6 67.3,38 53.2,38"],["traps_mid","47.2,38 47.2,38.3 47.5,51.8 38,51.8 35.3,40.9 32.5,38"],["traps_mid","67.3,38 64.7,40.4 62,51.8 52.8,51.8 53.2,38.3 53.2,38"],["traps_low","47.5,51.8 47.7,64.7 38.3,53.2 38,51.8"],["traps_low","62,51.8 61.7,53.2 52.3,64.7 52.8,51.8"],["erectors","47.7,72.8 34.5,77 35.3,83.4 49.4,102.1 46.8,83"],["erectors","52.3,72.8 65.5,77 64.7,83.4 50.6,102.1 53.2,83.8"],["tri_lat","20.7,53.9 17.9,55.7 14.5,72.1 19.3,72.1 20.7,67.5"],["tri_lat","79.5,54 82.1,55.7 85.8,72.6 80.6,72.6 79.5,68.6"],["tri_lat","23.8,71.7 20.8,71.7 22.6,65.5 23.8,63.4"],["tri_lat","75.8,62.9 77,64.7 78.9,71.7 75.8,71.7"],["tri_long","26.8,49.8 20.7,53.9 20.7,67.5 21.7,63.8 26.8,55.7"],["tri_long","73.6,50.2 79.5,54 79.5,68.6 77.9,63 73.2,55.7"],["tri_long","26.8,58.3 26.8,68.5 25,71.7 23.8,71.7 23.8,63.4"],["tri_long","72.8,58.3 75.8,62.9 75.8,71.7 74.4,71.7 72.8,68.9"],["tri_med","14.5,72.1 14.5,72.3 16.6,81.7 19.3,72.1"],["tri_med","85.8,72.6 86,73.2 83.4,82.1 80.6,72.6"],["tri_med","25,71.7 23,75.3 19.1,77.4 20.8,71.7"],["tri_med","78.9,71.7 80.4,77.4 76.6,75.3 74.4,71.7"],["fore_ext","86.4,75.7 91.1,83.4 93.2,94 100,106.4 96.2,104.3 88.1,89.4 84.3,83.8"],["fore_ext","13.6,75.7 8.9,83.8 6.8,93.6 0,106.4 3.8,104.3 12.3,88.5 15.7,83"],["fore_ext","81.3,79.6 77.4,77.9 79.1,84.7 91.1,103.8 93.2,108.9 94.5,104.7"],["fore_ext","18.7,79.6 22.1,77.9 20.9,84.3 9.4,103 6.8,108.5 5.1,104.7"],["glute_med","38.1,103.7 30.2,108.5 30.2,109.6 38.1,109.6"],["glute_med","60.1,109.3 69.4,109.3 69.4,108.5 60.1,102.3"],["glute_max","44.7,99.6 38.1,103.7 38.1,109.6 47.7,109.6"],["glute_max","55.3,99.1 52.5,109.3 60.1,109.3 60.1,102.3"],["glute_max","30.2,109.6 29.8,118.7 31.5,126 47.2,121.3 49.4,114.9 47.7,109.6"],["glute_max","52.5,109.3 51.1,114.5 52.3,120.9 68.1,126 69.8,119.1 69.4,109.3"],["ham_bf","28.9,122.1 31.1,129.4 31.9,128.8 31.9,154.3 29.4,158.3 28.9,146.8 27.7,141.3 27.2,131.5"],["ham_bf","71.5,121.7 69.4,128.9 68.7,128.6 68.7,154.3 71.1,158.3 71.5,147.7 72.8,142.1 73.6,131.9"],["ham_bf","38.7,125.5 40.2,131 40.2,166.1 36.2,152.8 37,135.3"],["ham_bf","61.7,125.5 63.4,136.2 64.3,153.2 60.2,166.1 60.2,131.1"],["ham_med","31.9,128.8 36.6,126 35.3,135.3 34.5,150.2 31.9,154.3"],["ham_med","68.7,128.6 63.8,126 65.5,136.6 66.4,150.2 68.7,154.3"],["ham_med","40.2,131 44.3,146 40.4,166.8 40.2,166.1"],["ham_med","60.2,166.1 60,166.8 56.2,146.4 60.2,131.1"],["gastroc","29.4,160.4 28.5,167.2 24.7,179.6 23.8,192.8 25.5,197 28.5,193.2 29.8,180 31.9,171.1 31.9,166.8"],["gastroc","37.4,165.1 35.3,167.7 33.2,171.9 31.1,180.4 30.2,191.9 34,200 38.7,190.6 39.1,168.9"],["gastroc","63,165.1 61.3,168.5 61.7,190.6 66.4,199.6 70.6,191.9 68.9,179.6 66.8,170.2"],["gastroc","70.6,160.4 72.3,168.5 75.7,179.1 76.6,192.8 74.5,196.6 72.3,193.6 70.6,179.6 68.1,168.1"],["soleus","28.5,195.7 30.2,195.7 33.6,201.7 30.6,220 28.5,213.6 26.8,198.3"],["soleus","69.8,195.7 71.9,195.7 73.6,198.3 71.9,213.2 70.2,219.6 67.2,202.1"],["delt_side","22.8,39.3 17.4,44.3 18.3,53.6 22.8,50.4"],["delt_side","76.2,38.8 78.3,39.6 82.6,44.7 81.7,53.6 76.2,49.9"],["delt_rear","29.4,37 23,39.1 22.8,39.3 22.8,50.4 24.3,49.4 27.2,46.4"],["delt_rear","71.1,37 76.2,38.8 76.2,49.9 74.9,48.9 72.3,45.1"],["lats","31.1,38.7 28.1,48.9 28.5,55.3 34,75.3 40,73.4 40,57.9 36.6,54 33.6,41.3"],["lats","68.9,38.7 71.9,49.4 71.5,56.2 66,75.3 64.6,74.9 64.6,49.2 66.4,41.7"],["rhomboids","40,73.4 47.2,71.1 47.2,66.4 40,57.9"],["rhomboids","64.6,74.9 52.8,71.1 52.8,66.4 63.4,54.5 64.6,49.2"],["rotator","31.5,48.5 40.5,50.2 39.5,57 32.5,55.5"],["rotator","68.5,48.5 59.5,50.2 60.5,57 67.5,55.5"],["_","50.6,0 46,0.9 40.9,5.5 40.4,12.8 45.1,20 55.7,20 59.1,13.6 59.6,4.7 55.7,1.3"],["_","34.5,153.2 31.1,159.1 33.6,166.4 37.4,162.6"],["_","66.4,153.6 63,163 66.8,166.4 69.4,159.1"],["_","48.1,123 44.7,123 41.3,125.5 45.1,144.3 48.5,135.7 48.9,129.4"],["_","51.9,122.6 55.7,123.4 59.1,126 54.9,144.3 51.9,136.2 51.1,129.4"]]};
 const BODYW=100,BODYH=200;
 function bodyShapes(ox,back){
   return (back?BODYVIEW.back:BODYVIEW.front).map(r=>({k:r[0],t:"p",
@@ -985,6 +1176,26 @@ function heatColor(t){const st=HEATSTOPS();
   for(let i=1;i<st.length;i++)if(t<=st[i][0]){const a=st[i-1],b=st[i];
     return mixHex(a[1],b[1],(t-a[0])/((b[0]-a[0])||1));}
   return st[st.length-1][1];}
+/* Chaikin corner cutting: rounds the straight cuts between muscle heads into
+   bellies while keeping the area, which midpoint smoothing throws away. */
+function chaikin(pts,it){
+  let p=pts.map(q=>[+q[0],+q[1]]);
+  for(let k=0;k<it;k++){
+    const o=[];
+    for(let i=0;i<p.length;i++){
+      const a=p[i],b=p[(i+1)%p.length];
+      o.push([a[0]*.88+b[0]*.12,a[1]*.88+b[1]*.12],
+             [a[0]*.12+b[0]*.88,a[1]*.12+b[1]*.88]);
+    }
+    p=o;
+  }
+  return p;
+}
+function smoothPoly(pts){
+  if(pts.length<3)return "";
+  const p=chaikin(pts,1);
+  return "M"+p.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z";
+}
 function heatData(){
   const acc={};
   const add=w=>Object.keys(w.reg||{}).forEach(k=>{const r=acc[k]=acc[k]||{volume:0,sets:0};
@@ -1006,22 +1217,35 @@ function drawBody(){
       const v=on?((data[sh.k]||{})[key]||0):0;
       const fill=on?heatColor(v/max):"";
       if(sh.t==="l"){g+=`<path d="${sh.d}" class="tendon"/>`;return;}
-      const attr=on?` class="mus" fill="${fill}" data-k="${sh.k}" data-v="${v}"`:' class="bodyfig"';
+      const dim=on&&hlGroup!=="All"&&(HLGROUP[hlGroup]||[]).indexOf(sh.k)<0;
+      const attr=on?` class="mus${dim?" dim":""}" fill="${fill}" data-k="${sh.k}" data-v="${v}"`:' class="bodyfig"';
       const rot=sh.rot?` transform="rotate(${sh.rot} ${sh.x} ${sh.y})"`:"";
       if(sh.t==="e")g+=`<ellipse cx="${sh.x}" cy="${sh.y}" rx="${sh.rx}" ry="${sh.ry}"${attr}${rot}/>`;
       else if(sh.t==="d")g+=`<path d="${sh.d}"${attr}/>`;
       else if(sh.t==="r")g+=`<rect x="${sh.x}" y="${sh.y}" width="${sh.w}" height="${sh.h}" rx="${sh.r}"${attr}/>`;
-      else g+=`<polygon points="${sh.pts.map(p=>p.join(",")).join(" ")}"${attr}/>`;});
+      else g+=`<path d="${smoothPoly(sh.pts)}"${attr}/>`;});
     g+=`<text class="bodylbl" x="${cx+BODYW/2}" y="${H-5}" text-anchor="middle">${name}</text>`;});
   svg.innerHTML=g;
   const st=HEATSTOPS();
   $("scaleBar").style.background="linear-gradient(to right,"+st.map(x=>`${x[1]} ${x[0]*100}%`).join(",")+")";
   $("scaleHi").textContent=fmt0(max)+(key==="volume"?" kg":" sets");
+  const unit=key==="volume"?" kg":" sets";
+  $("musTable").innerHTML=
+    `<thead><tr><th>Muscle</th><th>Anatomy</th><th class="n">${key==="volume"?"Tonnage":"Sets"}</th><th class="n">Share</th></tr></thead><tbody>`+
+    (CAT.regions||[]).map(r=>({r,v:(data[r.key]||{})[key]||0}))
+      .sort((a,b)=>b.v-a.v)
+      .map(({r,v})=>`<tr><td><span class="sw2" style="background:${heatColor(v/max)}"></span>${r.sub||r.key}
+        <div class="sub">${r.parent||r.group} \u00b7 ${r.group}</div></td>
+        <td class="sub">${(r.muscles||[]).join(", ")}</td>
+        <td class="n">${v>0?fmt0(v)+unit:"\u2014"}</td>
+        <td class="n">${v>0?fmt0(v/max*100)+"%":"\u2014"}</td></tr>`).join("")+"</tbody>";
+  $("hlGroup").value=hlGroup;
   const per=heatPeriod==="all"?"all "+AGG.wk.length+" weeks":(AGG.wk.find(x=>x.ws===selWeek)||{}).label||"";
   const untouched=(CAT.regions||[]).filter(r=>!((data[r.key]||{})[key]>0)).map(r=>r.sub||r.key);
   $("bodyCap").innerHTML=`Shaded by ${key==="volume"?"tonnage (weight \u00d7 reps)":"hard sets"} over ${per}, `+
     `split across each exercise's muscles by how much work they take \u2014 a prime mover counts 1, assisting muscles less. `+
-    (untouched.length?`Untouched (deep purple): ${untouched.join(", ")}.`:"Every tracked muscle got work.");
+    (untouched.length?`Untouched (deep purple): ${untouched.join(", ")}.`:"Every tracked muscle got work.")+
+    (hlGroup==="All"?"":` Showing ${hlGroup}; the rest is dimmed.`);
   svg.querySelectorAll("[data-k]").forEach(el=>{
     el.onmouseenter=el.ontouchstart=()=>{
       svg.querySelectorAll('[data-k="'+el.dataset.k+'"]').forEach(x=>x.classList.add("lit"));
@@ -1185,8 +1409,8 @@ function fillExerciseForm(en){const e=en?catOf(en):null;
   $("exErr").textContent="";$("exDelBtn").hidden=!en;
   const mg=en?musclesOf(en):null,mh=$("exMus");
   if(mh)mh.innerHTML=!en?"Heat-map regions are derived from the primary muscle group until the exercise is logged with its own mapping."
-    :`Heat map: ${Object.keys(mg).sort((a,b)=>mg[b]-mg[a]).map(k=>
-        `${regionMeta(k).sub||k} <span style="color:var(--muted)">${Math.round(mg[k]*100)}%</span>`).join(" \u00b7 ")||"none"}`;
+    :`Heat map: ${musRollup(en).map(x=>
+        `${x.parent}${x.head?" ("+x.head+")":""} <span style="color:var(--muted)">${Math.round(x.sum*100)}%</span>`).join(" \u00b7 ")||"none"}`;
 }
 function saveExercise(){
   const editing=$("exEditing").value,name=($("exName").value||"").trim();

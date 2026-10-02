@@ -1,6 +1,6 @@
 {
  "athlete": "Alex",
- "generated": "2026-09-25T22:05:40.054Z",
+ "generated": "2026-10-01T10:59:12.203Z",
  "unit": "kg",
  "split": "A / B / C / D + U",
  "sessions": [
@@ -158,7 +158,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": null,
      "sets": [
@@ -621,7 +621,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "note": null,
      "sets": [
@@ -912,7 +912,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": null,
      "sets": [
@@ -1377,7 +1377,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "note": null,
      "sets": [
@@ -1566,7 +1566,7 @@
      ]
     },
     {
-     "en": "Concentration Hammer Curl",
+     "en": "Dumbbell Hammer Curl",
      "raw": "Rosca martelo concentrada",
      "note": null,
      "sets": [
@@ -1600,7 +1600,7 @@
      ]
     },
     {
-     "en": "Close-Grip Bench Press",
+     "en": "Barbell Close-Grip Bench Press",
      "raw": "Supino fechado",
      "note": null,
      "sets": [
@@ -1634,7 +1634,7 @@
      ]
     },
     {
-     "en": "Unilateral Triceps Extension",
+     "en": "Dumbbell Unilateral Triceps Extension",
      "raw": "Triceps interno uni.",
      "note": null,
      "sets": [
@@ -1857,7 +1857,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": null,
      "sets": [
@@ -2286,7 +2286,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "note": null,
      "sets": [
@@ -2466,7 +2466,7 @@
      ]
     },
     {
-     "en": "Close-Grip Bench Press",
+     "en": "Barbell Close-Grip Bench Press",
      "raw": "Supino fechado",
      "note": null,
      "sets": [
@@ -2500,7 +2500,7 @@
      ]
     },
     {
-     "en": "Single-Arm Biceps Curl (behind)",
+     "en": "Cable Single-Arm Biceps Curl (behind)",
      "raw": "Biceps unilateral atras",
      "note": null,
      "sets": [
@@ -2739,7 +2739,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": "log incomplete: '13:11:' — 3rd set not recorded",
      "sets": [
@@ -3056,7 +3056,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": null,
      "sets": [
@@ -3280,7 +3280,7 @@
      ]
     },
     {
-     "en": "Stiff-Leg Deadlift",
+     "en": "Barbell Stiff-Leg Deadlift",
      "raw": "Stiff",
      "note": null,
      "sets": [
@@ -3469,7 +3469,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "note": null,
      "sets": [
@@ -3597,7 +3597,7 @@
    },
    "exercises": [
     {
-     "en": "Close-Grip Bench Press",
+     "en": "Barbell Close-Grip Bench Press",
      "raw": "Supino fechado",
      "note": null,
      "sets": [
@@ -3631,7 +3631,7 @@
      ]
     },
     {
-     "en": "Machine Rear Delt Row",
+     "en": "Cable Rear Delt Row",
      "raw": "Delt row machine",
      "note": null,
      "sets": [
@@ -3947,7 +3947,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": null,
      "sets": [
@@ -4214,7 +4214,7 @@
      ]
     },
     {
-     "en": "Stiff-Leg Deadlift",
+     "en": "Barbell Stiff-Leg Deadlift",
      "raw": "Stiff",
      "note": null,
      "sets": [
@@ -4403,7 +4403,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "note": null,
      "sets": [
@@ -4694,7 +4694,7 @@
      ]
     },
     {
-     "en": "Overhead Press",
+     "en": "Barbell Overhead Press",
      "raw": "Overhead press",
      "note": "log incomplete: '10:' — only 1 set recorded",
      "sets": [
@@ -4994,7 +4994,7 @@
      ]
     },
     {
-     "en": "Stiff-Leg Deadlift",
+     "en": "Barbell Stiff-Leg Deadlift",
      "raw": "Stiff",
      "area": "Legs",
      "note": null,
@@ -5189,7 +5189,7 @@
      ]
     },
     {
-     "en": "Cable Row-Pushdown",
+     "en": "Cable Rope Pushdown",
      "raw": "Cable row push down",
      "area": "Triceps",
      "note": null,
@@ -5324,6 +5324,192 @@
        "right": null,
        "weight_raw": "36",
        "reps": 13,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 30,
+   "workout_type": "A",
+   "date": "2026-10-01",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-09-28",
+   "day_of_week": "Thu",
+   "logged_at": "2026-10-01T10:59:12.197Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:02",
+    "time_sec": 302,
+    "distance_km": 0.44,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Bench Press",
+     "raw": "Dumbbell Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 16,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Incline Bench Press",
+     "raw": "Dumbbell Inclined Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Internally Rotated Incline Chest Fly",
+     "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 9,
+       "load_type": "per_side",
+       "left": 9,
+       "right": 9,
+       "weight_raw": "9||9",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 18,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Barbell Close-Grip Bench Press",
+     "raw": "Barbell Close Grip Bench Press",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "16",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rope Triceps Extension (high pulley)",
+     "raw": "Triceps alto corda",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 27.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "27.4",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": 27.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "27.4",
+       "reps": 9,
        "note": null
       }
      ]
