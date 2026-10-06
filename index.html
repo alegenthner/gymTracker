@@ -112,6 +112,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .mus{stroke:var(--musline);stroke-width:.35;cursor:pointer}
 .mus.lit{stroke:var(--ink);stroke-width:.9}
 .mus.dim{opacity:.17}
+.cal{font-variant-numeric:tabular-nums;margin-top:4px}
+.calrow{display:grid;grid-template-columns:34px repeat(7,1fr) 20px;gap:3px;align-items:center;margin-bottom:3px}
+.calhead{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.calw{font-size:10.5px;color:var(--muted);font-weight:700}
+.caln{font-size:10.5px;color:var(--muted);text-align:right}
+.cald{text-align:center}
+.cal1{height:24px;border-radius:6px;background:var(--grid);display:flex;align-items:center;
+ justify-content:center;font-size:11px;font-weight:700;color:transparent}
+.cal1.on{background:var(--series);color:#fff}
 .disc{margin-top:12px}
 .disc summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--ink2);padding:6px 0;
  list-style:none;display:flex;align-items:center;gap:6px}
@@ -286,7 +295,7 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
   </div>
 
   <div class="card">
-    <h2>Week focus</h2>
+    <details class="disc" id="radarDisc"><summary>Week focus (radar)</summary>
     <div class="row">
       <div><label for="wkSel">Week</label><select id="wkSel"></select></div>
     </div>
@@ -303,6 +312,13 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <div class="chartwrap"><svg class="chart" id="radarChart"></svg><div class="tt" id="radarTip"></div></div>
     <div class="legend" id="radarLegend"></div>
     <p class="note" id="radarCap"></p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>Gym days</h2>
+    <div class="cal" id="cal"></div>
+    <p class="note" id="calCap"></p>
   </div>
 
   <div class="card">
@@ -337,7 +353,7 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     </div>
     <div class="legend" id="legend"></div>
     <div class="chartwrap"><svg class="chart" id="barChart"></svg><div class="tt" id="barTip"></div></div>
-    <p class="note">Volume = weight × reps (dumbbells counted per hand, as logged). Bodyweight work carries reps but no tonnage. Hatched bars = weeks with fewer than 4 sessions.</p>
+    <p class="note">Volume = weight × reps (dumbbells counted per hand, as logged). Bodyweight work carries reps but no tonnage. Every ISO week counts the same, however many sessions it held.</p>
   </div>
 </section>
 
@@ -447,6 +463,15 @@ const $=id=>document.getElementById(id);
 const fmt=n=>n==null?"–":(Math.round(n*10)/10).toLocaleString("en-US");
 const fmt0=n=>n==null?"–":Math.round(n).toLocaleString("en-US");
 const todayISO=()=>new Date(new Date().getTime()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+/* ISO 8601 week: Monday start, week 1 is the one holding the first Thursday. */
+function isoWeek(iso){
+  const d=new Date(iso+"T00:00");
+  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));
+  const y=t.getUTCFullYear();
+  const n=Math.ceil(((t-Date.UTC(y,0,1))/864e5+1)/7);
+  return {year:y,week:n,label:"W"+n,full:"W"+n+" \u00b7 "+y};
+}
 function weekStart(iso){const d=new Date(iso+"T00:00");const k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);
   return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);}
 function shortDate(iso){return new Date(iso+"T00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});}
@@ -501,7 +526,26 @@ function switchTab(t){
 function loadLocal(){try{const all=JSON.parse(localStorage.getItem(LS_KEY)||"[]");
     LOCAL=all.filter(s=>s&&s.validated===true);}catch(e){LOCAL=[];}}
 function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(LOCAL));}catch(e){alert("Could not save locally — storage blocked.");}}
-const allSessions=()=>SEED.concat(LOCAL).slice().sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+/* A session is identified by date + workout type. The uploaded workouts.json is
+   the curated copy, so it wins over anything still sitting in local storage; among
+   equals the newest logged_at wins. Without this a session that was logged on the
+   phone AND exported into the seed file gets counted twice. */
+function dedupe(list){
+  const by={};
+  list.forEach(s=>{
+    const k=s.date+"|"+(s.workout_type||"");
+    const cur=by[k];
+    if(!cur){by[k]=s;return;}
+    if(cur._seed!==s._seed){if(s._seed)by[k]=s;return;}      // seed beats local
+    if((s.logged_at||"")>(cur.logged_at||""))by[k]=s;        // else newest wins
+  });
+  return Object.values(by);
+}
+function allSessions(){
+  const tagged=SEED.map(s=>Object.assign({_seed:true},s))
+             .concat(LOCAL.map(s=>Object.assign({_seed:false},s)));
+  return dedupe(tagged).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+}
 
 /* ---- per-exercise history: the last execution (the reference "lap")
    and the best total ever, both used by the F1 colours ---- */
@@ -574,8 +618,10 @@ const regionMeta=k=>(CAT.regions||[]).find(r=>r.key===k)||{key:k,group:k,sub:""}
 
 /* ===================== boot ===================== */
 Promise.all([fetch("./catalog.json").then(r=>r.json()),
-             fetch("./workouts.json").then(r=>r.json()).catch(()=>({sessions:[]}))])
- .then(([cat,wk])=>{SEEDCAT=cat;CAT={areas:cat.areas,machines:cat.machines,exercises:[],templates:[]};
+             fetch("./workouts.json").then(r=>r.json()).catch(()=>({sessions:[]})),
+             fetch("./body.svg").then(r=>r.ok?r.text():null).catch(()=>null)])
+ .then(([cat,wk,bsvg])=>{
+   if(bsvg)BODYSVG=loadBodySVG(bsvg);SEEDCAT=cat;CAT={areas:cat.areas,machines:cat.machines,exercises:[],templates:[]};
    SEED=wk.sessions||[];loadLocal();loadCat();applyCatOverrides();initUI();})
  .catch(()=>{document.querySelector("main").innerHTML=
    '<div class="card"><h2>Could not load data files</h2><p class="hint">Serve this folder over http (GitHub Pages or a local server) — opening index.html directly from disk blocks fetch().</p></div>';});
@@ -960,7 +1006,7 @@ function aggregate(){
     });
   });
   const wk=Object.values(weeks).sort((a,b)=>a.ws<b.ws?-1:1).map((w,i)=>({
-    ...w,label:"W"+(i+1),date_label:shortDate(w.ws),partial:w.n<4}));
+    ...w,...isoWeek(w.ws),date_label:shortDate(w.ws)}));
   const ex=Object.values(exMap).sort((a,b)=>AREAS.indexOf(a.area)-AREAS.indexOf(b.area)||b.pts.length-a.pts.length||a.en.localeCompare(b.en));
   const nSets=S.reduce((t,s)=>t+s.exercises.reduce((u,e)=>u+e.sets.filter(x=>x.reps!=null).length,0),0);
   const vol=ex.reduce((t,e)=>t+e.pts.reduce((u,p)=>u+p.volume,0),0);
@@ -987,19 +1033,49 @@ function renderDash(){
     sel.appendChild(og);});
   const found=AGG.ex.findIndex(e=>e.en===prev);curEx=found>=0?found:Math.max(0,AGG.ex.findIndex(e=>e.pts.length>2));
   sel.value=curEx;
-  $("legend").innerHTML=AREAS.filter(a=>AGG.wk.some(w=>w.by[a])).map(a=>
+  $("legend").innerHTML=AREAS.filter(a=>a!=="Abs"&&AGG.wk.some(w=>w.by[a])).map(a=>
     `<span class="lg"><span class="sw" style="background:${AVAR(a)}"></span>${a}</span>`).join("");
   [...$("volSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===volMode)));
   const wsel=$("wkSel");
   wsel.innerHTML=AGG.wk.slice().reverse().map(w=>
-    `<option value="${w.ws}">${w.label} \u00b7 ${w.date_label}${w.partial?" (partial)":""}</option>`).join("");
+    `<option value="${w.ws}">${w.full} \u00b7 ${w.date_label} \u00b7 ${w.n} session${w.n===1?"":"s"}</option>`).join("");
   if(!AGG.wk.some(w=>w.ws===selWeek))selWeek=(AGG.wk[AGG.wk.length-1]||{}).ws||null;
   wsel.value=selWeek;
   [...$("radarSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.r===radarMode)));
   [...$("radarMetricSeg").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.rm===radarMetric)));
   [...$("heatPeriod").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===heatPeriod)));
   [...$("heatMetric").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.x===heatMetric)));
-  drawLine();drawBars();drawRadar();drawBody();draw1RM();
+  drawLine();drawBars();drawRadar();drawBody();draw1RM();drawCal();
+}
+
+/* ---------- gym days: one row per ISO week, one cell per weekday ---------- */
+function drawCal(){
+  const DOW=["M","T","W","T","F","S","S"];
+  const byDay={};
+  AGG.S.forEach(s=>{(byDay[s.date]=byDay[s.date]||[]).push(s.workout_type||"?");});
+  const weeks=AGG.wk.slice(-14);
+  let h=`<div class="calrow calhead"><span class="calw"></span>`+
+        DOW.map(d=>`<span class="cald">${d}</span>`).join("")+`<span class="caln">n</span></div>`;
+  weeks.forEach(w=>{
+    const mon=new Date(w.ws+"T00:00");
+    let cells="";
+    for(let i=0;i<7;i++){
+      const d=new Date(mon);d.setDate(mon.getDate()+i);
+      const iso=new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+      const t=byDay[iso];
+      cells+=t?`<span class="cal1 on" title="${iso} \u00b7 ${t.join(", ")}">${t[0]}</span>`
+              :`<span class="cal1" title="${iso}"></span>`;
+    }
+    h+=`<div class="calrow"><span class="calw" title="${w.ws}">${w.label}</span>${cells}<span class="caln">${w.n}</span></div>`;
+  });
+  $("cal").innerHTML=h;
+  /* current streak = consecutive ISO weeks, ending with the latest, holding a session */
+  let streak=0;
+  for(let i=AGG.wk.length-1;i>=0;i--){if(AGG.wk[i].n>0)streak++;else break;}
+  const days=Object.keys(byDay).length,best=Math.max(...AGG.wk.map(w=>w.n));
+  const avg=days/(AGG.wk.length||1);
+  $("calCap").textContent=`${days} gym days over ${AGG.wk.length} ISO weeks \u00b7 `+
+    `${fmt(avg)} per week on average, best week ${best} \u00b7 ${streak} week${streak===1?"":"s"} in a row with at least one session.`;
 }
 
 /* ---------- est. 1RM: pick a muscle group, read the curves ---------- */
@@ -1161,6 +1237,29 @@ function drawRadar(){
    polygons are split into their heads, and the rotator cuff is added. */
 const BODYVIEW={front:[["chest_up","51.8,41.6 51.5,47.2 70.4,47.2 62,41.6"],["chest_up","29.8,46.5 30,47.5 47.9,47.5 47.8,42 37.6,42"],["chest_mid","51.5,47.2 51.2,52.6 68.8,52.6 70.6,47.3 70.4,47.2"],["chest_mid","30,47.5 30.9,52.7 48.1,52.7 47.9,47.5"],["chest_low","51.2,52.6 51,55.1 58,58 67.8,55.5 68.8,52.6"],["chest_low","30.9,52.7 31.4,55.5 40.8,58 48.2,55.1 48.1,52.7"],["abs_up","56.3,59.2 58,64.1 58.4,78 58.4,82.4 51,82.4 50.6,67.3 51,57.1"],["abs_up","43.7,58.8 48.6,57.1 49,67.3 48.6,82.2 40.8,82.2 40.8,78.4 41.2,64.5"],["abs_low","58.4,82.4 58.4,92.7 56.3,98.4 55.1,104.1 51.4,107.8 51,84.5 51,82.4"],["abs_low","48.6,82.2 48.6,84.5 48.2,107.3 44.5,103.7 40.8,91.4 40.8,82.2"],["obliques","68.6,63.3 67.3,57.1 58.8,59.6 60,64.1 60.4,83.3 65.7,78.8 66.5,69.8"],["obliques","33.9,78.4 33.1,71.8 31,63.3 32.2,57.1 40.8,59.2 39.2,63.3 39.2,83.7"],["bi_long","23.3,65.3 23.3,65.3 23.3,53.4 20.4,55.9 17.6,65.3"],["bi_long","76,65.5 76,65.6 81.8,65.6 78.8,55.5 76,53.2"],["bi_short","23.3,65.3 29,53.9 27.8,49.4 23.3,53.4"],["bi_short","71.4,49.4 70.2,54.7 76,65.5 76,53.2"],["brachialis","16.7,68.2 18,71.4 22.9,66.1 23.3,65.3 17.6,65.3"],["brachialis","76,65.6 76.3,66.1 81.6,71.8 82.9,69 81.8,65.6"],["fore_flex","6.1,88.6 10.2,75.1 14.7,70.2 16.3,74.3 19.2,73.5 4.5,97.6 0,100"],["fore_flex","84.5,69.8 83.3,73.5 80,73.1 95.1,98.4 100,100.4 93.5,89.4 89.8,76.3"],["fore_flex","77.6,72.2 77.6,77.6 80.4,84.1 85.3,89.8 92.2,101.2 94.7,99.6"],["fore_flex","6.9,101.2 13.5,90.6 18.8,84.1 21.6,77.1 21.2,71.8 4.9,98.8"],["quad_vl","31.2,132.8 31,132.7 29.4,120 28.2,111.4 29.4,100.8 31.2,97"],["quad_vl","65,98.8 66.9,94.7 70.2,101.2 71,111.8 68.2,133.1 65.3,137.6 65,136.7"],["quad_vl","38.5,118 38.4,112.2 38.5,112.5 38.5,146.3 36.3,146.5 35.5,140 38.5,130.3"],["quad_vl","59.6,145.7 58.4,140.7 58.4,120.8 60.8,113.9 61.2,130.2 64.1,139.6 62.9,146.5"],["quad_vl","28,143.9 26.5,145.7 25.7,136.7 25.7,127.3 26.9,114.3 28,122.8"],["quad_vl","71.8,113.1 73.9,124.1 73.9,140.4 72.7,145.7 69,141.3 69,135.1 70.2,133.5"],["quad_rf","34.1,137 31.2,132.8 31.2,97 32.2,94.7 34.1,97.9"],["quad_rf","63.5,104.4 64.5,100 65,98.8 65,136.7 63.5,132"],["quad_rf","38.8,129.4 38.5,118 38.5,112.5 41.2,118.4 41.5,119.3 41.5,140.3 40,146.1 38.5,146.3 38.5,130.3"],["quad_rf","58.4,140.7 56.9,134.8 56.9,124.9 58.4,120.8"],["quad_rf","30.3,141.1 28,143.9 28,122.8 29.4,133.5 30.3,134.9"],["quad_rf","69,141.3 67.8,139.8 67.8,136.7 69,135.1"],["quad_vm","34.7,98.8 37.1,108.2 37.1,127.8 34.3,137.1 34.1,137 34.1,97.9"],["quad_vm","63.3,105.7 63.5,104.4 63.5,132 62.4,128.6 62,111.4"],["quad_vm","41.5,119.3 44.5,129.4 42.9,135.1 41.5,140.3"],["quad_vm","56.9,134.8 55.5,129 56.9,124.9"],["quad_vm","32.7,138.4 30.3,141.1 30.3,134.9"],["quad_vm","67.8,139.8 66.5,138.4 67.8,136.7"],["delt_side","78.4,53.1 79.6,47.8 79.2,41.2 75.9,38 74.9,37.6 74.9,50.2"],["delt_side","23.9,50.9 21.2,53.1 20,47.8 20.4,40.8 23.9,37.7"],["delt_front","74.9,37.6 71,36.3 72.2,42.9 71.4,47.3 74.9,50.2"],["delt_front","28.2,47.3 23.9,50.9 23.9,37.7 24.5,37.1 28.6,37.1 26.9,43.3"],["_","42.4,2.9 40,11.8 42,19.6 46.1,23.3 49.8,25.3 54.7,22.4 57.6,19.2 59.2,10.2 57.1,2.4 49.8,0"],["_","55.5,23.7 50.6,33.5 50.6,39.2 61.6,40 70.6,44.9 69.4,36.7 63.3,35.1 58.4,30.6"],["_","29,44.9 30.2,37.1 36.3,35.1 41.2,30.2 44.5,24.5 49,33.9 48.6,39.2 38,39.6"],["_","33.9,140 34.7,143.3 35.5,147.3 36.3,151 35.1,156.7 29.8,156.7 27.3,152.7 27.3,147.3 30.2,144.1"],["_","65.7,140 72.2,147.8 72.2,152.2 69.8,157.1 64.9,156.7 62.9,151"],["_","72.7,195.1 69.8,159.2 65.3,158.4 64.1,162.4 64.1,165.3 65.7,177.1"],["_","71.4,160.4 73.5,153.5 76.7,161.2 79.6,167.8 78.4,187.8 79.6,195.5 74.7,195.5"],["_","24.9,194.7 27.8,164.9 28.2,160.4 26.1,154.3 24.9,157.6 22.4,161.6 20.8,167.8 22,188.2 20.8,195.5"],["_","35.5,158.4 35.9,162.4 35.9,166.9 35.1,172.2 35.1,176.7 32.2,182 30.6,187.3 26.9,194.7 27.3,187.8 28.2,180.4 28.6,175.5 29,169.8 29.8,164.1 30.2,158.8"],["_","71.5,199.5 72.7,196.8 79.6,196.8 80.5,199.5 79.2,202.5 76.5,204.5 73.2,204.5 71.8,202.5"],["_","19,199.5 20.8,196.8 26.9,196.8 28.5,199.5 27.2,202.5 24,204.5 21.5,204.5 20,202.5"],["_","52.7,110.2 54.3,124.9 60,110.2 62,100 64.9,94.3 60,92.7 56.7,104.5"],["_","47.8,110.6 44.9,125.3 42,115.9 40.4,113.1 39.6,107.3 38,102.4 34.7,93.9 39.6,92.2 41.6,99.2 43.7,105.3"]],back:[["traps_up","44.7,21.7 47.7,21.7 47.2,38 32.5,38 31.1,36.6 39.1,33.2 43.8,27.2"],["traps_up","52.3,21.7 55.7,21.7 56.6,27.2 60.9,32.8 68.9,36.6 67.3,38 53.2,38"],["traps_mid","47.2,38 47.2,38.3 47.5,51.8 38,51.8 35.3,40.9 32.5,38"],["traps_mid","67.3,38 64.7,40.4 62,51.8 52.8,51.8 53.2,38.3 53.2,38"],["traps_low","47.5,51.8 47.7,64.7 38.3,53.2 38,51.8"],["traps_low","62,51.8 61.7,53.2 52.3,64.7 52.8,51.8"],["erectors","47.7,72.8 34.5,77 35.3,83.4 49.4,102.1 46.8,83"],["erectors","52.3,72.8 65.5,77 64.7,83.4 50.6,102.1 53.2,83.8"],["tri_lat","20.7,53.9 17.9,55.7 14.5,72.1 19.3,72.1 20.7,67.5"],["tri_lat","79.5,54 82.1,55.7 85.8,72.6 80.6,72.6 79.5,68.6"],["tri_lat","23.8,71.7 20.8,71.7 22.6,65.5 23.8,63.4"],["tri_lat","75.8,62.9 77,64.7 78.9,71.7 75.8,71.7"],["tri_long","26.8,49.8 20.7,53.9 20.7,67.5 21.7,63.8 26.8,55.7"],["tri_long","73.6,50.2 79.5,54 79.5,68.6 77.9,63 73.2,55.7"],["tri_long","26.8,58.3 26.8,68.5 25,71.7 23.8,71.7 23.8,63.4"],["tri_long","72.8,58.3 75.8,62.9 75.8,71.7 74.4,71.7 72.8,68.9"],["tri_med","14.5,72.1 14.5,72.3 16.6,81.7 19.3,72.1"],["tri_med","85.8,72.6 86,73.2 83.4,82.1 80.6,72.6"],["tri_med","25,71.7 23,75.3 19.1,77.4 20.8,71.7"],["tri_med","78.9,71.7 80.4,77.4 76.6,75.3 74.4,71.7"],["fore_ext","86.4,75.7 91.1,83.4 93.2,94 100,106.4 96.2,104.3 88.1,89.4 84.3,83.8"],["fore_ext","13.6,75.7 8.9,83.8 6.8,93.6 0,106.4 3.8,104.3 12.3,88.5 15.7,83"],["fore_ext","81.3,79.6 77.4,77.9 79.1,84.7 91.1,103.8 93.2,108.9 94.5,104.7"],["fore_ext","18.7,79.6 22.1,77.9 20.9,84.3 9.4,103 6.8,108.5 5.1,104.7"],["glute_med","38.1,103.7 30.2,108.5 30.2,109.6 38.1,109.6"],["glute_med","60.1,109.3 69.4,109.3 69.4,108.5 60.1,102.3"],["glute_max","44.7,99.6 38.1,103.7 38.1,109.6 47.7,109.6"],["glute_max","55.3,99.1 52.5,109.3 60.1,109.3 60.1,102.3"],["glute_max","30.2,109.6 29.8,118.7 31.5,126 47.2,121.3 49.4,114.9 47.7,109.6"],["glute_max","52.5,109.3 51.1,114.5 52.3,120.9 68.1,126 69.8,119.1 69.4,109.3"],["ham_bf","28.9,122.1 31.1,129.4 31.9,128.8 31.9,154.3 29.4,158.3 28.9,146.8 27.7,141.3 27.2,131.5"],["ham_bf","71.5,121.7 69.4,128.9 68.7,128.6 68.7,154.3 71.1,158.3 71.5,147.7 72.8,142.1 73.6,131.9"],["ham_bf","38.7,125.5 40.2,131 40.2,166.1 36.2,152.8 37,135.3"],["ham_bf","61.7,125.5 63.4,136.2 64.3,153.2 60.2,166.1 60.2,131.1"],["ham_med","31.9,128.8 36.6,126 35.3,135.3 34.5,150.2 31.9,154.3"],["ham_med","68.7,128.6 63.8,126 65.5,136.6 66.4,150.2 68.7,154.3"],["ham_med","40.2,131 44.3,146 40.4,166.8 40.2,166.1"],["ham_med","60.2,166.1 60,166.8 56.2,146.4 60.2,131.1"],["gastroc","29.4,160.4 28.5,167.2 24.7,179.6 23.8,192.8 25.5,197 28.5,193.2 29.8,180 31.9,171.1 31.9,166.8"],["gastroc","37.4,165.1 35.3,167.7 33.2,171.9 31.1,180.4 30.2,191.9 34,200 38.7,190.6 39.1,168.9"],["gastroc","63,165.1 61.3,168.5 61.7,190.6 66.4,199.6 70.6,191.9 68.9,179.6 66.8,170.2"],["gastroc","70.6,160.4 72.3,168.5 75.7,179.1 76.6,192.8 74.5,196.6 72.3,193.6 70.6,179.6 68.1,168.1"],["soleus","28.5,195.7 30.2,195.7 33.6,201.7 30.6,220 28.5,213.6 26.8,198.3"],["soleus","69.8,195.7 71.9,195.7 73.6,198.3 71.9,213.2 70.2,219.6 67.2,202.1"],["delt_side","22.8,39.3 17.4,44.3 18.3,53.6 22.8,50.4"],["delt_side","76.2,38.8 78.3,39.6 82.6,44.7 81.7,53.6 76.2,49.9"],["delt_rear","29.4,37 23,39.1 22.8,39.3 22.8,50.4 24.3,49.4 27.2,46.4"],["delt_rear","71.1,37 76.2,38.8 76.2,49.9 74.9,48.9 72.3,45.1"],["lats","31.1,38.7 28.1,48.9 28.5,55.3 34,75.3 40,73.4 40,57.9 36.6,54 33.6,41.3"],["lats","68.9,38.7 71.9,49.4 71.5,56.2 66,75.3 64.6,74.9 64.6,49.2 66.4,41.7"],["rhomboids","40,73.4 47.2,71.1 47.2,66.4 40,57.9"],["rhomboids","64.6,74.9 52.8,71.1 52.8,66.4 63.4,54.5 64.6,49.2"],["rotator","31.5,48.5 40.5,50.2 39.5,57 32.5,55.5"],["rotator","68.5,48.5 59.5,50.2 60.5,57 67.5,55.5"],["_","50.6,0 46,0.9 40.9,5.5 40.4,12.8 45.1,20 55.7,20 59.1,13.6 59.6,4.7 55.7,1.3"],["_","34.5,153.2 31.1,159.1 33.6,166.4 37.4,162.6"],["_","66.4,153.6 63,163 66.8,166.4 69.4,159.1"],["_","48.1,123 44.7,123 41.3,125.5 45.1,144.3 48.5,135.7 48.9,129.4"],["_","51.9,122.6 55.7,123.4 59.1,126 54.9,144.3 51.9,136.2 51.1,129.4"]]};
 const BODYW=100,BODYH=200;
+/* Hand-drawn figure. body.svg is the editable source: one <g> per region key,
+   coordinates already in page space. If it is missing or keyless we fall back to
+   the figure baked in below, so the app never ends up with no body at all. */
+let BODYSVG=null;
+function loadBodySVG(txt){
+  try{
+    const doc=new DOMParser().parseFromString(txt,"image/svg+xml");
+    if(doc.querySelector("parsererror"))return null;
+    const root=doc.querySelector("svg"),out=[];
+    root.querySelectorAll("g[id]").forEach(g=>{
+      const k=g.id.replace(/-\d+$/,"");
+      g.querySelectorAll("path,polygon,ellipse,rect,circle").forEach(el=>{
+        let d=el.getAttribute("d");
+        if(!d&&el.tagName==="polygon")
+          d="M"+el.getAttribute("points").trim().split(/\s+/).join("L")+"Z";
+        out.push(d?{k,t:"d",d}:{k,t:el.tagName,el});
+      });
+    });
+    if(!out.some(x=>x.k!=="_"))return null;
+    const vb=(root.getAttribute("viewBox")||"0 0 215 236").split(/[\s,]+/).map(Number);
+    return {shapes:out,W:vb[2]||215,H:vb[3]||236};
+  }catch(e){return null;}
+}
 function bodyShapes(ox,back){
   return (back?BODYVIEW.back:BODYVIEW.front).map(r=>({k:r[0],t:"p",
     pts:r[1].split(" ").map(q=>{const a=q.split(",");return [(+a[0]+ox).toFixed(1),a[1]];})}));
@@ -1208,11 +1307,13 @@ function drawBody(){
   const svg=$("bodyMap"),data=heatData(),key=heatMetric;
   const vals=Object.keys(data).map(k=>data[k][key]);
   const max=Math.max(1,...vals);
-  const W=215,H=236;                       // their model runs to y=220 on the back view
+  const W=BODYSVG?BODYSVG.W:215,H=BODYSVG?BODYSVG.H:236;
   svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
   let g="";
-  [[0,false,"Front"],[115,true,"Back"]].forEach(([cx,back,name])=>{
-    bodyShapes(cx,back).forEach(sh=>{
+  const views=BODYSVG?[[0,null,"Front"],[W*0.535,null,"Back"]]
+                     :[[0,false,"Front"],[115,true,"Back"]];
+  (BODYSVG?[[0,null,null]]:views).forEach(([cx,back])=>{
+    (BODYSVG?BODYSVG.shapes:bodyShapes(cx,back)).forEach(sh=>{
       const on=sh.k!=="_"&&sh.k!=="_line";
       const v=on?((data[sh.k]||{})[key]||0):0;
       const fill=on?heatColor(v/max):"";
@@ -1224,7 +1325,9 @@ function drawBody(){
       else if(sh.t==="d")g+=`<path d="${sh.d}"${attr}/>`;
       else if(sh.t==="r")g+=`<rect x="${sh.x}" y="${sh.y}" width="${sh.w}" height="${sh.h}" rx="${sh.r}"${attr}/>`;
       else g+=`<path d="${smoothPoly(sh.pts)}"${attr}/>`;});
-    g+=`<text class="bodylbl" x="${cx+BODYW/2}" y="${H-5}" text-anchor="middle">${name}</text>`;});
+  });
+  views.forEach(([lx,,name])=>{
+    g+=`<text class="bodylbl" x="${(lx+(BODYSVG?W*0.232:BODYW/2)).toFixed(0)}" y="${H-5}" text-anchor="middle">${name}</text>`;});
   svg.innerHTML=g;
   const st=HEATSTOPS();
   $("scaleBar").style.background="linear-gradient(to right,"+st.map(x=>`${x[1]} ${x[0]*100}%`).join(",")+")";
@@ -1308,7 +1411,8 @@ function drawLine(){
 }
 function drawBars(){
   const svg=$("barChart"),wk=AGG.wk,key=volMode;
-  const areas=AREAS.filter(a=>wk.some(w=>w.by[a]));
+  /* Abs is bodyweight-only: it would be a permanently empty band here. */
+  const areas=AREAS.filter(a=>a!=="Abs"&&wk.some(w=>w.by[a]));
   const W=svg.clientWidth||600,H=260,P={l:46,r:10,t:12,b:38};
   const tot=wk.map(w=>areas.reduce((a,m)=>a+((w.by[m]||{})[key]||0),0));
   const ns=niceScale(0,Math.max(...tot,1),4),hi=ns.hi;
@@ -1326,7 +1430,6 @@ function drawBars(){
       const yT=Y(acc+v),h=Math.max(0,Y(acc)-yT-2);
       g+=`<rect x="${x0.toFixed(1)}" y="${yT.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2" style="fill:${AVAR(m)}" data-w="${i}" data-m="${m}"/>`;
       acc+=v;});
-    if(w.partial)g+=`<rect x="${x0.toFixed(1)}" y="${Y(tot[i]).toFixed(1)}" width="${barW.toFixed(1)}" height="${(H-P.b-Y(tot[i])).toFixed(1)}" rx="2" fill="url(#h2)" pointer-events="none"/>`;
     if(!(i%stepL)||i===wk.length-1){const cx=x0+barW/2;
       g+=`<text class="axis-x" x="${cx.toFixed(1)}" y="${H-P.b+15}" text-anchor="middle">${w.label}</text>`+
          `<text class="axis-xs" x="${cx.toFixed(1)}" y="${H-P.b+27}" text-anchor="middle">${w.date_label}</text>`;}
@@ -1337,7 +1440,7 @@ function drawBars(){
       const tip=$("barTip");
       tip.innerHTML=`<b>${w.label} · ${w.date_label}</b><div class="big" style="color:${AVAR(m)}">${m}</div>`+
         `<div style="color:var(--ink2)">${fmt0(b.volume)} kg · ${b.sets} sets</div>`+
-        (w.partial?`<div style="color:var(--muted);font-size:11px;margin-top:4px">partial week · ${w.n} sessions</div>`:"");
+        `<div style="color:var(--muted);font-size:11px;margin-top:4px">${w.n} session${w.n===1?"":"s"} that week</div>`;
       const rc=svg.getBoundingClientRect();tip.style.opacity=1;
       tip.style.left=Math.max(75,Math.min(rc.width-75,(+r.getAttribute("x")+ +r.getAttribute("width")/2)*(rc.width/W)))+"px";
       tip.style.top=Math.max(0,(+r.getAttribute("y"))*(rc.height/H)-tip.offsetHeight-10)+"px";};
