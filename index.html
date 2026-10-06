@@ -984,7 +984,9 @@ function importJSON(e){
 function aggregate(){
   const S=allSessions(),exMap={},weeks={};
   S.forEach(s=>{
-    const ws=s.week_start||weekStart(s.date);
+    /* Always derive the week from the date. A stored week_start can be stale or
+       hand-edited, and a wrong one silently files a session under the wrong week. */
+    const ws=weekStart(s.date);
     weeks[ws]=weeks[ws]||{ws,n:0,by:{},ex:{},reg:{}};weeks[ws].n++;
     s.exercises.forEach(e=>{
       const area=e.area||areaOf(e.en);

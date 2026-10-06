@@ -1,6 +1,6 @@
 {
  "athlete": "Alex",
- "generated": "2026-10-01T10:59:12.203Z",
+ "generated": "2026-10-05T22:09:24.926Z",
  "unit": "kg",
  "split": "A / B / C / D + U",
  "sessions": [
@@ -5510,6 +5510,201 @@
        "right": null,
        "weight_raw": "27.4",
        "reps": 9,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 31,
+   "workout_type": "A",
+   "date": "2026-10-05",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-05",
+   "day_of_week": "Mon",
+   "logged_at": "2026-10-05T22:09:24.914Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:10",
+    "time_sec": 310,
+    "distance_km": 0.24,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Bench Press",
+     "raw": "Dumbbell Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Incline Bench Press",
+     "raw": "Dumbbell Inclined Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Internally Rotated Incline Chest Fly",
+     "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 20,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Barbell Close-Grip Bench Press",
+     "raw": "Barbell Close Grip Bench Press",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rope Triceps Extension (high pulley)",
+     "raw": "Triceps alto corda",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 27.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "27.6",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 27.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "27.6",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 27.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "27.6",
+       "reps": 6,
        "note": null
       }
      ]
