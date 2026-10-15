@@ -1,5 +1,5 @@
 /* Offline cache. Bump CACHE when you change files. */
-const CACHE = "gymlog-v17";
+const CACHE = "gymlog-v18";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./catalog.json", "./workouts.json"];
 
 /* Optional extras: cached when present, ignored when not. body.svg is the

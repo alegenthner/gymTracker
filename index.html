@@ -106,6 +106,26 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .lasttag{background:var(--good)}
 .pbtag,.lasttag{font-size:10.5px;padding:2px 7px}
 .ld{color:var(--muted);font-variant-numeric:tabular-nums}
+/* ---- clocks ---- */
+.tmwrap{display:flex;gap:10px;flex-wrap:wrap}
+.tm{flex:1 1 170px;min-width:160px;border:1px solid var(--border);border-radius:12px;padding:10px 11px;background:var(--surface)}
+.tm-k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.tm-v{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;margin:2px 0 7px}
+.tm-b{display:flex;gap:6px;flex-wrap:wrap}
+.tm-b .btn{padding:6px 11px;font-size:13px}
+.tm.run .tm-v{color:var(--series)}
+.tm.done{border-color:var(--f1-gb);background:var(--f1-g)}
+.tm.done .tm-v{color:var(--good)}
+.tm .chips{margin-top:8px;gap:5px}
+.tm .chip{padding:4px 9px;font-size:12px}
+.tm-auto{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);
+ margin:9px 0 0;text-transform:none;letter-spacing:0;font-weight:500;line-height:1.35;cursor:pointer}
+.tm-auto input{width:auto;margin:0;flex:0 0 auto}
+.tm-cust{width:62px;padding:4px 6px;font-size:12px;text-align:center}
+.banner{border:1px solid var(--f1-yb);background:var(--f1-y);border-radius:10px;
+ padding:9px 11px;font-size:12.5px;margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.banner .btn{padding:5px 10px;font-size:12px}
+.warnline{color:var(--f1-yt);font-weight:600}
 .radar-ax{fill:var(--ink2);font-size:10px}
 .radar-v{fill:var(--muted);font-size:9px;font-variant-numeric:tabular-nums}
 .bodyfig{fill:var(--grid);opacity:.5}
@@ -212,6 +232,33 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
       <button class="btn warn" id="clearDraft" type="button">Clear</button>
     </div>
     <p class="hint" id="tplHint">Pick a workout to preload its usual exercises — then adjust freely.</p>
+    <p class="hint" id="rotHint"></p>
+  </div>
+
+  <div class="card">
+    <div class="tmwrap">
+      <div class="tm" id="restTm">
+        <div class="tm-k">Rest</div>
+        <div class="tm-v" id="restV">1:30</div>
+        <div class="tm-b">
+          <button class="btn" id="restGo" type="button">Start</button>
+          <button class="btn sec" id="restRst" type="button">Reset</button>
+        </div>
+        <div class="chips" id="restPre"></div>
+        <label class="tm-auto"><input type="checkbox" id="restAuto">
+          <span>auto-start when a set gets its reps</span></label>
+      </div>
+      <div class="tm" id="sessTm">
+        <div class="tm-k">Session</div>
+        <div class="tm-v" id="sessV">0:00:00</div>
+        <div class="tm-b">
+          <button class="btn" id="sessGo" type="button">Start session</button>
+          <button class="btn sec" id="sessRst" type="button">Reset</button>
+        </div>
+        <p class="hint" id="sessHint" style="margin:8px 0 0">Not started.</p>
+      </div>
+    </div>
+    <div class="banner" id="autoBanner" hidden></div>
   </div>
 
   <div class="card">
@@ -568,6 +615,41 @@ function exHist(en){
 }
 function lastSets(en){const h=exHist(en);return (h&&h.last&&h.last.sets)||[];}
 
+/* ---- A/B/C/D rotation ------------------------------------------------
+   The type used to be whatever the dropdown happened to be left on after the
+   previous save, which is how a Tuesday session got filed as B. Derive the
+   next one from history and keep the date honest. ---- */
+const ROT=["A","B","C","D"];
+function lastRotSession(){
+  const S=allSessions().filter(s=>ROT.indexOf(s.workout_type)>=0);
+  return S.length?S[S.length-1]:null;
+}
+function suggestType(){
+  const l=lastRotSession();
+  return l?ROT[(ROT.indexOf(l.workout_type)+1)%ROT.length]:"A";
+}
+function paintRotHint(){
+  const el=$("rotHint");if(!el)return;
+  const l=lastRotSession(),s=suggestType(),cur=$("wType").value;
+  const d=$("wDate").value,today=todayISO();
+  let t=l?`Last logged lap: ${l.workout_type} on ${shortDate(l.date)} — next in the rotation is ${s}.`
+         :`No A/B/C/D history yet — starting at A.`;
+  const warn=[];
+  if(cur&&cur!==s&&ROT.indexOf(cur)>=0)warn.push(`you have ${cur} selected`);
+  if(d&&d!==today)warn.push(`the date is ${d}, not today`);
+  if(d&&cur&&allSessions().some(x=>x.date===d&&x.workout_type===cur))
+    warn.push(`${d} is already logged as ${cur}`);
+  el.innerHTML=t+(warn.length?` <span class="warnline">Heads up: ${warn.join("; ")}.</span>`:"");
+}
+/* A phone keeps this app alive for days, so the date field silently goes stale.
+   Roll it to today whenever the app comes back and nothing is in progress. */
+function rollDateIfIdle(){
+  const d=$("wDate");if(!d)return;
+  if(d.value!==todayISO()&&!draft.exercises.length){d.value=todayISO();
+    if(!$("wType").value)$("wType").value=suggestType();}
+  paintRotHint();
+}
+
 /* ---- in-progress draft: autosaved on this device, never part of the export ---- */
 let dsTimer=null,lastHold=null;
 function draftPayload(){return {v:1,date:$("wDate").value,type:$("wType").value,
@@ -583,6 +665,12 @@ function restoreDraftLS(){
   const d=readDraftLS();if(!d)return false;
   const c=d.cardio||{},ex=d.exercises.filter(e=>e&&Array.isArray(e.sets));
   if(!ex.length&&!(c.min||c.sec||c.time||c.dist||c.incl))return false;
+  /* a draft written by a build before the prefill fix can hold sets that have
+     reps but no weight - the old UI only ever showed that weight as a
+     placeholder. Backfill them so they score, and so they export. */
+  ex.forEach(e=>{if(e.load_type==="bodyweight")return;
+    e.sets.forEach((st,j)=>{if(st&&st.reps!=null&&st.w==null){
+      const fw=refW(e.en,j,e.load_type);if(fw!=null)st.w=fw;}});});
   draft.exercises=ex;
   if(d.date)$("wDate").value=d.date;
   if(d.type)$("wType").value=d.type;
@@ -591,6 +679,144 @@ function restoreDraftLS(){
   syncCardio();if(hasIncline())$("cIncl").value=c.incl||"";
   lastHold=d.at||null;return true;
 }
+
+/* ===================== clocks =========================================
+   Both are stored as wall-clock timestamps, never as a tick count: a phone
+   suspends JS the moment the screen goes off, so anything counting frames
+   would stop with it. Reading the clock on each tick means the numbers are
+   still right after the app has been in the background for twenty minutes. */
+const LS_TM="gymTimers_v1";
+const TM_DEF={restLen:90,restEnd:null,restAuto:true,sessStart:null,sessEnd:null,
+              capMin:90,autoAt:null};
+let TM=Object.assign({},TM_DEF);
+function loadTM(){try{const o=JSON.parse(localStorage.getItem(LS_TM)||"null");
+  if(o)TM=Object.assign({},TM_DEF,o);}catch(e){}}
+function saveTM(){try{localStorage.setItem(LS_TM,JSON.stringify(TM));}catch(e){}}
+const mmss=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+const hmmss=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/3600)+":"+
+  String(Math.floor(s/60)%60).padStart(2,"0")+":"+String(s%60).padStart(2,"0");};
+
+/* one short beep + a buzz; the AudioContext is built on the first tap so iOS
+   lets it make a sound at all */
+let AC=null;
+function unlockAudio(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==="suspended")AC.resume();}catch(e){AC=null;}}
+function ping(){
+  try{if(navigator.vibrate)navigator.vibrate([120,70,120]);}catch(e){}
+  if(!AC)return;
+  try{[0,0.18].forEach(t=>{const o=AC.createOscillator(),g=AC.createGain();
+    o.type="sine";o.frequency.value=880;o.connect(g);g.connect(AC.destination);
+    const s=AC.currentTime+t;
+    g.gain.setValueAtTime(0.0001,s);g.gain.exponentialRampToValueAtTime(0.25,s+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,s+0.14);o.start(s);o.stop(s+0.16);});}catch(e){}
+}
+
+/* ---- rest clock ---- */
+let restRang=false;
+function restStart(len){
+  unlockAudio();
+  TM.restLen=len||TM.restLen;TM.restEnd=Date.now()+TM.restLen*1000;restRang=false;
+  saveTM();paintRest();
+}
+function restReset(){TM.restEnd=null;restRang=false;saveTM();paintRest();}
+function restAutoKick(){if(TM.restAuto)restStart();}
+function paintRest(){
+  const v=$("restV"),card=$("restTm"),go=$("restGo");if(!v)return;
+  if(TM.restEnd==null){v.textContent=mmss(TM.restLen);
+    card.classList.remove("run","done");if(go)go.textContent="Start";return;}
+  const left=(TM.restEnd-Date.now())/1000;
+  if(left>0){v.textContent=mmss(left);card.classList.add("run");card.classList.remove("done");}
+  else{v.textContent="+"+mmss(-left);card.classList.remove("run");card.classList.add("done");
+       if(!restRang){restRang=true;ping();}}
+  if(go)go.textContent="Restart";
+}
+function paintRestPresets(){
+  const box=$("restPre");if(!box)return;
+  box.innerHTML="";
+  [45,60,90,120,180].forEach(s=>{
+    const b=document.createElement("button");b.className="chip";b.type="button";
+    b.textContent=mmss(s);b.setAttribute("aria-pressed",String(s===TM.restLen));
+    b.onclick=()=>{TM.restLen=s;saveTM();paintRestPresets();restStart(s);};
+    box.appendChild(b);});
+  const inp=document.createElement("input");
+  inp.className="tm-cust";inp.type="number";inp.min="5";inp.step="5";inp.inputMode="numeric";
+  inp.value=TM.restLen;inp.setAttribute("aria-label","Rest seconds");
+  inp.onchange=()=>{const v=Math.max(5,+inp.value||TM.restLen);TM.restLen=v;saveTM();
+    paintRestPresets();paintRest();};
+  box.appendChild(inp);
+}
+
+/* ---- session clock ---- */
+function sessStart(){
+  unlockAudio();
+  TM.sessStart=Date.now();TM.sessEnd=null;TM.autoAt=null;autoShown=false;
+  saveTM();paintSess();
+}
+function sessReset(){
+  if(TM.sessStart&&!TM.sessEnd&&!confirm("Reset the session clock?"))return;
+  TM.sessStart=null;TM.sessEnd=null;TM.autoAt=null;autoShown=false;saveTM();paintSess();
+}
+function sessSec(){
+  if(!TM.sessStart)return 0;
+  return ((TM.sessEnd||Date.now())-TM.sessStart)/1000;
+}
+function paintSess(){
+  const v=$("sessV"),card=$("sessTm"),go=$("sessGo"),h=$("sessHint");if(!v)return;
+  v.textContent=hmmss(sessSec());
+  card.classList.toggle("run",!!(TM.sessStart&&!TM.sessEnd));
+  if(go)go.textContent=TM.sessStart?"Restart":"Start session";
+  if(h)h.textContent=!TM.sessStart?"Not started."
+    :`Started ${new Date(TM.sessStart).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · auto-draft at ${TM.capMin} min.`;
+}
+
+/* ---- auto-draft watchdog --------------------------------------------
+   Every keystroke is already debounced into the draft, so the thing that
+   actually gets lost is a long session that never reaches Save workout.
+   Once the cap passes, hold the whole draft, keep a separate snapshot that
+   Clear cannot touch, and say so. It never exports on its own. */
+const LS_BAK="gymDraftBackup_v1";
+let autoShown=false;
+function autoSnapshot(){
+  try{localStorage.setItem(LS_BAK,JSON.stringify({at:new Date().toISOString(),
+    payload:draftPayload()}));}catch(e){}
+}
+function autoCheck(){
+  if(!TM.sessStart||TM.sessEnd)return;
+  if(sessSec()<TM.capMin*60)return;
+  const live=draft.exercises.some(e=>e.sets.some(s=>s.reps!=null));
+  if(!live)return;
+  const since=TM.autoAt?(Date.now()-TM.autoAt)/1000:Infinity;
+  if(since<TM.capMin*60)return;
+  TM.autoAt=Date.now();saveTM();
+  const t=new Date().toISOString();
+  draft.exercises.forEach(ex=>{ex._dirty=false;ex._heldAt=t;});
+  saveDraftLS();autoSnapshot();renderDraft();
+  autoShown=true;paintAutoBanner();
+}
+function paintAutoBanner(){
+  const b=$("autoBanner");if(!b)return;
+  if(!autoShown||!TM.autoAt){b.hidden=true;return;}
+  b.hidden=false;
+  b.innerHTML=`<span><b>Auto-saved draft</b> at ${new Date(TM.autoAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} — `+
+    `${TM.capMin} min elapsed with nothing exported. Everything is held on this device.</span>`;
+  const dl=document.createElement("button");
+  dl.className="btn sec";dl.type="button";dl.textContent="Download backup";
+  dl.onclick=downloadDraftBackup;b.appendChild(dl);
+  const x=document.createElement("button");
+  x.className="btn sec";x.type="button";x.textContent="Dismiss";
+  x.onclick=()=>{autoShown=false;paintAutoBanner();};b.appendChild(x);
+}
+function downloadDraftBackup(){
+  const blob=new Blob([JSON.stringify({kind:"gym-draft-backup",at:new Date().toISOString(),
+    draft:draftPayload()},null,1)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download=`gym-draft-backup-${todayISO()}.json`;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+}
+
+let tmTimer=null;
+function tick(){paintRest();paintSess();autoCheck();}
+function startTicking(){if(tmTimer)clearInterval(tmTimer);tmTimer=setInterval(tick,500);tick();}
 
 /* ---- catalog overrides (on-device, layered on the seed catalog.json) ---- */
 const LSCAT="gymCatalog_v1";
@@ -676,10 +902,28 @@ function initUI(){
   $("hlGroup").onchange=()=>{hlGroup=$("hlGroup").value;drawBody();};
   $("heatMetric").onclick=e=>{const b=e.target.closest("button");if(!b)return;heatMetric=b.dataset.x;
     [...$("heatMetric").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawBody();};
+  loadTM();
+  $("restGo").onclick=()=>restStart();
+  $("restRst").onclick=restReset;
+  $("restAuto").checked=!!TM.restAuto;
+  $("restAuto").onchange=()=>{TM.restAuto=$("restAuto").checked;saveTM();};
+  paintRestPresets();
+  $("sessGo").onclick=sessStart;
+  $("sessRst").onclick=sessReset;
+  startTicking();
+  /* a phone suspends the page; repaint and re-check the moment it is back */
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden){tick();rollDateIfIdle();}});
+  addEventListener("pageshow",()=>{tick();rollDateIfIdle();});
+
   draft={exercises:[]};
   syncCardio();
   if(restoreDraftLS())$("tplHint").textContent=
     "Restored your in-progress workout"+(lastHold?" (held "+new Date(lastHold).toLocaleString()+")":"")+" — nothing lost.";
+  if(!$("wType").value&&!draft.exercises.length)$("wType").value=suggestType();
+  paintRotHint();
+  $("wType").addEventListener("change",paintRotHint);
+  $("wDate").addEventListener("change",paintRotHint);
+  paintAutoBanner();
   renderExList();renderDraft();renderLocalList();setupEdit();
   addEventListener("beforeunload",e=>{
     if(draft.exercises.some(x=>x._dirty)){e.preventDefault();e.returnValue="";}});
@@ -702,13 +946,25 @@ function loadTemplate(){
     : `${t.label} has no preset exercises — add whatever you did today from Add exercise below.`;
   renderDraft();saveDraftLS();
 }
+/* The weight a set starts at: the SAME set index last time you did the exercise,
+   then that session's last loaded set, then the catalog's snapshot. The catalog
+   figure is frozen at whenever it was written, so history has to win - otherwise
+   a card opens showing 19.6 kg when the last lap was actually 27.6. */
+function refW(en,j,load){
+  if(load==="bodyweight")return null;
+  const ref=lastSets(en);
+  if(ref[j]&&ref[j].w!=null)return ref[j].w;
+  for(let k=ref.length-1;k>=0;k--)if(ref[k]&&ref[k].w!=null)return ref[k].w;
+  const c=catOf(en);
+  return c&&c.last_weight!=null?c.last_weight:null;
+}
 function newExc(en,area,lt){
   const c=catOf(en);
   const load=lt||(c?c.load_type:"total");
-  const n=c?c.default_sets:3;
-  const w=c?c.last_weight:null;
+  const ref=lastSets(en);
+  const n=ref.length||(c?c.default_sets:3)||3;
   return {en,area:area||areaOf(en),load_type:load,
-          sets:Array.from({length:n},()=>({w:load==="bodyweight"?null:w,reps:null}))};
+          sets:Array.from({length:n},(_,j)=>({w:refW(en,j,load),reps:null}))};
 }
 function addExc(en,area,lt){draft.exercises.push(newExc(en,area,lt));renderDraft();
   window.scrollTo({top:document.getElementById("excWrap").offsetTop-60,behavior:"smooth"});}
@@ -725,8 +981,9 @@ function renderExList(){
   const list=CAT.exercises.filter(e=>(areaFilter==="All"||groupsOf(e).includes(areaFilter))&&
     (!q||e.en.toLowerCase().includes(q)||(e.raw||"").toLowerCase().includes(q)));
   $("exList").innerHTML=list.map(e=>{const sec=groupsOf(e).slice(1);
+    const lw=refW(e.en,0,e.load_type);
     return `<button type="button" data-en="${e.en.replace(/"/g,"&quot;")}"><span>${e.en}
-     <span style="color:var(--muted);font-size:12px">· ${ltLabel(e.load_type)}${e.last_weight!=null?" · last "+e.last_weight+" kg":""}${sec.length?" · also "+sec.join(", "):""}</span></span>
+     <span style="color:var(--muted);font-size:12px">· ${ltLabel(e.load_type)}${lw!=null?" · last "+fmt(lw)+" kg":""}${sec.length?" · also "+sec.join(", "):""}</span></span>
      <span class="tag" style="background:${AVAR(e.area)}">${e.area}</span></button>`;}).join("")
     ||'<div style="padding:12px;color:var(--muted);font-size:13px">No match.</div>';
   [...$("exList").children].forEach(b=>{if(b.dataset&&b.dataset.en)b.onclick=()=>addExc(b.dataset.en);});
@@ -766,10 +1023,21 @@ function renderDraft(){
   w.querySelectorAll("input").forEach(inp=>{inp.oninput=()=>{
     const {i,j,f}=inp.dataset;const v=inp.value===""?null:+inp.value;
     const ex=draft.exercises[+i];ex.sets[+j][f]=v;ex._dirty=true;
+    /* Typing reps into a row whose weight box is empty used to score nothing:
+       the greyed weight is only a placeholder, so the set read as 0 kg, stayed
+       uncoloured and never counted toward the PB. Adopt what the box shows. */
+    if(f==="reps"&&v!=null&&ex.sets[+j].w==null&&ex.load_type!=="bodyweight"){
+      const fw=refW(ex.en,+j,ex.load_type);
+      if(fw!=null){ex.sets[+j].w=fw;
+        const wi=w.querySelector(`input[data-i="${i}"][data-j="${j}"][data-f="w"]`);
+        if(wi)wi.value=fw;}
+    }
+    if(f==="reps"&&v!=null)restAutoKick();
     paintHold(+i);paintF1(+i);updateInfo();queueDraftSave();};});
   w.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{
     const ex=draft.exercises[+b.dataset.add];const last=ex.sets[ex.sets.length-1];
-    ex.sets.push({w:last?last.w:null,reps:null});ex._dirty=true;renderDraft();saveDraftLS();});
+    const w=(last&&last.w!=null)?last.w:refW(ex.en,ex.sets.length,ex.load_type);
+    ex.sets.push({w,reps:null});ex._dirty=true;renderDraft();saveDraftLS();});
   w.querySelectorAll("[data-hold]").forEach(b=>b.onclick=()=>holdExercise(+b.dataset.hold,b));
   w.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{draft.exercises.splice(+b.dataset.rm,1);renderDraft();saveDraftLS();});
   w.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
@@ -847,10 +1115,11 @@ function paintSpark(i){
    Every set races the SAME set from the last session this exercise appeared
    in: green = beat it, yellow = matched or missed it, neutral = no reference.
    Card goes purple once the running total passes the best ever logged.     */
-function setScore(ex,s){
+function setScore(ex,s,j){
   if(s.reps==null)return null;
   if(ex.load_type==="bodyweight")return s.reps;
-  return s.w==null?null:s.w*s.reps;
+  const w=s.w!=null?s.w:(j==null?null:refW(ex.en,j,ex.load_type));
+  return w==null?null:w*s.reps;
 }
 function refScore(ex,r){
   if(!r||r.reps==null)return null;
@@ -863,7 +1132,7 @@ function paintF1(i){
   const when=h&&h.lastDate?shortDate(h.lastDate):null;
   let total=0,done=0;
   ex.sets.forEach((s,j)=>{
-    const sc=setScore(ex,s),rs=refScore(ex,ref[j]),row=$("r"+i+"-"+j);
+    const sc=setScore(ex,s,j),rs=refScore(ex,ref[j]),row=$("r"+i+"-"+j);
     let cls="";
     if(sc!=null){done++;total+=sc;if(rs!=null)cls=sc>rs?"up":"down";}
     if(!row)return;
@@ -881,14 +1150,18 @@ function paintF1(i){
   const best=h?(bw?h.bestReps:h.bestVol):null;
   const lastT=h&&h.last?(bw?h.last.reps:h.last.vol):null;
   const pb=done>0&&total>0&&(best==null||total>best);
+  /* purple is the all-time best TOTAL, so it can only be judged once the lap is
+     run: a half-finished exercise is not "not a PB", it is simply not decided. */
+  const full=done>=ex.sets.length;
   const up=!pb&&total>0&&lastT!=null&&total>lastT;
   const card=$("exc"+i);if(card)card.classList.toggle("pb",pb);
   const tag=$("pb"+i);
   if(tag){tag.hidden=!(pb||up);tag.textContent=pb?"PB":"▲ vs last";
     tag.classList.toggle("pbtag",pb);tag.classList.toggle("lasttag",!pb);}
   const ld=$("ld"+i);
+  const gap=(!pb&&full===false&&best!=null&&total>0)?` · ${fmt0(best-total+1)} to PB`:"";
   if(ld)ld.textContent=!total?"":` · load ${fmt0(total)}${u}`+
-    (lastT?` · last ${fmt0(lastT)}`:"")+(best?` · best ${fmt0(best)}`:"")+(pb?" · PB":"");
+    (lastT?` · last ${fmt0(lastT)}`:"")+(best?` · best ${fmt0(best)}`:"")+(pb?" · PB":gap);
 }
 
 /* per-exercise Save: holds weight + reps on this device. No export, no password. */
@@ -908,7 +1181,9 @@ function paintHold(i){
   else{el.textContent="";el.style.color="var(--muted)";cls("");}
 }
 function draftStats(){let sets=0,vol=0;
-  draft.exercises.forEach(e=>e.sets.forEach(s=>{if(s.reps!=null){sets++;if(s.w!=null)vol+=s.w*s.reps;}}));
+  draft.exercises.forEach(e=>e.sets.forEach((s,j)=>{if(s.reps!=null){sets++;
+    if(e.load_type!=="bodyweight"){const w=s.w!=null?s.w:refW(e.en,j,e.load_type);
+      if(w!=null)vol+=w*s.reps;}}}));
   return {sets,vol};}
 function updateInfo(){const st=draftStats();
   const hh=lastHold?` · held ${new Date(lastHold).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`:"";
@@ -917,8 +1192,19 @@ function updateInfo(){const st=draftStats();
 
 /* ===================== save (password + timestamp) ===================== */
 function openPw(){const st=draftStats();
-  $("pwSummary").textContent=`${$("wDate").value} · ${$("wType").value||"Blank"} · ${draft.exercises.length} exercises · ${st.sets} sets`;
-  $("pwErr").textContent="";$("pwInput").value="";$("pwModal").hidden=false;$("pwInput").focus();}
+  const d=$("wDate").value,ty=$("wType").value;
+  $("pwSummary").textContent=`${d} · ${ty||"Blank"} · ${draft.exercises.length} exercises · ${st.sets} sets`
+    +(TM.sessStart?` · ${hmmss(sessSec())} on the clock`:"");
+  /* the two ways a lap got filed wrong: a stale date, and a type left over
+     from the previous save. Say it before the password, not after. */
+  const w=[];
+  if(d!==todayISO())w.push(`the date says ${d}, today is ${todayISO()}`);
+  if(allSessions().some(x=>x.date===d&&x.workout_type===(ty||"X")))
+    w.push(`${d} is already logged as ${ty||"X"} — saving will overwrite it`);
+  else if(ROT.indexOf(ty)>=0&&ty!==suggestType())
+    w.push(`rotation expects ${suggestType()} next, you have ${ty}`);
+  $("pwErr").innerHTML=w.length?`<span class="warnline">Check: ${w.join("; ")}.</span>`:"";
+  $("pwInput").value="";$("pwModal").hidden=false;$("pwInput").focus();}
 function confirmSave(){
   if($("pwInput").value!==PASSWORD){$("pwErr").textContent="Wrong password.";return;}
   $("pwModal").hidden=true;
@@ -934,18 +1220,31 @@ function confirmSave(){
             incline_pct:hasIncline()&&$("cIncl").value!==""?+$("cIncl").value:null,raw:""},
     exercises:draft.exercises.map(ex=>({
       en:ex.en, raw:(catOf(ex.en)||{}).raw||ex.en, area:ex.area, note:null,
-      sets:ex.sets.filter(s=>s.reps!=null).map(s=>({
-        weight_kg:s.w, load_type:ex.load_type,
-        left:ex.load_type==="per_side"||ex.load_type==="one_side"?s.w:null,
-        right:ex.load_type==="per_side"?s.w:null,
-        weight_raw:s.w==null?"-":(ex.load_type==="per_side"?`${s.w}||${s.w}`:ex.load_type==="one_side"?`${s.w}||-`:String(s.w)),
+      /* resolve the weight against the ORIGINAL set index before filtering -
+         a set that only ever showed its weight as a placeholder must not be
+         exported as null, or the lap reads as zero tonnage for ever after */
+      sets:ex.sets.map((s,j)=>({s,w:ex.load_type==="bodyweight"?null
+                                   :(s.w!=null?s.w:refW(ex.en,j,ex.load_type))}))
+        .filter(o=>o.s.reps!=null).map(({s,w})=>({
+        weight_kg:w, load_type:ex.load_type,
+        left:ex.load_type==="per_side"||ex.load_type==="one_side"?w:null,
+        right:ex.load_type==="per_side"?w:null,
+        weight_raw:w==null?"-":(ex.load_type==="per_side"?`${w}||${w}`:ex.load_type==="one_side"?`${w}||-`:String(w)),
         reps:s.reps, note:null}))
     })).filter(e=>e.sets.length)
   };
+  if(sess.cardio&&TM.sessStart)sess.session_sec=Math.round(sessSec());
   LOCAL.push(sess);saveLocal();wipeDraftLS();EXHIST=null;
   draft={exercises:[]};$("cMin").value=$("cSec").value=$("cDist").value=$("cIncl").value="";
-  renderDraft();renderLocalList();exportJSON();
-  $("tplHint").textContent=`Saved ${sess.date} (${sess.workout_type}) at ${new Date(sess.logged_at).toLocaleTimeString()} — JSON exported.`;
+  /* leave nothing behind that the next lap could inherit by accident */
+  const dur=TM.sessStart?hmmss(sessSec()):null;
+  TM.sessStart=null;TM.sessEnd=null;TM.autoAt=null;TM.restEnd=null;autoShown=false;saveTM();
+  try{localStorage.removeItem(LS_BAK);}catch(e){}
+  paintSess();paintRest();paintAutoBanner();
+  $("wDate").value=todayISO();$("wType").value=suggestType();
+  renderDraft();renderLocalList();exportJSON();paintRotHint();
+  $("tplHint").textContent=`Saved ${sess.date} (${sess.workout_type}) at ${new Date(sess.logged_at).toLocaleTimeString()}`
+    +(dur?` after ${dur}`:"")+` — JSON exported. Next up: ${suggestType()}.`;
 }
 function renderLocalList(){
   $("nLocal").textContent=LOCAL.length;
