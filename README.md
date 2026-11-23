@@ -54,3 +54,7 @@ The password lives in the page source (`const PASSWORD`). It stops casual snoopi
 ## Schema
 
 Unchanged from the existing dataset, so `sets.csv` / `exercises.csv` tooling still applies. Sessions gain one field: `logged_at`. Weeks are derived from the date (Monday start), so `[U]`/extra days fall into the right week automatically.
+
+## New issues
+
+If session left open without saving, it locks the PWA on phone
