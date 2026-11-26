@@ -1,6 +1,6 @@
 {
  "athlete": "Alex",
- "generated": "2026-10-05T22:09:24.926Z",
+ "generated": "2026-11-23T22:21:02.482Z",
  "unit": "kg",
  "split": "A / B / C / D + U",
  "sessions": [
@@ -5710,6 +5710,2408 @@
      ]
     }
    ]
+  },
+  {
+   "session_seq": 32,
+   "workout_type": "B",
+   "date": "2026-10-06",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-05",
+   "day_of_week": "Tue",
+   "logged_at": "2026-10-06T22:34:29.462Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:02",
+    "time_sec": 302,
+    "distance_km": 0.45,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Unilateral Row",
+     "raw": "Dumbbell Row Unilateral",
+     "area": "Back",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26,
+       "load_type": "one_side",
+       "left": 26,
+       "right": null,
+       "weight_raw": "26||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 30,
+       "load_type": "one_side",
+       "left": 30,
+       "right": null,
+       "weight_raw": "30||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 30,
+       "load_type": "one_side",
+       "left": 30,
+       "right": null,
+       "weight_raw": "30||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 30,
+       "load_type": "one_side",
+       "left": 30,
+       "right": null,
+       "weight_raw": "30||-",
+       "reps": 7,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rear Delt Row",
+     "raw": "Cable Rear Delt Row",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 24.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "24.4",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 38,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "38",
+       "reps": 18,
+       "note": null
+      },
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Alternating Curl with Isometric Hold",
+     "raw": "Dumbbell Isometric Hold 90 degree Biceps Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 11,
+       "load_type": "per_side",
+       "left": 11,
+       "right": 11,
+       "weight_raw": "11||11",
+       "reps": 2,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 8,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Single-Arm Bayesian Curl",
+     "raw": "Cable Single Arm Bayesian Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10.8,
+       "load_type": "one_side",
+       "left": 10.8,
+       "right": null,
+       "weight_raw": "10.8||-",
+       "reps": 3,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 33,
+   "workout_type": "C",
+   "date": "2026-10-07",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-05",
+   "day_of_week": "Wed",
+   "logged_at": "2026-10-07T10:45:45.208Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:02",
+    "time_sec": 302,
+    "distance_km": 0.45,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Forward Lunge",
+     "raw": "Forward Lunge",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Nordic Hamstring Curl",
+     "raw": "(?) Nordic",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Sumo Squat",
+     "raw": "Dumbbell Sumo Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 15,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "15",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Calf Raise",
+     "raw": "Calf rises",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 60,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "60",
+       "reps": 22,
+       "note": null
+      },
+      {
+       "weight_kg": 60,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "60",
+       "reps": 21,
+       "note": null
+      },
+      {
+       "weight_kg": 60,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "60",
+       "reps": 23,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Bodyweight Assisted Sissy Squat",
+     "raw": "Bodyweight Assisted Sissy Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Forward Lunge",
+     "raw": "Dumbbell Forward Lunge",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "16",
+       "reps": 6,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "16",
+       "reps": 6,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 34,
+   "workout_type": "D",
+   "date": "2026-10-09",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-05",
+   "day_of_week": "Fri",
+   "logged_at": "2026-10-09T10:50:42.550Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:02",
+    "time_sec": 302,
+    "distance_km": 0.45,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Cable High Single-Arm Rear Delt Fly",
+     "raw": "Cable High Single Arm Rear Delt Fly",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 8,
+       "load_type": "one_side",
+       "left": 8,
+       "right": null,
+       "weight_raw": "8||-",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 8,
+       "load_type": "one_side",
+       "left": 8,
+       "right": null,
+       "weight_raw": "8||-",
+       "reps": 15,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Lateral Raise",
+     "raw": "Cable Lateral Raises",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 9,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Seated Overhead Press",
+     "raw": "Dumbbell seated overhead press",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Decline Bench Leg Raise (lower abs)",
+     "raw": "Abdominal inferior banco Declinado",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Pallof Press",
+     "raw": "Cable Pallof Press",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 6,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 6,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 35,
+   "workout_type": "B",
+   "date": "2026-10-13",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-12",
+   "day_of_week": "Tue",
+   "logged_at": "2026-10-14T23:01:22.732Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:11",
+    "time_sec": 311,
+    "distance_km": 0.24,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Unilateral Row",
+     "raw": "Dumbbell Row Unilateral",
+     "area": "Back",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 30,
+       "load_type": "one_side",
+       "left": 30,
+       "right": null,
+       "weight_raw": "30||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "one_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "one_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "one_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 9,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rear Delt Row",
+     "raw": "Cable Rear Delt Row",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 38,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "38",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 38,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "38",
+       "reps": 17,
+       "note": null
+      },
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Alternating Curl with Isometric Hold",
+     "raw": "Dumbbell Isometric Hold 90 degree Biceps Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "per_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "per_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 6,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Single-Arm Bayesian Curl",
+     "raw": "Cable Single Arm Bayesian Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "one_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "one_side",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 36,
+   "workout_type": "C",
+   "date": "2026-10-16",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-12",
+   "day_of_week": "Fri",
+   "logged_at": "2026-10-16T22:31:26.811Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:05",
+    "time_sec": 305,
+    "distance_km": 0.46,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Forward Lunge",
+     "raw": "Forward Lunge",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Nordic Hamstring Curl",
+     "raw": "(?) Nordic",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Sumo Squat",
+     "raw": "Dumbbell Sumo Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 15,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Calf Raise",
+     "raw": "Calf rises",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 70,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "70",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 70,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "70",
+       "reps": 19,
+       "note": null
+      },
+      {
+       "weight_kg": 70,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "70",
+       "reps": 20,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Bodyweight Assisted Sissy Squat",
+     "raw": "Bodyweight Assisted Sissy Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4161
+  },
+  {
+   "session_seq": 37,
+   "workout_type": "D",
+   "date": "2026-10-17",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-12",
+   "day_of_week": "Sat",
+   "logged_at": "2026-10-17T14:47:59.815Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:05",
+    "time_sec": 305,
+    "distance_km": 0.46,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Cable High Single-Arm Rear Delt Fly",
+     "raw": "Cable High Single Arm Rear Delt Fly",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 8,
+       "load_type": "one_side",
+       "left": 8,
+       "right": null,
+       "weight_raw": "8||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 8,
+       "load_type": "one_side",
+       "left": 8,
+       "right": null,
+       "weight_raw": "8||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 8,
+       "load_type": "one_side",
+       "left": 8,
+       "right": null,
+       "weight_raw": "8||-",
+       "reps": 9,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Lateral Raise",
+     "raw": "Cable Lateral Raises",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Seated Overhead Press",
+     "raw": "Dumbbell seated overhead press",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Decline Bench Leg Raise (lower abs)",
+     "raw": "Abdominal inferior banco Declinado",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Pallof Press",
+     "raw": "Cable Pallof Press",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4377
+  },
+  {
+   "session_seq": 38,
+   "workout_type": "A",
+   "date": "2026-10-21",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-19",
+   "day_of_week": "Wed",
+   "logged_at": "2026-10-21T22:15:16.174Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:06",
+    "time_sec": 306,
+    "distance_km": 0.24,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Bench Press",
+     "raw": "Dumbbell Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 17,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Incline Bench Press",
+     "raw": "Dumbbell Inclined Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Internally Rotated Incline Chest Fly",
+     "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 11,
+       "load_type": "per_side",
+       "left": 11,
+       "right": 11,
+       "weight_raw": "11||11",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 11,
+       "load_type": "per_side",
+       "left": 11,
+       "right": 11,
+       "weight_raw": "11||11",
+       "reps": 15,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Barbell Close-Grip Bench Press",
+     "raw": "Barbell Close Grip Bench Press",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rope Triceps Extension (high pulley)",
+     "raw": "Triceps alto corda",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4321
+  },
+  {
+   "session_seq": 39,
+   "workout_type": "B",
+   "date": "2026-10-22",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-19",
+   "day_of_week": "Thu",
+   "logged_at": "2026-10-22T22:34:09.317Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:10",
+    "time_sec": 310,
+    "distance_km": 0.24,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Unilateral Row",
+     "raw": "Dumbbell Row Unilateral",
+     "area": "Back",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26,
+       "load_type": "one_side",
+       "left": 26,
+       "right": null,
+       "weight_raw": "26||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "one_side",
+       "left": 26,
+       "right": null,
+       "weight_raw": "26||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "one_side",
+       "left": 26,
+       "right": null,
+       "weight_raw": "26||-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rear Delt Row",
+     "raw": "Cable Rear Delt Row",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Alternating Curl with Isometric Hold",
+     "raw": "Dumbbell Isometric Hold 90 degree Biceps Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 8,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 9,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Single-Arm Bayesian Curl",
+     "raw": "Cable Single Arm Bayesian Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Barbell Pullover",
+     "raw": "Barbell Pullover",
+     "area": "Back",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 12,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "12",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 14,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "14",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 14,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "14",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4793
+  },
+  {
+   "session_seq": 40,
+   "workout_type": "D",
+   "date": "2026-10-23",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-10-19",
+   "day_of_week": "Fri",
+   "logged_at": "2026-10-23T10:55:32.713Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:05",
+    "time_sec": 305,
+    "distance_km": 0.46,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Cable High Single-Arm Rear Delt Fly",
+     "raw": "Cable High Single Arm Rear Delt Fly",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 7,
+       "load_type": "one_side",
+       "left": 7,
+       "right": null,
+       "weight_raw": "7||-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Lateral Raise",
+     "raw": "Cable Lateral Raises",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 4,
+       "load_type": "one_side",
+       "left": 4,
+       "right": null,
+       "weight_raw": "4||-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Seated Overhead Press",
+     "raw": "Dumbbell seated overhead press",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 16,
+       "load_type": "per_side",
+       "left": 16,
+       "right": 16,
+       "weight_raw": "16||16",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 18,
+       "load_type": "per_side",
+       "left": 18,
+       "right": 18,
+       "weight_raw": "18||18",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Decline Bench Leg Raise (lower abs)",
+     "raw": "Abdominal inferior banco Declinado",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Pallof Press",
+     "raw": "Cable Pallof Press",
+     "area": "Abs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 17.6,
+       "load_type": "one_side",
+       "left": 17.6,
+       "right": null,
+       "weight_raw": "17.6||-",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 3826
+  },
+  {
+   "session_seq": 41,
+   "workout_type": "A",
+   "date": "2026-11-03",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-11-02",
+   "day_of_week": "Tue",
+   "logged_at": "2026-11-03T10:52:16.967Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:06",
+    "time_sec": 306,
+    "distance_km": null,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Bench Press",
+     "raw": "Dumbbell Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Incline Bench Press",
+     "raw": "Dumbbell Inclined Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Internally Rotated Incline Chest Fly",
+     "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 11,
+       "load_type": "per_side",
+       "left": 11,
+       "right": 11,
+       "weight_raw": "11||11",
+       "reps": 14,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rope Triceps Extension (high pulley)",
+     "raw": "Triceps alto corda",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 26.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26.6",
+       "reps": 7,
+       "note": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "session_seq": 42,
+   "workout_type": "B",
+   "date": "2026-11-05",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-11-02",
+   "day_of_week": "Thu",
+   "logged_at": "2026-11-05T22:28:20.712Z",
+   "cardio": {
+    "machine": "Treadmill",
+    "time_mmss": "5:06",
+    "time_sec": 306,
+    "distance_km": 0.46,
+    "incline_pct": 7.5,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Unilateral Row",
+     "raw": "Dumbbell Row Unilateral",
+     "area": "Back",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 28,
+       "load_type": "one_side",
+       "left": 28,
+       "right": null,
+       "weight_raw": "28||-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 28,
+       "load_type": "one_side",
+       "left": 28,
+       "right": null,
+       "weight_raw": "28||-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 28,
+       "load_type": "one_side",
+       "left": 28,
+       "right": null,
+       "weight_raw": "28||-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rear Delt Row",
+     "raw": "Cable Rear Delt Row",
+     "area": "Shoulders",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 44.8,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "44.8",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 51.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "51.6",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 51.6,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "51.6",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Alternating Curl with Isometric Hold",
+     "raw": "Dumbbell Isometric Hold 90 degree Biceps Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 9,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 8,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Single-Arm Bayesian Curl",
+     "raw": "Cable Single Arm Bayesian Curl",
+     "area": "Biceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10.8,
+       "load_type": "one_side",
+       "left": 10.8,
+       "right": null,
+       "weight_raw": "10.8||-",
+       "reps": 6,
+       "note": null
+      },
+      {
+       "weight_kg": 10.8,
+       "load_type": "one_side",
+       "left": 10.8,
+       "right": null,
+       "weight_raw": "10.8||-",
+       "reps": 7,
+       "note": null
+      },
+      {
+       "weight_kg": 10.8,
+       "load_type": "one_side",
+       "left": 10.8,
+       "right": null,
+       "weight_raw": "10.8||-",
+       "reps": 7,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4469
+  },
+  {
+   "session_seq": 43,
+   "workout_type": "C",
+   "date": "2026-11-07",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-11-02",
+   "day_of_week": "Sat",
+   "logged_at": "2026-11-07T20:41:55.097Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:00",
+    "time_sec": 300,
+    "distance_km": 0.24,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Forward Lunge",
+     "raw": "Forward Lunge",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Nordic Hamstring Curl",
+     "raw": "(?) Nordic",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 12,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Sumo Squat",
+     "raw": "Dumbbell Sumo Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "20",
+       "reps": 15,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Calf Raise",
+     "raw": "Calf rises",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 70,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "70",
+       "reps": 17,
+       "note": null
+      },
+      {
+       "weight_kg": 70,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "70",
+       "reps": 16,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Bodyweight Assisted Sissy Squat",
+     "raw": "Bodyweight Assisted Sissy Squat",
+     "area": "Legs",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": null,
+       "load_type": "bodyweight",
+       "left": null,
+       "right": null,
+       "weight_raw": "-",
+       "reps": 15,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 4211
+  },
+  {
+   "session_seq": 44,
+   "workout_type": "A",
+   "date": "2026-11-23",
+   "date_estimated": false,
+   "validated": true,
+   "week_start": "2026-11-23",
+   "day_of_week": "Mon",
+   "logged_at": "2026-11-23T22:21:02.467Z",
+   "cardio": {
+    "machine": "Elliptical",
+    "time_mmss": "5:55",
+    "time_sec": 355,
+    "distance_km": 0.27,
+    "incline_pct": null,
+    "raw": ""
+   },
+   "exercises": [
+    {
+     "en": "Dumbbell Bench Press",
+     "raw": "Dumbbell Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 15,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 14,
+       "note": null
+      },
+      {
+       "weight_kg": 22,
+       "load_type": "per_side",
+       "left": 22,
+       "right": 22,
+       "weight_raw": "22||22",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Incline Bench Press",
+     "raw": "Dumbbell Inclined Bench Press",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 20,
+       "load_type": "per_side",
+       "left": 20,
+       "right": 20,
+       "weight_raw": "20||20",
+       "reps": 11,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Dumbbell Internally Rotated Incline Chest Fly",
+     "raw": "Dumbbell Internally Rotated Inclined Chest Fly",
+     "area": "Chest",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 12,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 16,
+       "note": null
+      },
+      {
+       "weight_kg": 10,
+       "load_type": "per_side",
+       "left": 10,
+       "right": 10,
+       "weight_raw": "10||10",
+       "reps": 16,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Barbell Close-Grip Bench Press",
+     "raw": "Barbell Close Grip Bench Press",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 4,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 13,
+       "note": null
+      },
+      {
+       "weight_kg": 26,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "26",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    },
+    {
+     "en": "Cable Rope Triceps Extension (high pulley)",
+     "raw": "Triceps alto corda",
+     "area": "Triceps",
+     "note": null,
+     "sets": [
+      {
+       "weight_kg": 24.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "24.4",
+       "reps": 11,
+       "note": null
+      },
+      {
+       "weight_kg": 24.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "24.4",
+       "reps": 6,
+       "note": null
+      },
+      {
+       "weight_kg": 24.4,
+       "load_type": "total",
+       "left": null,
+       "right": null,
+       "weight_raw": "24.4",
+       "reps": 10,
+       "note": null
+      }
+     ]
+    }
+   ],
+   "session_sec": 3190
   }
  ]
 }

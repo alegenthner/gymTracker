@@ -131,7 +131,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
  border:1px solid transparent;border-radius:9px;padding:3px 5px;margin:0 -5px}
 .setrow.up{background:var(--f1-g);border-color:var(--f1-gb)}
 .setrow.down{background:var(--f1-y);border-color:var(--f1-yb)}
-.exc.pb{background:var(--f1-p);border-color:var(--f1-pb)}
 .pbtag{background:var(--f1-pt)}
 .lasttag{background:var(--good)}
 .pbtag,.lasttag{font-size:10.5px;padding:2px 7px}
@@ -176,6 +175,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--series);outline-
 .sv{font-size:11.5px;font-weight:600;color:var(--muted);margin-left:auto;text-align:right}
 .exc.unsaved{border-color:color-mix(in srgb,var(--bad) 45%,var(--border))}
 .exc.held{border-color:color-mix(in srgb,var(--good) 45%,var(--border))}
+.exc.pb{background:var(--f1-p);border-color:var(--f1-pb)}
 .icon{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:8px;padding:7px 0;cursor:pointer;width:100%}
 .icon:hover{color:var(--bad);border-color:var(--bad)}
 .edrow{display:flex;align-items:center;gap:8px;padding:8px 2px;border-bottom:1px solid var(--border);font-size:14px}
@@ -232,6 +232,7 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <button role="tab" id="tabDash" aria-selected="false">Summary</button>
     <button role="tab" id="tabEdit" aria-selected="false">Edit</button>
     <button role="tab" id="tabTimer" aria-selected="false">Timer</button>
+    <button role="tab" id="tabImport" aria-selected="false">Import</button>
   </div>
   <div class="clockbar">
     <button class="ck idle" id="restTm" type="button"
@@ -297,7 +298,24 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <input id="exSearch" placeholder="Search exercise…" autocomplete="off" style="margin-bottom:8px">
     <div class="exlist" id="exList"></div>
     <div class="row" style="margin-top:10px">
-      <button class="btn sec" id="addCustom" type="button">+ Custom exercise</button>
+      <button class="btn sec" id="addCustom" type="button" aria-expanded="false" aria-controls="cxForm">+ Custom exercise</button>
+    </div>
+    <div id="cxForm" hidden style="margin-top:10px">
+      <div><label for="cxName">Name</label><input id="cxName" autocomplete="off" placeholder="e.g. Cable Fly"></div>
+      <div class="row" style="margin-top:8px">
+        <div><label for="cxArea">Muscle group</label><select id="cxArea"></select></div>
+        <div><label for="cxLoad">Load type</label><select id="cxLoad">
+          <option value="per_side">Per side (dumbbells)</option>
+          <option value="total" selected>Total / stack</option>
+          <option value="one_side">One side only</option>
+          <option value="bodyweight">Bodyweight (reps only)</option>
+        </select></div>
+      </div>
+      <p class="err" id="cxErr"></p>
+      <div class="row" style="margin-top:8px">
+        <button class="btn" id="cxAdd" type="button">Add to workout</button>
+        <button class="btn sec" id="cxCancel" type="button">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -306,8 +324,6 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     <div id="localList"></div>
     <div class="row" style="margin-top:10px">
       <button class="btn sec" id="exportBtn" type="button">Export JSON</button>
-      <button class="btn sec" id="importBtn" type="button">Import JSON</button>
-      <input type="file" id="importFile" accept="application/json" hidden>
     </div>
     <p class="hint">Export writes the full history (seed + your new sessions). Save it as <code>data/workouts.json</code> in the repo to sync other devices.</p>
   </div>
@@ -530,12 +546,39 @@ svg.chart{display:block;width:100%;height:auto;overflow:visible}
     </div>
   </div>
 </section>
+
+<!-- ============ IMPORT ============ -->
+<section id="panelImport" hidden>
+  <div class="card">
+    <h2>Import sessions</h2>
+    <p class="hint" style="margin:-4px 0 10px">Load a <code>workouts-*.json</code> exported from this app.
+      Sessions are merged into this device: a session with the same date and workout replaces the one here,
+      everything else is kept. Only password-stamped sessions are accepted.</p>
+    <button class="btn" id="importBtn" type="button">Choose JSON file…</button>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+    <p class="hint" id="importMsg" style="margin-top:10px"></p>
+  </div>
+</section>
 </main>
 
 <div class="bar" id="saveBar">
   <span class="sp" id="saveInfo">—</span>
   <button class="btn sec" id="holdBtn" type="button">Save draft</button>
   <button class="btn" id="saveBtn" type="button">Save workout</button>
+</div>
+
+<!-- base check before a new session -->
+<div class="modal" id="baseModal" hidden>
+  <div class="box">
+    <h3>Start session from this base?</h3>
+    <p class="hint" id="baseInfo" style="margin:4px 0 10px"></p>
+    <div class="err" id="baseWarn"></div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" id="baseOk" type="button">Start</button>
+      <button class="btn sec" id="baseImport" type="button">Import a file first</button>
+      <button class="btn sec" id="baseCancel" type="button">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <!-- password modal -->
@@ -562,7 +605,8 @@ const AREAS = ["Chest","Back","Shoulders","Biceps","Triceps","Legs","Forearms","
 const AVAR = a => `var(--m-${Math.max(1,AREAS.indexOf(a)+1)})`;
 const METRICS = {top_weight:{label:"Top weight",unit:" kg",zero:false},est_1rm:{label:"Est. 1RM",unit:" kg",zero:false},
                  volume:{label:"Volume",unit:" kg",zero:true},total_reps:{label:"Total reps",unit:"",zero:true}};
-let CAT=null, SEEDCAT=null, SEED=[], LOCAL=[], draft=null, areaFilter="All", metric="top_weight", volMode="volume", curEx=0;
+let SEEDGEN=null;
+let CAT=null, SEEDCAT=null, SEED=[], LOCAL=[], draft={exercises:[]}, areaFilter="All", metric="top_weight", volMode="volume", curEx=0;
 let selWeek=null, radarMode="exercise", radarMetric="volume", heatPeriod="week", heatMetric="volume";
 let hlGroup="All";
 /* the five bands the highlight picker offers; deltoids sit with the arms */
@@ -629,7 +673,7 @@ $("themeBtn").onclick=()=>{const t=curTheme()==="dark"?"light":"dark";root.setAt
   try{localStorage.setItem("gymTheme",t);}catch(e){} if(!$("panelDash").hidden)renderDash();};
 
 /* ===================== tabs ===================== */
-const TABS=["log","dash","edit","timer"];
+const TABS=["log","dash","edit","timer","import"];
 TABS.forEach(t=>$("tab"+cap(t)).onclick=()=>switchTab(t));
 function switchTab(t){
   TABS.forEach(x=>{$("tab"+cap(x)).setAttribute("aria-selected",String(x===t));
@@ -661,8 +705,8 @@ function dedupe(list){
   return Object.values(by);
 }
 function allSessions(){
-  const tagged=SEED.map(s=>Object.assign({_seed:true},s))
-             .concat(LOCAL.map(s=>Object.assign({_seed:false},s)));
+  const tagged=SEED.map(s=>Object.assign({},s,{_seed:true}))
+             .concat(LOCAL.map(s=>Object.assign({},s,{_seed:false})));
   return dedupe(tagged).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
 }
 
@@ -823,7 +867,27 @@ function paintRest(){
 /* ---- session clock ---- */
 function sessStart(){
   unlockAudio();
-  if(TM.sessStart&&!TM.sessEnd&&!confirm("Restart the session clock from zero?"))return;
+  if(TM.sessStart&&!TM.sessEnd){if(confirm("Restart the session clock from zero?"))beginSess();return;}
+  openBase();
+}
+/* The device is the source of truth; the repo file is an occasional snapshot.
+   Show what the next export will be built from, and catch a wiped device. */
+const LS_EXP="gymLastExport_v1";
+function openBase(){
+  const all=allSessions(),loc=all.filter(s=>!s._seed);
+  const last=a=>a.length?`${shortDate(a[a.length-1].date)} (${a[a.length-1].workout_type})`:"none";
+  let ex=null;try{ex=JSON.parse(localStorage.getItem(LS_EXP)||"null");}catch(e){}
+  $("baseInfo").innerHTML=`Repo <code>workouts.json</code>: ${all.length-loc.length} sessions`+
+    (SEEDGEN?`, generated ${shortDate(SEEDGEN.slice(0,10))}`:"")+`<br>`+
+    `Saved on this device: ${loc.length} more, latest ${last(loc)}<br>`+
+    `Next export: <b>${all.length} sessions</b>, latest ${last(all)}`+
+    (ex?`<br>Last export from this device: ${new Date(ex.at).toLocaleString()}, ${ex.n} sessions`:"");
+  $("baseWarn").innerHTML=ex&&ex.n>all.length
+    ?`<span class="warnline">Your last export held ${ex.n} sessions but this base has only ${all.length}. `+
+     `Import that file first or the missing sessions drop out of the next export.</span>`:"";
+  $("baseModal").hidden=false;
+}
+function beginSess(){
   TM.sessStart=Date.now();TM.sessEnd=null;TM.autoAt=null;autoShown=false;
   saveTM();paintSess();paintAutoBanner();
 }
@@ -868,7 +932,9 @@ function autoCheck(){
   TM.autoAt=Date.now();saveTM();
   const t=new Date().toISOString();
   draft.exercises.forEach(ex=>{ex._dirty=false;ex._heldAt=t;});
-  saveDraftLS();autoSnapshot();renderDraft();
+  saveDraftLS();autoSnapshot();
+  /* repaint badges only: a full renderDraft() here wiped the input being typed in */
+  draft.exercises.forEach((_,i)=>paintHold(i));
   autoShown=true;paintAutoBanner();
 }
 function paintAutoBanner(){
@@ -971,7 +1037,7 @@ Promise.all([fetch("./catalog.json").then(r=>r.json()),
              fetch("./body.svg").then(r=>r.ok?r.text():null).catch(()=>null)])
  .then(([cat,wk,bsvg])=>{
    if(bsvg)BODYSVG=loadBodySVG(bsvg);SEEDCAT=cat;CAT={areas:cat.areas,machines:cat.machines,exercises:[],templates:[]};
-   SEED=wk.sessions||[];loadLocal();loadCat();applyCatOverrides();initUI();})
+   SEED=wk.sessions||[];SEEDGEN=wk.generated||null;loadLocal();loadCat();applyCatOverrides();initUI();})
  .catch(()=>{document.querySelector("main").innerHTML=
    '<div class="card"><h2>Could not load data files</h2><p class="hint">Serve this folder over http (GitHub Pages or a local server) — opening index.html directly from disk blocks fetch().</p></div>';});
 
@@ -999,7 +1065,15 @@ function initUI(){
   $("cMachine").onchange=()=>{syncCardio();queueDraftSave();};
   $("wDate").onchange=queueDraftSave;
   $("wType").onchange=queueDraftSave;
-  $("addCustom").onclick=addCustom;
+  CAT.areas.forEach(a=>{const o=document.createElement("option");o.value=o.textContent=a;$("cxArea").appendChild(o);});
+  $("cxArea").value=CAT.areas.includes("Other")?"Other":CAT.areas[0];
+  $("addCustom").onclick=()=>showCustom($("cxForm").hidden);
+  $("cxAdd").onclick=addCustom;
+  $("cxCancel").onclick=()=>showCustom(false);
+  $("cxName").onkeydown=e=>{if(e.key==="Enter")addCustom();};
+  $("baseOk").onclick=()=>{$("baseModal").hidden=true;beginSess();};
+  $("baseImport").onclick=()=>{$("baseModal").hidden=true;switchTab("import");};
+  $("baseCancel").onclick=()=>{$("baseModal").hidden=true;};
   $("saveBtn").onclick=openPw;
   $("pwCancel").onclick=()=>{$("pwModal").hidden=true;};
   $("pwOk").onclick=confirmSave;
@@ -1097,11 +1171,17 @@ function newExc(en,area,lt){
 }
 function addExc(en,area,lt){draft.exercises.push(newExc(en,area,lt));renderDraft();
   window.scrollTo({top:document.getElementById("excWrap").offsetTop-60,behavior:"smooth"});}
+function showCustom(on){
+  $("cxForm").hidden=!on;$("addCustom").setAttribute("aria-expanded",String(on));$("cxErr").textContent="";
+  if(on){$("cxName").value=$("exSearch").value.trim();$("cxName").focus();}
+}
 function addCustom(){
-  const en=prompt("Exercise name:");if(!en)return;
-  const area=prompt("Muscle group ("+CAT.areas.join(", ")+"):","Other")||"Other";
-  const lt=prompt("Load type: per_side / total / one_side / bodyweight","total")||"total";
-  addExc(en.trim(),AREAS.includes(area)?area:"Other",lt);
+  const en=$("cxName").value.trim();
+  if(!en){$("cxErr").textContent="Give it a name.";$("cxName").focus();return;}
+  /* typed a name the catalog already has: use that entry, with its real muscles and load type */
+  const hit=CAT.exercises.find(e=>e.en.toLowerCase()===en.toLowerCase());
+  if(hit)addExc(hit.en);else addExc(en,$("cxArea").value,$("cxLoad").value);
+  showCustom(false);
 }
 const groupsOf=e=>[e.area,e.area2,e.area3].filter(Boolean);
 const ltLabel=lt=>lt==="per_side"?"per side":lt==="bodyweight"?"bodyweight":lt==="one_side"?"one side":"total";
@@ -1263,17 +1343,19 @@ function paintF1(i){
   ex.sets.forEach((s,j)=>{
     const sc=setScore(ex,s,j),rs=refScore(ex,ref[j]),row=$("r"+i+"-"+j);
     let cls="";
-    if(sc!=null){done++;total+=sc;if(rs!=null)cls=sc>rs?"up":"down";}
+    let eq=false;
+    if(sc!=null){done++;total+=sc;
+      if(rs!=null){const a=Math.round(sc*100),b=Math.round(rs*100);cls=a>b?"up":"down";eq=a===b;}}
     if(!row)return;
     row.className="setrow"+(cls?" "+cls:"");
     const n=row.querySelector(".n");
-    if(n)n.textContent=(j+1)+(cls==="up"?"▲":cls==="down"?"▼":"");
+    if(n)n.textContent=(j+1)+(cls==="up"?"▲":eq?"=":cls==="down"?"▼":"");
     const tail=when?" on "+when:" last time";
     row.title = sc==null
       ? (rs==null?"":`Set ${j+1}${tail}: ${fmt(rs)}${u}`)
       : `Set ${j+1}: ${fmt(sc)}${u}`+(
           rs==null ? ` · no set ${j+1}${tail}`
-        : sc===rs ? ` · level with ${fmt(rs)}${tail}`
+        : eq ? ` · level with ${fmt(rs)}${tail}`
         : ` · ${sc>rs?"+":""}${fmt(sc-rs)} vs ${fmt(rs)}${tail}`);
   });
   const best=h?(bw?h.bestReps:h.bestVol):null;
@@ -1388,10 +1470,11 @@ function renderLocalList(){
 }
 function exportJSON(){
   const payload={athlete:"Alex",generated:new Date().toISOString(),unit:"kg",
-    split:"A / B / C / D + U",sessions:allSessions()};
+    split:"A / B / C / D + U",sessions:allSessions().map(({_seed,...s})=>s)};
   const blob=new Blob([JSON.stringify(payload,null,1)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);
   a.download=`workouts-${todayISO()}.json`;document.body.appendChild(a);a.click();
+  try{localStorage.setItem(LS_EXP,JSON.stringify({at:payload.generated,n:payload.sessions.length}));}catch(e){}
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
   /* the lap is on disk, so the session clock has done its job */
   sessReset(true);
@@ -1401,14 +1484,17 @@ function importJSON(e){
   const f=e.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{const d=JSON.parse(r.result);const ss=d.sessions||d;
     if(!Array.isArray(ss))throw 0;
-    const seedDates=new Set(SEED.map(s=>s.date+"|"+s.workout_type));
-    const local=ss.filter(s=>!seedDates.has(s.date+"|"+s.workout_type));
-    LOCAL=local.filter(s=>s&&s.validated===true);
-    const ignored=local.length-LOCAL.length;
-    saveLocal();EXHIST=null;renderLocalList();
-    alert(`Imported ${LOCAL.length} validated session${LOCAL.length===1?"":"s"}.`+
-      (ignored?`\nIgnored ${ignored} log${ignored===1?"":"s"} with no valid password stamp.`:""));
-  }catch(err){alert("Could not read that file.");}};
+    const key=s=>s.date+"|"+s.workout_type;
+    const seedKeys=new Set(SEED.map(key));
+    const local=ss.filter(s=>s&&typeof s==="object"&&!seedKeys.has(key(s)));
+    const good=local.filter(s=>s.validated===true&&s.date&&Array.isArray(s.exercises));
+    const newKeys=new Set(good.map(key));
+    LOCAL=LOCAL.filter(s=>!newKeys.has(key(s))).concat(good);
+    const ignored=local.length-good.length;
+    saveLocal();EXHIST=null;renderLocalList();renderDraft();paintRotHint();
+    $("importMsg").textContent=`Imported ${good.length} validated session${good.length===1?"":"s"} at ${new Date().toLocaleTimeString()}.`+
+      (ignored?` Ignored ${ignored} log${ignored===1?"":"s"} with no valid password stamp.`:"");
+  }catch(err){$("importMsg").textContent="Could not read that file — is it a workouts JSON export?";}};
   r.readAsText(f);e.target.value="";
 }
 
@@ -1487,7 +1573,15 @@ function drawCal(){
   const DOW=["M","T","W","T","F","S","S"];
   const byDay={};
   AGG.S.forEach(s=>{(byDay[s.date]=byDay[s.date]||[]).push(s.workout_type||"?");});
-  const weeks=AGG.wk.slice(-14);
+  /* AGG.wk only holds weeks that had a session; walk every Monday from the first
+     one to the current week so empty weeks show up (and break the streak) */
+  const byWs={};AGG.wk.forEach(w=>byWs[w.ws]=w);
+  const next=ws=>{const d=new Date(ws+"T00:00");d.setDate(d.getDate()+7);
+    return weekStart(new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10));};
+  const cur=weekStart(todayISO()),last=AGG.wk.length?AGG.wk[AGG.wk.length-1].ws:cur;
+  const end=last>cur?last:cur,all=[];
+  for(let ws=AGG.wk.length?AGG.wk[0].ws:cur;ws<=end;ws=next(ws))all.push(byWs[ws]||{ws,n:0,...isoWeek(ws)});
+  const weeks=all.slice(-14);
   let h=`<div class="calrow calhead"><span class="calw"></span>`+
         DOW.map(d=>`<span class="cald">${d}</span>`).join("")+`<span class="caln">n</span></div>`;
   weeks.forEach(w=>{
@@ -1504,11 +1598,13 @@ function drawCal(){
   });
   $("cal").innerHTML=h;
   /* current streak = consecutive ISO weeks, ending with the latest, holding a session */
-  let streak=0;
-  for(let i=AGG.wk.length-1;i>=0;i--){if(AGG.wk[i].n>0)streak++;else break;}
-  const days=Object.keys(byDay).length,best=Math.max(...AGG.wk.map(w=>w.n));
-  const avg=days/(AGG.wk.length||1);
-  $("calCap").textContent=`${days} gym days over ${AGG.wk.length} ISO weeks \u00b7 `+
+  /* the current week only counts once it has a session - an empty Monday is not a broken streak */
+  let streak=0,i=all.length-1;
+  if(i>=0&&all[i].ws===cur&&!all[i].n)i--;
+  for(;i>=0;i--){if(all[i].n>0)streak++;else break;}
+  const days=Object.keys(byDay).length,best=Math.max(0,...all.map(w=>w.n));
+  const avg=days/(all.length||1),empty=all.filter(w=>!w.n).length;
+  $("calCap").textContent=`${days} gym days over ${all.length} ISO weeks (${empty} with none) \u00b7 `+
     `${fmt(avg)} per week on average, best week ${best} \u00b7 ${streak} week${streak===1?"":"s"} in a row with at least one session.`;
 }
 
